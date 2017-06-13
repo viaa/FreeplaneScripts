@@ -27,7 +27,7 @@
             <node_compare_condition user_name="IGNORE (BAK)" VALUE="BAK" MATCH_CASE="true" MATCH_APPROXIMATELY="false" COMPARATION_RESULT="0" SUCCEED="true" ITEM="filter_node"/>
         </conditional_style>
     </conditional_styles>
-    <properties show_icon_for_attributes="true" fit_to_viewport="false;" show_note_icons="true"/>
+    <properties fit_to_viewport="false;" show_icon_for_attributes="true" show_note_icons="true"/>
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node" STYLE="oval" UNIFORM_SHAPE="true" VGAP_QUANTITY="24.0 pt">
@@ -106,7 +106,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="Introduction" POSITION="right" ID="ID_566377176" CREATED="1497111225374" MODIFIED="1497111231785">
 <edge COLOR="#808080"/>
@@ -496,9 +495,37 @@
 <edge COLOR="#808080"/>
 <node TEXT="Ignored sections" ID="ID_1455741693" CREATED="1497109000350" MODIFIED="1497109020774">
 <node TEXT="Why this feature was added?" ID="ID_1664469574" CREATED="1497109125121" MODIFIED="1497112345518">
-<node TEXT="If a node is called IGNORE, BAK or OLD, the nodes that are put inside them will be ignore. This is useful to put temporary things or todo items, or things not needed anymore but that we want to keep stored in the map.&#xa;As many of these sections as needed can be created at any level in the map." ID="ID_1510170325" CREATED="1497109041343" MODIFIED="1497109440405"/>
+<node TEXT="If a node is called IGNORE, BAK or OLD, or contains specific icons, the nodes that are put inside them will be ignored. This is useful to put temporary things or todo items, or things not needed anymore but that we want to keep stored in the map.&#xa;As many of these sections as needed can be created at any level in the map." ID="ID_1510170325" CREATED="1497109041343" MODIFIED="1497339704538"/>
 <node TEXT="The ignored sections will not be visilble in the html file." ID="ID_902861845" CREATED="1497109380758" MODIFIED="1497109395348"/>
 </node>
+<node TEXT="Ignored sections using icons" ID="ID_911605202" CREATED="1497339536808" MODIFIED="1497339919828">
+<node TEXT="This section should be empty." ID="ID_730029603" CREATED="1497339903384" MODIFIED="1497339915730"/>
+<node TEXT="This node and it&apos;s child not will be excluded if the node has this icon" ID="ID_569158912" CREATED="1497336558491" MODIFIED="1497339627247">
+<icon BUILTIN="button_cancel"/>
+<node TEXT="This text should not appear in the output." ID="ID_113474311" CREATED="1497339599462" MODIFIED="1497339612457"/>
+</node>
+<node TEXT="This node and it&apos;s child not will be excluded if the node has this icon" ID="ID_1970782863" CREATED="1497337819276" MODIFIED="1497339620776">
+<icon BUILTIN="closed"/>
+<node TEXT="This text should not appear in the output." ID="ID_270111790" CREATED="1497339599462" MODIFIED="1497339612457"/>
+</node>
+</node>
+<node TEXT="Ignored sections using nodes with specific core text" ID="ID_767063111" CREATED="1497339652384" MODIFIED="1497339842437">
+<node ID="ID_647950553" CREATED="1497339750086" MODIFIED="1497339892968"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      The styles for these are contained in this map, you can use the copy style function to get them. <font color="#ff0000">Format &gt; Managed Styles &gt; Copy map styles from</font>... Then when a node will be called IGNORED, BAK or OLD, a gray cloud will be added automatically with the corresponding icon.
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="The gray cloud nodes and their child nodes should not be visible in this section." ID="ID_1992284026" CREATED="1497339930785" MODIFIED="1497339965752"/>
 <node TEXT="IGNORE" ID="ID_951450337" CREATED="1497107450494" MODIFIED="1497107452125">
 <node TEXT="Text I don&apos;t want to appear in the html file." ID="ID_409125203" CREATED="1497029381635" MODIFIED="1497109243321"/>
 <node TEXT="Things to do later:" ID="ID_166954663" CREATED="1497109248277" MODIFIED="1497109269056">
@@ -527,11 +554,12 @@
 </node>
 </node>
 </node>
-</node>
 <node TEXT="OLD" ID="ID_359837504" CREATED="1497030003778" MODIFIED="1497030006043">
 <node TEXT="Old stuff to delete. Like a recycle bin. Will be ignored also." ID="ID_1925026007" CREATED="1497030006665" MODIFIED="1497030024707">
 <node TEXT="The pinguins image will not appear in the html file." ID="ID_476767547" CREATED="1497109194311" MODIFIED="1497109222790">
 <hook URI="file:/C:/Users/Public/Pictures/Sample%20Pictures/Penguins.jpg" SIZE="0.5859375" NAME="ExternalObject"/>
+</node>
+</node>
 </node>
 </node>
 </node>

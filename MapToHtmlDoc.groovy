@@ -1,3 +1,9 @@
+// @ExecutionModes({ON_SELECTED_NODE})
+
+// Version: 2017-06-13_09.48.21
+    // Changes:
+        // I removed 1 <br> after the images, there was too many spacing.
+        // Added the exclusion of nodes under nodes with some specific icons
 // Version: 2017-06-12_14.38.23
     // Changes:
         // I added 1 <br> after the attributes so that there is the same spacing as with paragraph before the sections.
@@ -33,32 +39,32 @@
         }
 
     // Execute and external command
-        def executeOnShell(String command) {
-            return executeOnShell(command, new File(System.properties.'user.dir'))
-        }
+        // def executeOnShell(String command) {
+        //     return executeOnShell(command, new File(System.properties.'user.dir'))
+        // }
 
-        def executeOnShell(String command, File workingDir) {
-            //println command
-            def process = new ProcessBuilder(addShellPrefix(command))
-                                        .directory(workingDir)
-                                        .redirectErrorStream(false) 
-                                        .start()
-            //process.inputStream.eachLine {println it}
-            process.waitFor();
-            return process.exitValue()
-        }
+        // def executeOnShell(String command, File workingDir) {
+        //     //println command
+        //     def process = new ProcessBuilder(addShellPrefix(command))
+        //                                 .directory(workingDir)
+        //                                 .redirectErrorStream(false) 
+        //                                 .start()
+        //     //process.inputStream.eachLine {println it}
+        //     process.waitFor();
+        //     return process.exitValue()
+        // }
 
-        def addShellPrefix(String command) {
-            commandArray = new String[3]
-            commandArray[0] = "cmd.exe"
-            commandArray[1] = "/c" // Put no trailing space here
-            commandArray[2] = command
-            return commandArray
-        }
+        // def addShellPrefix(String command) {
+        //     commandArray = new String[3]
+        //     commandArray[0] = "cmd.exe"
+        //     commandArray[1] = "/c" // Put no trailing space here
+        //     commandArray[2] = command
+        //     return commandArray
+        //}
 
-    // Add the ability to ignore the nodes that are found under a node with the core text 'OLD' or 'IGNORE'
+    // Add the ability to ignore the nodes that are found under a node with the core text 'OLD', 'IGNORE', 'BAK', or under nodes that have the icons 'button_cancel' or 'closed'
         def ignoreNode(pNode) {
-            pNode.pathToRoot.any {it.text == 'IGNORE' || it.text == 'OLD' || it.text == 'BAK'}
+            pNode.pathToRoot.any { it.text == 'IGNORE' || it.text == 'OLD' || it.text == 'BAK' || it.icons.collect{it.toString()}.join(';') =~ '(^|;)(button_cancel|closed)' }
         }
 
 // Constants and variables
@@ -121,7 +127,7 @@
 
 // Main
     c.findAll().each { n ->
-        // Ignore the nodes that are under a node with the core text 'OLD'
+        // Ignore the nodes that are under a specific node (see function declaration)
             if (ignoreNode(n))
                 return
 
@@ -223,7 +229,7 @@
                         if (rText != '')
                             p = '<p>' + indentNbsp + text + '</p>' + EOL
                         sTag = indentSp + p + indentNbsp + '<img src="' + xUri + '" alt="' + rText + '" style="' + STYLE_IMG + '"/>' + aName
-                        eTag = '<br><br>' + EOL
+                        eTag = '<br>' + EOL
                         iText = ''
                         }
                 // Nodes that have no links and no notes
@@ -257,7 +263,7 @@
                         // Show as image
                             else if (link =~ /(png|jpg)$/) {
                                 sTag = indentSp + indentNbsp + '<img src="' + link + '" alt="' + rText + '" style="' + STYLE_IMG + '"/>' + aName
-                                eTag = '<br><br>' + EOL
+                                eTag = '<br>' + EOL
                                 iText = ''
                             }
                         // Freeplane link
