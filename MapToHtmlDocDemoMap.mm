@@ -1,6 +1,6 @@
 <map version="freeplane 1.5.9">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1497267360659"><hook NAME="MapStyle" background="#ffffff" zoom="0.752">
+<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1497544064788"><hook NAME="MapStyle" background="#ffffff" zoom="0.752">
     <conditional_styles>
         <conditional_style ACTIVE="true" STYLE_REF="s-1: Abandonned" LAST="false">
             <node_contains_condition VALUE="s-1" ITEM="filter_node" MATCH_APPROXIMATELY="false"/>
@@ -27,7 +27,7 @@
             <node_compare_condition user_name="IGNORE (BAK)" VALUE="BAK" MATCH_CASE="true" MATCH_APPROXIMATELY="false" COMPARATION_RESULT="0" SUCCEED="true" ITEM="filter_node"/>
         </conditional_style>
     </conditional_styles>
-    <properties fit_to_viewport="false;" show_icon_for_attributes="true" show_note_icons="true"/>
+    <properties show_icon_for_attributes="true" fit_to_viewport="false;" show_note_icons="true"/>
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node" STYLE="oval" UNIFORM_SHAPE="true" VGAP_QUANTITY="24.0 pt">
@@ -102,10 +102,11 @@
   </head>
   <body>
     <p>
-      Version: 2017-06-12_14.35.57
+      Version: 2017-06-15_19.27.44
     </p>
   </body>
 </html>
+
 </richcontent>
 <node TEXT="Introduction" POSITION="right" ID="ID_566377176" CREATED="1497111225374" MODIFIED="1497111231785">
 <edge COLOR="#808080"/>
@@ -472,15 +473,7 @@
 </node>
 <node TEXT="Attributes" ID="ID_1127853689" CREATED="1497197384853" MODIFIED="1497197388298">
 <node TEXT="Attributes are rendered as html tables" ID="ID_1163312747" CREATED="1497197389392" MODIFIED="1497197409246">
-<node TEXT="This is a table with attributes" ID="ID_19088320" CREATED="1497197412404" MODIFIED="1497197570392">
-<attribute_layout NAME_WIDTH="81.74999756366022 pt" VALUE_WIDTH="146.2499956414105 pt"/>
-<attribute NAME="Name" VALUE="Kiki"/>
-<attribute NAME="Country" VALUE="Australia"/>
-<attribute NAME="Food" VALUE="Eucalyptus leaves"/>
-<attribute NAME="Activity" VALUE="Tree climbing"/>
-<attribute NAME="Friends" VALUE="Kangaroos"/>
-</node>
-<node TEXT="This is a table with attributes" ID="ID_861412913" CREATED="1497197412404" MODIFIED="1497197570392">
+<node TEXT="This is a table with attributes" ID="ID_19088320" CREATED="1497197412404" MODIFIED="1497350041511">
 <attribute_layout NAME_WIDTH="81.74999756366022 pt" VALUE_WIDTH="146.2499956414105 pt"/>
 <attribute NAME="Name" VALUE="Kiki"/>
 <attribute NAME="Country" VALUE="Australia"/>
@@ -509,6 +502,13 @@
 <node TEXT="This text should not appear in the output." ID="ID_270111790" CREATED="1497339599462" MODIFIED="1497339612457"/>
 </node>
 </node>
+<node TEXT="Ignored sections with attributes" ID="ID_1594407392" CREATED="1497543987993" MODIFIED="1497543996217">
+<node TEXT="This section should be empty." ID="ID_272395147" CREATED="1497339903384" MODIFIED="1497339915730"/>
+<node TEXT="At Quinbus&apos; request" ID="ID_1512728740" CREATED="1497543998744" MODIFIED="1497544049369">
+<attribute NAME="Type" VALUE="Private"/>
+<node TEXT="https://sourceforge.net/p/freeplane/discussion/758437/thread/67f8576c/" ID="ID_868508449" CREATED="1497544050009" MODIFIED="1497544050009" LINK="https://sourceforge.net/p/freeplane/discussion/758437/thread/67f8576c/"/>
+</node>
+</node>
 <node TEXT="Ignored sections using nodes with specific core text" ID="ID_767063111" CREATED="1497339652384" MODIFIED="1497339842437">
 <node ID="ID_647950553" CREATED="1497339750086" MODIFIED="1497339892968"><richcontent TYPE="NODE">
 
@@ -522,7 +522,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="The gray cloud nodes and their child nodes should not be visible in this section." ID="ID_1992284026" CREATED="1497339930785" MODIFIED="1497339965752"/>

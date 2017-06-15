@@ -1,13 +1,16 @@
 // @ExecutionModes({ON_SELECTED_NODE})
 
-// Version: 2017-06-13_09.48.21
-    // Changes:
-        // I removed 1 <br> after the images, there was too many spacing.
-        // Added the exclusion of nodes under nodes with some specific icons
-// Version: 2017-06-12_14.38.23
-    // Changes:
-        // I added 1 <br> after the attributes so that there is the same spacing as with paragraph before the sections.
-        // I added a check if a file exists before to insert it to the gray box, so that if it is moved it will not cause a script error and have the script to stop. It will tell in the gray box that the file xyz doesn't exist. 
+    // Version History:
+        // Version: 2017-06-15_19.23.56
+            // Exclusion of nodes under a node with an attribute with the name 'Type' with the value 'Private' (For Quinbus' exclusion of nodes using an attribute name (https://sourceforge.net/p/freeplane/discussion/758437/thread/67f8576c/))
+        // Version: 2017-06-13_09.48.21
+            // Changes:
+                // I removed 1 <br> after the images, there was too many spacing.
+                // Added the exclusion of nodes under nodes with some specific icons
+        // Version: 2017-06-12_14.38.23
+            // Changes:
+                // I added 1 <br> after the attributes so that there is the same spacing as with paragraph before the sections.
+                // I added a check if a file exists before to insert it to the gray box, so that if it is moved it will not cause a script error and have the script to stop. It will tell in the gray box that the file xyz doesn't exist. 
 
 // Functions
     // Message box (mainly to debug)
@@ -62,9 +65,16 @@
         //     return commandArray
         //}
 
-    // Add the ability to ignore the nodes that are found under a node with the core text 'OLD', 'IGNORE', 'BAK', or under nodes that have the icons 'button_cancel' or 'closed'
+    // Add the ability to ignore the nodes that are found under a node with: 
         def ignoreNode(pNode) {
-            pNode.pathToRoot.any { it.text == 'IGNORE' || it.text == 'OLD' || it.text == 'BAK' || it.icons.collect{it.toString()}.join(';') =~ '(^|;)(button_cancel|closed)' }
+            pNode.pathToRoot.any { 
+                    // the core text 'OLD', 'IGNORE', 'BAK'
+                        it.text == 'IGNORE' || it.text == 'OLD' || it.text == 'BAK' || 
+                    // or under nodes that have the icons 'button_cancel' or 'closed' 
+                        it.icons.collect{it.toString()}.join(';') =~ '(^|;)(button_cancel|closed)' || 
+                    // or an attribute with the name 'Type' with the value 'Private' (For Quinbus' exclusion of nodes using an attribute name (https://sourceforge.net/p/freeplane/discussion/758437/thread/67f8576c/))
+                        it.attributes.findAll{it.key.toLowerCase()=='type' && it.value.toLowerCase()=='private'}.size() > 0
+                } 
         }
 
 // Constants and variables
