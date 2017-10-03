@@ -1,6 +1,14 @@
 // @ExecutionModes({ON_SELECTED_NODE})
 
     // Version History:
+
+        // Version: 2017-10-03_14.20.26
+            // I modified the rawNote() function because their were leading chars on the lines and the text appeared indented.
+        // Version: 2017-06-27_11.04.01
+            // Added 2 constants to show/hide elements SHOW_TOC, SHOW_TITLE
+        // Version: 2017-06-24_20.26.00
+            // Added style to the details
+            // Corrected a indentation issue where 'depth - 5', this is changed to 'depth - 4'
         // Version: 2017-06-15_19.23.56
             // Exclusion of nodes under a node with an attribute with the name 'Type' with the value 'Private' (For Quinbus' exclusion of nodes using an attribute name (https://sourceforge.net/p/freeplane/discussion/758437/thread/67f8576c/))
         // Version: 2017-06-13_09.48.21
@@ -37,7 +45,8 @@
             // Remove html tags
                 def rawNote = note.replaceAll('<(html|head|body|p|span|pre).*?>', '')
                 rawNote = rawNote.replaceAll('</(html|head|body|p|span|pre)>', '')
-                rawNote = rawNote.replaceAll('^\\s*', '')
+                rawNote = rawNote.replaceAll('&#160;', '')
+                rawNote = rawNote.replaceAll('(^|\n)\\s*', '$1')
             return rawNote.trim()
         }
 
@@ -71,14 +80,19 @@
                     // the core text 'OLD', 'IGNORE', 'BAK'
                         it.text == 'IGNORE' || it.text == 'OLD' || it.text == 'BAK' || 
                     // or under nodes that have the icons 'button_cancel' or 'closed' 
-                        it.icons.collect{it.toString()}.join(';') =~ '(^|;)(button_cancel|closed)' || 
+                        //it.icons.collect{it.toString()}.join(';') =~ '(^|;)(button_cancel|closed)' || 
+                        it.icons.collect{it.toString()}.join(';') =~ '(^|;)(closed)' || 
                     // or an attribute with the name 'Type' with the value 'Private' (For Quinbus' exclusion of nodes using an attribute name (https://sourceforge.net/p/freeplane/discussion/758437/thread/67f8576c/))
-                        it.attributes.findAll{it.key.toLowerCase()=='type' && it.value.toLowerCase()=='private'}.size() > 0
+                        it.attributes.findAll{it.key.toLowerCase()=='type' && (it.value.toLowerCase()=='private' || it.value.toLOwerCase()=='NOEXPORT')}.size() > 0 // For Quinbus' exclusion of nodes using an attribute name 'Type' with the value 'Private' (https://sourceforge.net/p/freeplane/discussion/758437/thread/67f8576c/) 
                 } 
         }
 
 // Constants and variables
     // Constants
+        // Constants to add/remove elements
+            def SHOW_TOC = true
+            def SHOW_TITLE = true
+
         def EOL = '\r\n'
         def TAB = 3 // Number of space in a "TAB"
         def TAB_CHR_SP = ' ' // The caracter used to indent in the source html 
@@ -120,7 +134,9 @@
         def toc = ''
         def tocIndent
         // Link to return to the toc
-            def TOC_BACK_LINK = '<p><small><a href="#toc">[Table of contents]</a></small></p>' + EOL
+            def TOC_BACK_LINK = ''
+            if (SHOW_TOC)
+                TOC_BACK_LINK = '<p><small><a href="#toc">[Table of contents]</a></small></p>' + EOL
 
     // Attribute tables
         def STYLE_ATTR_TAB = 'font-size: 12px; border-collapse:collapse; border-color:#cccccc; border-style:solid; border-width:1px; width: 25%; table-layout: fixed;'
@@ -128,6 +144,9 @@
 
     // Images
         def STYLE_IMG = 'border: 1px solid silver; width:100%; max-height:600px; max-width:600px; width:auto; height:auto;'
+
+    // Details
+        def STYLE_DET = 'color: black'
 
     // Variables
         def text = ''
@@ -141,7 +160,6 @@
             if (ignoreNode(n))
                 return
 
-        // Initialize
             sTag = eTag = ''
             // Determine what is in the node
                 // Text
@@ -184,19 +202,24 @@
                 // Personal note (Allows to add my notes to the documentation without having it appearing on the final doc. It allows also to disable (hide) nodes (add s-1 for example) from the final doc.)
                     if (rText =~ /^(s-1|s0|s1|s2|s3)\s/)
                         return
+                // If icon is the red x then dont include this node
+                    if (n.icons.collect{it.toString()}.join(';') =~ '(^|;)(button_cancel)')
+                        return
             
         id = n.id // Used to reference the nodes one to another, and also for the toc
         aName = '<a name="' + id + '">'
         depth = n.getNodeLevel(false) + 1 // Level 1 is the root node
         indentSp = TAB_CHR_SP.multiply(depth * TAB) // Add indentation according to the depth level 
         if (depth > 4)
-            indentNbsp = TAB_CHR_NBSP.multiply((depth - 5) * TAB) // Add indentation according to the depth level for the paragraphs, if a node is a child of paragraph it will appear indended under.
+            indentNbsp = TAB_CHR_NBSP.multiply((depth - 4) * TAB) // Add indentation according to the depth level for the paragraphs, if a node is a child of paragraph it will appear indended under.
         else
             indentNbsp = ''
         iText = rText
         cptNode += 1 
         // H1
             if (depth == 1) { // Root node
+                if (!SHOW_TITLE) // Don't show the title
+                    return
                 sTag = EOL + indentSp + '<h1>' + aName
                 eTag = '</h1>' + EOL
             }
@@ -298,7 +321,8 @@
             if (sTag != '' || eTag != '')
                 htmlStr += sTag + iText + eTag
             if (hasDetails)
-                htmlStr += indentSp + '<p>' + aName + indentNbsp + '<small><i>(' + details + ')</i></small></p>' + EOL
+                //htmlStr += indentSp + '<p style="' + STYLE_DET + '">' + aName + indentNbsp + '<small><i>(' + details + ')</i></small></p>' + EOL
+                htmlStr += indentSp + indentNbsp + aName + '<small style="' + STYLE_DET + '"><i>(' + details + ')</i></small><br><br>' + EOL
             // Add the attributes as a table if any
                 // s0 Try to add spaces before the tables... it doesn't work if I just add indentNbsp http://stackoverflow.com/questions/29046021/apply-space-character-before-table-in-html
                 if (n.attributes.size() > 0) {
@@ -319,7 +343,10 @@
     // Create/update the html file
         htmlStr += '</body></html>'
         // Add the table of contents
-            htmlStr = htmlStr.replace('@@TOC@@', S_TOC + toc + tocIndent + E_TOC) 
+            if (SHOW_TOC)
+                htmlStr = htmlStr.replace('@@TOC@@', S_TOC + toc + tocIndent + E_TOC) 
+            else
+                htmlStr = htmlStr.replace('@@TOC@@', '') 
         def htmlFile = new File('c:/temp/out.html')
         htmlFile.write(htmlStr, 'utf-8')
 
