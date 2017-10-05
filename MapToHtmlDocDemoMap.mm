@@ -1,6 +1,6 @@
 <map version="freeplane 1.6.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1507030328869">
+<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1507188986250">
 <icon BUILTIN="button_ok"/>
 <richcontent TYPE="DETAILS">
 
@@ -10,13 +10,13 @@
   </head>
   <body>
     <p>
-      Version: 2017-10-03_14.32.08
+      Version: 2017-10-05_10.36.25
     </p>
   </body>
 </html>
 
 </richcontent>
-<hook NAME="MapStyle" background="#ffffff" zoom="1.086">
+<hook NAME="MapStyle" background="#ffffff" zoom="0.815">
     <conditional_styles>
         <conditional_style ACTIVE="true" STYLE_REF="s-1: Abandonned" LAST="false">
             <node_contains_condition VALUE="s-1" ITEM="filter_node" MATCH_APPROXIMATELY="false"/>
@@ -146,9 +146,10 @@
 </html>
 </richcontent>
 </node>
-<node TEXT="The script will take a map with a struture like this one and convert it automatically to a basic although very usable html document that can later be converted to pdf." ID="ID_149309362" CREATED="1497111747393" MODIFIED="1497112533476">
+<node TEXT="The script will take a map with a structure like this map and convert it automatically to a basic although very usable html document that can later be converted to pdf." ID="ID_149309362" CREATED="1497111747393" MODIFIED="1507189009282">
 <node TEXT="PDF Creation" ID="ID_1458681393" CREATED="1497111796247" MODIFIED="1497111796251" LINK="file:/D:/Work/MindMaps/Doc/MapToHtmlDocDemoMap.mm#ID_324386908"/>
 </node>
+<node TEXT="It is possible to convert only a part of a map. If you want to whole map to be converted to html, you have to select the root node before to run the script, otherwise only the branch of the currently selected node will be converted." ID="ID_799281830" CREATED="1507189016871" MODIFIED="1507189108064"/>
 <node TEXT="Once you copied the script to your Freeplane scripts folder and restarted Freeplane, just run the script while this map is in focus in freeplane, then a file called c:\temp\out.html will be created that will be the html version of this map, or any other map that you created and run the script on. It works on any map, but it is better if you keep the structure similar to this one. See the Sections and Structure section below." ID="ID_288990436" CREATED="1497111802087" MODIFIED="1497111917396"/>
 </node>
 </node>
@@ -583,7 +584,7 @@
 </node>
 </node>
 </node>
-<node TEXT="PDF Creation" ID="ID_324386908" CREATED="1497110483274" MODIFIED="1497110488425">
+<node TEXT="PDF creation" ID="ID_324386908" CREATED="1497110483274" MODIFIED="1507040868533">
 <node TEXT="PrinceXML" ID="ID_1149512415" CREATED="1497110489220" MODIFIED="1497110491424">
 <node TEXT="You can use PrinceXML to convert your html to pdf once it is generated so you get a portable document with images included." ID="ID_295185508" CREATED="1497110492087" MODIFIED="1497110542350"/>
 </node>
@@ -1056,6 +1057,22 @@
 </node>
 </node>
 </node>
+</node>
+<node ID="ID_1498185772" CREATED="1507097066835" MODIFIED="1507097070238"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s0 There's another bug or rather limitation to the script--it fails to convert map with 20,000 or more number of nodes (on a computer with 4GB of ram), when the HTMLwriter that comes with the program does, albeit lacking features found in your otherwise good script. Perhaps it's due to the script compiles everything into butter and uses FileWriter only once at the end.
+    </p>
+  </body>
+</html>
+
+</richcontent>
+<node TEXT="s0 Asnwer to Luigi in the forum" ID="ID_936208985" CREATED="1507097073974" MODIFIED="1507097082249"/>
 </node>
 <node TEXT="s0 There is a problem in the notes... indentation is added to simple lines pasted... it keeps the indentation of the html from the note..." ID="ID_1143598948" CREATED="1507028360774" MODIFIED="1507028625216">
 <node TEXT="Image 6017.png" ID="ID_1295042077" CREATED="1507028592599" MODIFIED="1507028592626">
