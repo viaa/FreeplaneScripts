@@ -1,8 +1,6 @@
 <map version="freeplane 1.6.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1507188986250">
-<icon BUILTIN="button_ok"/>
-<richcontent TYPE="DETAILS">
+<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1507281436696"><richcontent TYPE="DETAILS">
 
 <html>
   <head>
@@ -14,7 +12,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <hook NAME="MapStyle" background="#ffffff" zoom="0.815">
     <conditional_styles>
@@ -43,7 +40,7 @@
             <node_compare_condition user_name="IGNORE (BAK)" VALUE="BAK" MATCH_CASE="true" MATCH_APPROXIMATELY="false" COMPARATION_RESULT="0" SUCCEED="true" ITEM="filter_node"/>
         </conditional_style>
     </conditional_styles>
-    <properties show_icon_for_attributes="true" fit_to_viewport="false;" show_note_icons="true"/>
+    <properties fit_to_viewport="false;" show_icon_for_attributes="true" show_note_icons="true"/>
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node" STYLE="oval" UNIFORM_SHAPE="true" VGAP_QUANTITY="24.0 pt">
@@ -640,7 +637,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -1070,7 +1066,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="s0 Asnwer to Luigi in the forum" ID="ID_936208985" CREATED="1507097073974" MODIFIED="1507097082249"/>
 </node>
