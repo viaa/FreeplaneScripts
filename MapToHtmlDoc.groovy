@@ -4,6 +4,8 @@
 // # Version History:
 // #################################################################################################### 
 
+        // Version: 2017-10-10_17.48.30 
+            // As requested, I added to possibility to generate the html doc from large maps by using a file instead of memory.
         // Version: 2017-10-04_14.26.19 
             // As suggested on the forum, I have modified the script to be able to run it on a branch, so now the doc can be generated from any node in a map, the selected node will be the root node and only its child nodes will appear in the document.
             // I have added boxes to the comments
@@ -43,7 +45,7 @@
     // = Constants
     // ==================================================================================================== 
         // · Global (available in functions)
-            @Field def DEBUG = true
+            @Field def DEBUG = false
             @Field def DEBUG_FILE_PATH = "c:/temp/debug.txt"
 
         // Constants to add/remove elements
@@ -126,6 +128,7 @@
         def text = ''
         def rText = ''
         def htmlStr = '<html><meta charset="UTF-8"><body style="' + STYLE_BODY + '">' + EOL
+        def htmlFileTmp = new File('c:/temp/outtmp.html')
         def depth = 0
         def initialDepth = getNodeLevel(false) + 1 // Get the level of the current node, this allows to generate the html document from anywhere, not only the root node
         @Field def SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-yy hh:mm:ss") // Used in the debug function 
@@ -193,6 +196,11 @@
                         it.attributes.findAll{it.key.toLowerCase()=='type' && (it.value.toLowerCase()=='private' || it.value.toLOwerCase()=='NOEXPORT')}.size() > 0 // For Quinbus' exclusion of nodes using an attribute name 'Type' with the value 'Private' (https://sourceforge.net/p/freeplane/discussion/758437/thread/67f8576c/) 
                 } 
         }
+
+// ####################################################################################################
+// # Initialization
+// #################################################################################################### 
+    htmlFileTmp.delete() // Because we append we need to delete the file first.
 
 // ####################################################################################################
 // # Main
@@ -429,19 +437,36 @@
                     tableStr += indentSp + '</table><br>' + EOL
                     htmlStr += tableStr
                 }
+
+        htmlFileTmp.append(htmlStr, 'utf-8') // Append the chunck to the temp file.
+        htmlStr = '' // Reset the string for the next chunk appended.
     } // End - c.findAll().each...
 
     // ====================================================================================================
     // = Create/update the html file
     // ==================================================================================================== 
-        htmlStr += '</body></html>'
-        // Add the table of contents
-            if (SHOW_TOC)
-                htmlStr = htmlStr.replace('@@TOC@@', S_TOC + toc + tocIndent + E_TOC) 
-            else
-                htmlStr = htmlStr.replace('@@TOC@@', '') 
-        def htmlFile = new File('c:/temp/out.html')
-        htmlFile.write(htmlStr, 'utf-8')
+        // Append the closing tags
+            htmlStr += '</body></html>'
+            htmlFileTmp.append(htmlStr, 'utf-8')
+        // Open the final output file
+            def htmlFile = new File('c:/temp/out.html')
+            htmlFile.delete() // Make sure it is deleted because we append to it.
+        // Loop the lines in the temp files and for each, try to replace for the table of content.
+            def replaced = false
+            htmlFileTmp.each { String line ->
+                if (!replaced) { // Check if the TOC is replaced already, if not then...
+                    if (line.contains('@@TOC@@')) { // Check if the TOC is on the current line...
+                        if (SHOW_TOC) // If we want to show the TOC then add it by a replacement
+                            line = line.replace('@@TOC@@', S_TOC + toc + tocIndent + E_TOC) 
+                        else
+                            line = line.replace('@@TOC@@', '') // No TOC
+                        replaced = true // Set the flag to tell it is replaced and no need to check for the TOC anymore. 
+                    }
+                }
+                htmlFile.append(line + EOL)
+            }
+        // Delete the temp file
+            htmlFileTmp.delete()
 
     // ====================================================================================================
     // = Create the PDF file (close the pdf file prior to running this)
