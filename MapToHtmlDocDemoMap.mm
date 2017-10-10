@@ -1,6 +1,6 @@
 <map version="freeplane 1.6.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1507281436696"><richcontent TYPE="DETAILS">
+<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1507667496552"><richcontent TYPE="DETAILS">
 
 <html>
   <head>
@@ -8,10 +8,11 @@
   </head>
   <body>
     <p>
-      Version: 2017-10-05_10.36.25
+      Version: 2017-10-10_23.31.35
     </p>
   </body>
 </html>
+
 </richcontent>
 <hook NAME="MapStyle" background="#ffffff" zoom="0.815">
     <conditional_styles>
@@ -40,7 +41,7 @@
             <node_compare_condition user_name="IGNORE (BAK)" VALUE="BAK" MATCH_CASE="true" MATCH_APPROXIMATELY="false" COMPARATION_RESULT="0" SUCCEED="true" ITEM="filter_node"/>
         </conditional_style>
     </conditional_styles>
-    <properties fit_to_viewport="false;" show_icon_for_attributes="true" show_note_icons="true"/>
+    <properties show_icon_for_attributes="true" fit_to_viewport="false;" show_note_icons="true" edgeColorConfiguration="#808080ff,#808080ff,#808080ff,#808080ff,#808080ff"/>
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node" STYLE="oval" UNIFORM_SHAPE="true" VGAP_QUANTITY="24.0 pt">
@@ -123,7 +124,7 @@
 </stylenode>
 </map_styles>
 </hook>
-<hook NAME="AutomaticEdgeColor" COUNTER="160" RULE="ON_BRANCH_CREATION"/>
+<hook NAME="AutomaticEdgeColor" COUNTER="162" RULE="ON_BRANCH_CREATION"/>
 <hook NAME="accessories/plugins/AutomaticLayout.properties" VALUE="ALL"/>
 <node TEXT="Introduction" POSITION="right" ID="ID_566377176" CREATED="1497111225374" MODIFIED="1499439933595">
 <edge COLOR="#808080"/>
@@ -642,6 +643,26 @@
 </node>
 </node>
 </node>
+<node TEXT="Freeplane Configuration" POSITION="right" ID="ID_662083576" CREATED="1507667102285" MODIFIED="1507667108618">
+<edge COLOR="#808080"/>
+<node TEXT="Preferences" ID="ID_1037169726" CREATED="1507667110409" MODIFIED="1507667118707">
+<node TEXT="Allow script execution" ID="ID_1600618141" CREATED="1507667121107" MODIFIED="1507667203462">
+<node TEXT="As for all Freeplane scripts, we need to make sure that Freeplane is allowed to run scripts." ID="ID_868479381" CREATED="1507667161134" MODIFIED="1507667230402"/>
+<node TEXT="Go to Tools menu &gt; Preferences &gt; Plugin tab &gt; Scripting section, then where it is written &quot;Script execution enabled&quot;, select &apos;Yes&apos;." ID="ID_1596728053" CREATED="1507667231062" MODIFIED="1507667349986"/>
+</node>
+<node TEXT="Allow file read/write" ID="ID_757334109" CREATED="1507667203852" MODIFIED="1507667221334">
+<node TEXT="Go to Tools menu &gt; Preferences &gt; Plugin tab &gt; Scripting section, then where it is written &apos;Permit file/read (or write) operations (NOT recommended)&apos;, check the box. The scripts both reads from a temp file and writes to the destination html file so both check boxes need to be checked." ID="ID_830035439" CREATED="1507667231062" MODIFIED="1507667455254"/>
+</node>
+</node>
+</node>
+<node TEXT="History" POSITION="right" ID="ID_1784484328" CREATED="1507667504082" MODIFIED="1507667565777">
+<edge COLOR="#808080"/>
+<node TEXT="Documentation" ID="ID_273653473" CREATED="1507667511885" MODIFIED="1507667570837">
+<node TEXT="Version: 2017-10-10_23.31.35" ID="ID_725781849" CREATED="1507667517993" MODIFIED="1507667543085">
+<node TEXT="Added the &apos;Freeplane Configuration&apos; section." ID="ID_1275234350" CREATED="1507667554585" MODIFIED="1507667585045"/>
+</node>
+</node>
+</node>
 <node TEXT="I hope you&apos;ll find it useful too" POSITION="right" ID="ID_495374163" CREATED="1497112090702" MODIFIED="1497112363928">
 <edge COLOR="#808080"/>
 <node TEXT="" ID="ID_716371057" CREATED="1497112137307" MODIFIED="1497112137307">
@@ -1067,9 +1088,36 @@
   </body>
 </html>
 </richcontent>
-<node TEXT="s0 Asnwer to Luigi in the forum" ID="ID_936208985" CREATED="1507097073974" MODIFIED="1507097082249"/>
+<node ID="ID_936208985" CREATED="1507097073974" MODIFIED="1507568703866"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s2 Asnwer to Luigi in the forum
+    </p>
+  </body>
+</html>
+
+</richcontent>
 </node>
-<node TEXT="s0 There is a problem in the notes... indentation is added to simple lines pasted... it keeps the indentation of the html from the note..." ID="ID_1143598948" CREATED="1507028360774" MODIFIED="1507028625216">
+</node>
+<node ID="ID_1143598948" CREATED="1507028360774" MODIFIED="1507568700171"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s2 There is a problem in the notes... indentation is added to simple lines pasted... it keeps the indentation of the html from the note...
+    </p>
+  </body>
+</html>
+
+</richcontent>
 <node TEXT="Image 6017.png" ID="ID_1295042077" CREATED="1507028592599" MODIFIED="1507028592626">
 <hook URI="file:/C:/Screenshots/Image%206017.png" SIZE="1.0" NAME="ExternalObject"/>
 </node>
@@ -1307,7 +1355,7 @@
 </html>
 </richcontent>
 <cloud COLOR="#ccffcc" SHAPE="ARC"/>
-<node ID="ID_479012435" CREATED="1497272139986" MODIFIED="1497272160028"><richcontent TYPE="NODE">
+<node ID="ID_479012435" CREATED="1497272139986" MODIFIED="1507568669594"><richcontent TYPE="NODE">
 
 <html>
   <head>
@@ -1315,10 +1363,11 @@
   </head>
   <body>
     <p>
-      s0 Put the script on <font color="#ff0000">github</font>&#160;with the other scripts
+      s2 Put the script on github&#160;with the other scripts
     </p>
   </body>
 </html>
+
 </richcontent>
 <font SIZE="24"/>
 </node>
