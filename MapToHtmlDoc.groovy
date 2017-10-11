@@ -4,6 +4,10 @@
 // # Version History:
 // #################################################################################################### 
 
+        // Version: 2017-10-11_22.57.48
+            // Added constant to configure more easily the output path, and also for the temp file if used. And I added a message box to indicate where the file is saved even if the string is used to hold the html document. 
+        // Version: 2017-10-11_13.17.34
+            // Added the constant LARGE_MAP_USE_FILE. If it is set to false, the script will use the memory to hold the html document (much faster). If it is set to true, the script will use a file to hold the document (much slower), this allows to generate html documents from large maps.
         // Version: 2017-10-11_12.52.50
             // Added a message box to notify the user that the html document is completed, because it is slower since using a file. 
         // Version: 2017-10-10_17.48.30 
@@ -60,6 +64,11 @@
         def TAB_CHR_NBSP = '&nbsp;' // The caracter used to indent as displayed on screen
 
         def LARGE_MAP_USE_FILE = false // If the map is large there may be memory issues, so set this to true so that the script will use a file instead of the memory. Note that it is much faster when this is set to false, so set it to false for small maps.
+
+        // Html doc paths
+            def OUT_DIR = 'c:/temp/'
+            def OUT_FILENAME = 'out.html'
+            def OUT_TMP_FILENAME = 'outtmp.html'
 
         // ----------------------------------------------------------------------------------------------------
         // - Styles
@@ -134,7 +143,7 @@
         def htmlStr = '<html><meta charset="UTF-8"><body style="' + STYLE_BODY + '">' + EOL
         def htmlFileTmp = null
         if (LARGE_MAP_USE_FILE)
-            htmlFileTmp = new File('c:/temp/outtmp.html')
+            htmlFileTmp = new File(OUT_DIR + OUT_TMP_FILENAME)
         def depth = 0
         def initialDepth = getNodeLevel(false) + 1 // Get the level of the current node, this allows to generate the html document from anywhere, not only the root node
         @Field def SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-yy hh:mm:ss") // Used in the debug function 
@@ -457,40 +466,41 @@
     // ==================================================================================================== 
         // Append the closing tags
             htmlStr += '</body></html>'
-        if (LARGE_MAP_USE_FILE) {
-                htmlFileTmp.append(htmlStr, 'utf-8')
-            // Open the final output file
-                def htmlFile = new File('c:/temp/out.html')
-                htmlFile.delete() // Make sure it is deleted because we append to it.
-            // Loop the lines in the temp files and for each, try to replace for the table of content.
-                def replaced = false
-                htmlFileTmp.each { String line ->
-                    if (!replaced) { // Check if the TOC is replaced already, if not then...
-                        if (line.contains('@@TOC@@')) { // Check if the TOC is on the current line...
-                            if (SHOW_TOC) // If we want to show the TOC then add it by a replacement
-                                line = line.replace('@@TOC@@', S_TOC + toc + tocIndent + E_TOC) 
-                            else
-                                line = line.replace('@@TOC@@', '') // No TOC
-                            replaced = true // Set the flag to tell it is replaced and no need to check for the TOC anymore. 
+        // Open the final output file
+            def htmlFile = new File(OUT_DIR + OUT_FILENAME)
+        // Put the content of the temp file to the final html doc file by looping line by line and replace the TOC 
+            if (LARGE_MAP_USE_FILE) {
+                    htmlFileTmp.append(htmlStr, 'utf-8')
+                    htmlFile.delete() // Make sure it is deleted because we append to it.
+                // Loop the lines in the temp files and for each, try to replace for the table of content.
+                    def replaced = false
+                    htmlFileTmp.each { String line ->
+                        if (!replaced) { // Check if the TOC is replaced already, if not then...
+                            if (line.contains('@@TOC@@')) { // Check if the TOC is on the current line...
+                                if (SHOW_TOC) // If we want to show the TOC then add it by a replacement
+                                    line = line.replace('@@TOC@@', S_TOC + toc + tocIndent + E_TOC) 
+                                else
+                                    line = line.replace('@@TOC@@', '') // No TOC
+                                replaced = true // Set the flag to tell it is replaced and no need to check for the TOC anymore. 
+                            }
                         }
+                        htmlFile.append(line + EOL)
                     }
-                    htmlFile.append(line + EOL)
-                }
-            // Delete the temp file
-                htmlFileTmp.delete()
-                
-            m("Html document saved as 'c:\\temp\\out.html'.")
-        }
+                // Delete the temp file
+                    htmlFileTmp.delete()
+                    
+            }
         // Memory (string) is used to keep the document
-        else { 
-            // Add the table of contents
-                if (SHOW_TOC)
-                    htmlStr = htmlStr.replace('@@TOC@@', S_TOC + toc + tocIndent + E_TOC) 
-                else
-                    htmlStr = htmlStr.replace('@@TOC@@', '') 
-            def htmlFile = new File('c:/temp/out.html')
-            htmlFile.write(htmlStr, 'utf-8')
-        }
+            else { 
+                // Add the table of contents
+                    if (SHOW_TOC)
+                        htmlStr = htmlStr.replace('@@TOC@@', S_TOC + toc + tocIndent + E_TOC) 
+                    else
+                        htmlStr = htmlStr.replace('@@TOC@@', '') 
+                htmlFile.write(htmlStr, 'utf-8')
+            }
+
+        m("HTML document saved as '" + OUT_DIR + OUT_FILENAME + "'.")
 
     // ====================================================================================================
     // = Create the PDF file (close the pdf file prior to running this)
