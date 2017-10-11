@@ -1,6 +1,6 @@
 <map version="freeplane 1.6.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1507716903279"><richcontent TYPE="DETAILS">
+<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1507752514668"><richcontent TYPE="DETAILS">
 
 <html>
   <head>
@@ -8,7 +8,7 @@
   </head>
   <body>
     <p>
-      Version: 2017-10-11_13.15.02
+      Version: 2017-10-11_23.08.07
     </p>
   </body>
 </html>
@@ -41,7 +41,7 @@
             <node_compare_condition user_name="IGNORE (BAK)" VALUE="BAK" MATCH_CASE="true" MATCH_APPROXIMATELY="false" COMPARATION_RESULT="0" SUCCEED="true" ITEM="filter_node"/>
         </conditional_style>
     </conditional_styles>
-    <properties show_icon_for_attributes="true" fit_to_viewport="false;" show_note_icons="true" edgeColorConfiguration="#808080ff,#808080ff,#808080ff,#808080ff,#808080ff"/>
+    <properties fit_to_viewport="false;" show_icon_for_attributes="true" show_note_icons="true" edgeColorConfiguration="#808080ff,#808080ff,#808080ff,#808080ff,#808080ff"/>
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node" STYLE="oval" UNIFORM_SHAPE="true" VGAP_QUANTITY="24.0 pt">
@@ -669,8 +669,28 @@
     </p>
   </body>
 </html>
+</richcontent>
+</node>
+</node>
+<node TEXT="HTML document path" ID="ID_1912240626" CREATED="1507752292472" MODIFIED="1507752476854">
+<node ID="ID_178050298" CREATED="1507752313547" MODIFIED="1507752473994"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      By default the html document created will be in c:/temp/out.html. But you change change it by modifying the constants <font color="#ff0000"><b>OUT_DIR</b></font>&#160;(for the directory of were the file will be created) and <font color="#ff0000"><b>OUT_FILENAME</b></font>&#160; (for the name of the file).
+    </p>
+  </body>
+</html>
 
 </richcontent>
+</node>
+<node TEXT="By default they are set like this:" ID="ID_72123664" CREATED="1507752454952" MODIFIED="1507752454952">
+<node TEXT="OUT_DIR = &apos;c:/temp/&apos;" ID="ID_742111355" CREATED="1507752454952" MODIFIED="1507752454952"/>
+<node TEXT="OUT_FILENAME = &apos;out.html&apos;" ID="ID_1116861881" CREATED="1507752454952" MODIFIED="1507752454952"/>
 </node>
 </node>
 </node>
@@ -693,9 +713,11 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="Modified the configuration section, added info about large map support." ID="ID_834344458" CREATED="1507716917201" MODIFIED="1507716943475"/>
+</node>
+<node TEXT="Version: 2017-10-11_23.08.07" ID="ID_377706493" CREATED="1507752484955" MODIFIED="1507752489792">
+<node TEXT="Added HTML document path section to the configuration section." ID="ID_666494889" CREATED="1507752491057" MODIFIED="1507752507777"/>
 </node>
 </node>
 </node>
@@ -1125,7 +1147,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node ID="ID_936208985" CREATED="1507097073974" MODIFIED="1507568703866"><richcontent TYPE="NODE">
 
@@ -1139,7 +1160,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -1155,7 +1175,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="Image 6017.png" ID="ID_1295042077" CREATED="1507028592599" MODIFIED="1507028592626">
 <hook URI="file:/C:/Screenshots/Image%206017.png" SIZE="1.0" NAME="ExternalObject"/>
@@ -1174,7 +1193,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="Logs" ID="ID_945105403" CREATED="1502874364781" MODIFIED="1507028507807">
@@ -1420,7 +1438,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <font SIZE="24"/>
 </node>
