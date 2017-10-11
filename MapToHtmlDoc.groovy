@@ -427,8 +427,10 @@
                         iText = rNote
                     }
             } // End - else { // Determine the type of node it is
-            if (sTag != '' || eTag != '')
-                htmlStr += sTag + iText + eTag
+
+            // Once the tags and the text have being determined and set, add them to the document string.
+                if (sTag != '' || eTag != '')
+                    htmlStr += sTag + iText + eTag
 
             // ====================================================================================================
             // = Details 
