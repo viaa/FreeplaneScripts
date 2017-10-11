@@ -655,7 +655,6 @@
 </node>
 <node TEXT="MapToHtmlDoc.groovy" ID="ID_379127410" CREATED="1507716393681" MODIFIED="1507716750300">
 <node TEXT="Support for large maps (LARGE_MAP_USE_FILE)" ID="ID_1074648696" CREATED="1507716397573" MODIFIED="1507716675674">
-<node TEXT="def LARGE_MAP_USE_FILE = false // If the map is large there may be memory issues, so set this to true so that the script will use a file instead of the memory. Note that it is much faster when this is set to false, so set it to false for small maps." ID="ID_1550273152" CREATED="1507716416732" MODIFIED="1507716416732"/>
 <node TEXT="There was a request by a user on the forum to be able to export large maps, but because the document is contained in the string this was causing a memory error." ID="ID_588372056" CREATED="1507716438777" MODIFIED="1507716473122"/>
 <node TEXT="After that the script was changed to use a file to append the data instead of doing that into a string, but this was found to be much slower so that when the browser was refreshed the html document seem not completed, until few seconds later, then a second refresh in the browser needed to be done. So a message box was added to tell the user that the html document is completed." ID="ID_265828307" CREATED="1507716473577" MODIFIED="1507716590844"/>
 <node ID="ID_503115641" CREATED="1507716591273" MODIFIED="1507716707356"><richcontent TYPE="NODE">
