@@ -59,6 +59,8 @@
         def TAB_CHR_SP = ' ' // The caracter used to indent in the source html 
         def TAB_CHR_NBSP = '&nbsp;' // The caracter used to indent as displayed on screen
 
+        def LARGE_MAP_USE_FILE = false // If the map is large there may be memory issues, so set this to true so that the script will use a file instead of the memory. Note that it is much faster when this is set to false, so set it to false for small maps.
+
         // ----------------------------------------------------------------------------------------------------
         // - Styles
         // ---------------------------------------------------------------------------------------------------- 
@@ -130,7 +132,9 @@
         def text = ''
         def rText = ''
         def htmlStr = '<html><meta charset="UTF-8"><body style="' + STYLE_BODY + '">' + EOL
-        def htmlFileTmp = new File('c:/temp/outtmp.html')
+        def htmlFileTmp = null
+        if (LARGE_MAP_USE_FILE)
+            htmlFileTmp = new File('c:/temp/outtmp.html')
         def depth = 0
         def initialDepth = getNodeLevel(false) + 1 // Get the level of the current node, this allows to generate the html document from anywhere, not only the root node
         @Field def SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-yy hh:mm:ss") // Used in the debug function 
@@ -202,7 +206,8 @@
 // ####################################################################################################
 // # Initialization
 // #################################################################################################### 
-    htmlFileTmp.delete() // Because we append we need to delete the file first.
+    if (LARGE_MAP_USE_FILE)
+        htmlFileTmp.delete() // Because we append we need to delete the file first.
 
 // ####################################################################################################
 // # Main
@@ -441,8 +446,10 @@
                     htmlStr += tableStr
                 }
 
-        htmlFileTmp.append(htmlStr, 'utf-8') // Append the chunck to the temp file.
-        htmlStr = '' // Reset the string for the next chunk appended.
+        if (LARGE_MAP_USE_FILE) {
+            htmlFileTmp.append(htmlStr, 'utf-8') // Append the chunck to the temp file.
+            htmlStr = '' // Reset the string for the next chunk appended.
+        }
     } // End - c.findAll().each...
 
     // ====================================================================================================
@@ -450,28 +457,40 @@
     // ==================================================================================================== 
         // Append the closing tags
             htmlStr += '</body></html>'
-            htmlFileTmp.append(htmlStr, 'utf-8')
-        // Open the final output file
-            def htmlFile = new File('c:/temp/out.html')
-            htmlFile.delete() // Make sure it is deleted because we append to it.
-        // Loop the lines in the temp files and for each, try to replace for the table of content.
-            def replaced = false
-            htmlFileTmp.each { String line ->
-                if (!replaced) { // Check if the TOC is replaced already, if not then...
-                    if (line.contains('@@TOC@@')) { // Check if the TOC is on the current line...
-                        if (SHOW_TOC) // If we want to show the TOC then add it by a replacement
-                            line = line.replace('@@TOC@@', S_TOC + toc + tocIndent + E_TOC) 
-                        else
-                            line = line.replace('@@TOC@@', '') // No TOC
-                        replaced = true // Set the flag to tell it is replaced and no need to check for the TOC anymore. 
+        if (LARGE_MAP_USE_FILE) {
+                htmlFileTmp.append(htmlStr, 'utf-8')
+            // Open the final output file
+                def htmlFile = new File('c:/temp/out.html')
+                htmlFile.delete() // Make sure it is deleted because we append to it.
+            // Loop the lines in the temp files and for each, try to replace for the table of content.
+                def replaced = false
+                htmlFileTmp.each { String line ->
+                    if (!replaced) { // Check if the TOC is replaced already, if not then...
+                        if (line.contains('@@TOC@@')) { // Check if the TOC is on the current line...
+                            if (SHOW_TOC) // If we want to show the TOC then add it by a replacement
+                                line = line.replace('@@TOC@@', S_TOC + toc + tocIndent + E_TOC) 
+                            else
+                                line = line.replace('@@TOC@@', '') // No TOC
+                            replaced = true // Set the flag to tell it is replaced and no need to check for the TOC anymore. 
+                        }
                     }
+                    htmlFile.append(line + EOL)
                 }
-                htmlFile.append(line + EOL)
-            }
-        // Delete the temp file
-            htmlFileTmp.delete()
-            
-        m("Html document saved as 'c:\\temp\\out.html'.")
+            // Delete the temp file
+                htmlFileTmp.delete()
+                
+            m("Html document saved as 'c:\\temp\\out.html'.")
+        }
+        // Memory (string) is used to keep the document
+        else { 
+            // Add the table of contents
+                if (SHOW_TOC)
+                    htmlStr = htmlStr.replace('@@TOC@@', S_TOC + toc + tocIndent + E_TOC) 
+                else
+                    htmlStr = htmlStr.replace('@@TOC@@', '') 
+            def htmlFile = new File('c:/temp/out.html')
+            htmlFile.write(htmlStr, 'utf-8')
+        }
 
     // ====================================================================================================
     // = Create the PDF file (close the pdf file prior to running this)
