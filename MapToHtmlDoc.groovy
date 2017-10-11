@@ -4,6 +4,8 @@
 // # Version History:
 // #################################################################################################### 
 
+        // Version: 2017-10-11_12.52.50
+            // Added a message box to notify the user that the html document is completed, because it is slower since using a file. 
         // Version: 2017-10-10_17.48.30 
             // As requested, I added to possibility to generate the html doc from large maps by using a file instead of memory.
         // Version: 2017-10-04_14.26.19 
@@ -289,6 +291,7 @@
         // ====================================================================================================
         // = Header nodes 
         // ==================================================================================================== 
+
             // ----------------------------------------------------------------------------------------------------
             // - H1
             // ---------------------------------------------------------------------------------------------------- 
@@ -467,6 +470,8 @@
             }
         // Delete the temp file
             htmlFileTmp.delete()
+            
+        m("Html document saved as 'c:\\temp\\out.html'.")
 
     // ====================================================================================================
     // = Create the PDF file (close the pdf file prior to running this)
