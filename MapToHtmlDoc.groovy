@@ -4,6 +4,8 @@
 // # Version History:
 // #################################################################################################### 
 
+        // Version: 2017-10-12_00.44.39
+            // I removed 1 <br> after the details, there was too much spacing. 
         // Version: 2017-10-11_22.57.48
             // Added constant to configure more easily the output path, and also for the temp file if used. And I added a message box to indicate where the file is saved even if the string is used to hold the html document. 
         // Version: 2017-10-11_13.17.34
@@ -437,7 +439,7 @@
             // ==================================================================================================== 
                 if (hasDetails)
                     //htmlStr += indentSp + '<p style="' + STYLE_DET + '">' + aName + indentNbsp + '<small><i>(' + details + ')</i></small></p>' + EOL
-                    htmlStr += indentSp + indentNbsp + aName + '<small style="' + STYLE_DET + '"><i>(' + details + ')</i></small><br><br>' + EOL
+                    htmlStr += indentSp + indentNbsp + aName + '<small style="' + STYLE_DET + '"><i>(' + details + ')</i></small><br>' + EOL
 
             // ====================================================================================================
             // = Add the attributes as a table if any
@@ -492,7 +494,7 @@
                     htmlFileTmp.delete()
                     
             }
-        // Memory (string) is used to keep the document
+        // If memory (string) was used to keep the document
             else { 
                 // Add the table of contents
                     if (SHOW_TOC)
