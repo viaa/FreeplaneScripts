@@ -1,6 +1,6 @@
 <map version="freeplane 1.6.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1507667496552"><richcontent TYPE="DETAILS">
+<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1507716903279"><richcontent TYPE="DETAILS">
 
 <html>
   <head>
@@ -8,7 +8,7 @@
   </head>
   <body>
     <p>
-      Version: 2017-10-10_23.31.35
+      Version: 2017-10-11_13.15.02
     </p>
   </body>
 </html>
@@ -425,8 +425,7 @@
 </node>
 </node>
 </node>
-<node TEXT="More features" POSITION="right" ID="ID_106028219" CREATED="1497029381635" MODIFIED="1497991401170">
-<icon BUILTIN="button_ok"/>
+<node TEXT="More features" POSITION="right" ID="ID_106028219" CREATED="1497029381635" MODIFIED="1507668047701">
 <edge COLOR="#808080"/>
 <node TEXT="Images" ID="ID_34785326" CREATED="1497029381635" MODIFIED="1497108400598">
 <node TEXT="2 types of image insertion" ID="ID_336707127" CREATED="1497029381635" MODIFIED="1497108411475">
@@ -643,9 +642,9 @@
 </node>
 </node>
 </node>
-<node TEXT="Freeplane Configuration" POSITION="right" ID="ID_662083576" CREATED="1507667102285" MODIFIED="1507667108618">
+<node TEXT="Configuration" POSITION="right" ID="ID_662083576" CREATED="1507667102285" MODIFIED="1507716387932">
 <edge COLOR="#808080"/>
-<node TEXT="Preferences" ID="ID_1037169726" CREATED="1507667110409" MODIFIED="1507667118707">
+<node TEXT="Freeplane preferences" ID="ID_1037169726" CREATED="1507667110409" MODIFIED="1507716393207">
 <node TEXT="Allow script execution" ID="ID_1600618141" CREATED="1507667121107" MODIFIED="1507667203462">
 <node TEXT="As for all Freeplane scripts, we need to make sure that Freeplane is allowed to run scripts." ID="ID_868479381" CREATED="1507667161134" MODIFIED="1507667230402"/>
 <node TEXT="Go to Tools menu &gt; Preferences &gt; Plugin tab &gt; Scripting section, then where it is written &quot;Script execution enabled&quot;, select &apos;Yes&apos;." ID="ID_1596728053" CREATED="1507667231062" MODIFIED="1507667349986"/>
@@ -654,12 +653,50 @@
 <node TEXT="Go to Tools menu &gt; Preferences &gt; Plugin tab &gt; Scripting section, then where it is written &apos;Permit file/read (or write) operations (NOT recommended)&apos;, check the box. The scripts both reads from a temp file and writes to the destination html file so both check boxes need to be checked." ID="ID_830035439" CREATED="1507667231062" MODIFIED="1507667455254"/>
 </node>
 </node>
+<node TEXT="MapToHtmlDoc.groovy" ID="ID_379127410" CREATED="1507716393681" MODIFIED="1507716750300">
+<node TEXT="Support for large maps (LARGE_MAP_USE_FILE)" ID="ID_1074648696" CREATED="1507716397573" MODIFIED="1507716675674">
+<node TEXT="def LARGE_MAP_USE_FILE = false // If the map is large there may be memory issues, so set this to true so that the script will use a file instead of the memory. Note that it is much faster when this is set to false, so set it to false for small maps." ID="ID_1550273152" CREATED="1507716416732" MODIFIED="1507716416732"/>
+<node TEXT="There was a request by a user on the forum to be able to export large maps, but because the document is contained in the string this was causing a memory error." ID="ID_588372056" CREATED="1507716438777" MODIFIED="1507716473122"/>
+<node TEXT="After that the script was changed to use a file to append the data instead of doing that into a string, but this was found to be much slower so that when the browser was refreshed the html document seem not completed, until few seconds later, then a second refresh in the browser needed to be done. So a message box was added to tell the user that the html document is completed." ID="ID_265828307" CREATED="1507716473577" MODIFIED="1507716590844"/>
+<node ID="ID_503115641" CREATED="1507716591273" MODIFIED="1507716707356"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      But then it was decided to support both memory (for small and normal size maps) and file (for large maps). To allow this the constant <font color="#ff0000"><b>LARGE_MAP_USE_FILE</b></font>&#160; was added. Set it to true so that the script will use a file instead of the memory. Note that it is much faster when this is set to false, so set it to false for small maps.
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+</node>
+</node>
 </node>
 <node TEXT="History" POSITION="right" ID="ID_1784484328" CREATED="1507667504082" MODIFIED="1507667565777">
 <edge COLOR="#808080"/>
 <node TEXT="Documentation" ID="ID_273653473" CREATED="1507667511885" MODIFIED="1507667570837">
 <node TEXT="Version: 2017-10-10_23.31.35" ID="ID_725781849" CREATED="1507667517993" MODIFIED="1507667543085">
 <node TEXT="Added the &apos;Freeplane Configuration&apos; section." ID="ID_1275234350" CREATED="1507667554585" MODIFIED="1507667585045"/>
+</node>
+<node ID="ID_329209147" CREATED="1507716915674" MODIFIED="1507716915674"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Version: 2017-10-11_13.15.02
+    </p>
+  </body>
+</html>
+
+</richcontent>
+<node TEXT="Modified the configuration section, added info about large map support." ID="ID_834344458" CREATED="1507716917201" MODIFIED="1507716943475"/>
 </node>
 </node>
 </node>
@@ -704,6 +741,7 @@
 </html>
 </richcontent>
 <cloud COLOR="#ffffcc" SHAPE="ARC"/>
+<node TEXT="s0 Add a constant to specify if we want to use the memory or a file as a method to output the html." ID="ID_1997772567" CREATED="1507715785689" MODIFIED="1507715829347"/>
 <node FOLDED="true" ID="ID_1979560022" CREATED="1491381602871" MODIFIED="1492507259075"><richcontent TYPE="NODE">
 
 <html>
@@ -1074,8 +1112,9 @@
 </node>
 </node>
 </node>
+<node TEXT="s0 Add a constant to specify if we want to use the memory or a file for" ID="ID_689971079" CREATED="1507715785689" MODIFIED="1507715804811"/>
 </node>
-<node ID="ID_1498185772" CREATED="1507097066835" MODIFIED="1507097070238"><richcontent TYPE="NODE">
+<node ID="ID_1498185772" CREATED="1507097066835" MODIFIED="1507668010506"><richcontent TYPE="NODE">
 
 <html>
   <head>
@@ -1083,10 +1122,11 @@
   </head>
   <body>
     <p>
-      s0 There's another bug or rather limitation to the script--it fails to convert map with 20,000 or more number of nodes (on a computer with 4GB of ram), when the HTMLwriter that comes with the program does, albeit lacking features found in your otherwise good script. Perhaps it's due to the script compiles everything into butter and uses FileWriter only once at the end.
+      s2 There's another bug or rather limitation to the script--it fails to convert map with 20,000 or more number of nodes (on a computer with 4GB of ram), when the HTMLwriter that comes with the program does, albeit lacking features found in your otherwise good script. Perhaps it's due to the script compiles everything into butter and uses FileWriter only once at the end.
     </p>
   </body>
 </html>
+
 </richcontent>
 <node ID="ID_936208985" CREATED="1507097073974" MODIFIED="1507568703866"><richcontent TYPE="NODE">
 
@@ -1123,7 +1163,21 @@
 </node>
 </node>
 <node TEXT="s0 Make sure that the images follow the indentation, for now it seem no, so image are always on the left even in inside a h1, and if there is text in the image label it appears on the left too... fix this first." ID="ID_1965717035" CREATED="1507026996438" MODIFIED="1507027057275"/>
-<node TEXT="s0 Change c.findall() by node.findall() so that I could generate the doc from any branches, but I would need to keep track of the node level manually, this function doesn&apos;t work anymore:         depth = n.getNodeLevel(false) + 1 // Level 1 is the root node" ID="ID_938385662" CREATED="1506930080426" MODIFIED="1506930147604"/>
+<node ID="ID_938385662" CREATED="1506930080426" MODIFIED="1507668007413"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s2 Change c.findall() by node.findall() so that I could generate the doc from any branches, but I would need to keep track of the node level manually, this function doesn't work anymore: depth = n.getNodeLevel(false) + 1 // Level 1 is the root node
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
 <node TEXT="Logs" ID="ID_945105403" CREATED="1502874364781" MODIFIED="1507028507807">
 <node TEXT="s0 Add AMT logs and maybe eventually central and pam logs?" ID="ID_1594451373" CREATED="1502714521215" MODIFIED="1507028507804"/>
 </node>
