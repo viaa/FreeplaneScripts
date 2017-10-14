@@ -3,7 +3,8 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
-
+        // Version: 2017-10-14_16.25.57
+            // Will create debug directory and html output directory if they don't exists.
         // Version: 2017-10-12_00.44.39
             // I removed 1 <br> after the details, there was too much spacing. 
         // Version: 2017-10-11_22.57.48
@@ -52,9 +53,15 @@
     // ====================================================================================================
     // = Constants
     // ==================================================================================================== 
-        // · Global (available in functions)
-            @Field def DEBUG = false
-            @Field def DEBUG_FILE_PATH = "c:/temp/debug.txt"
+
+
+        // Global (with @Field available in functions)
+
+            // Debug
+                @Field def DEBUG = true
+                def DEBUG_DIR = 'c:/temp/'
+                @Field def DEBUG_FILE_PATH
+                    DEBUG_FILE_PATH = DEBUG_DIR + 'debug.txt'
 
         // Constants to add/remove elements
             def SHOW_TOC = true
@@ -220,18 +227,35 @@
     if (LARGE_MAP_USE_FILE)
         htmlFileTmp.delete() // Because we append we need to delete the file first.
 
+    // ====================================================================================================
+    // = Create folders
+    // ==================================================================================================== 
+
+        // Debug folder
+            def folder = new File(DEBUG_DIR)
+                if(!folder.exists())
+                  folder.mkdirs()
+
+        // Html doc folder
+            folder = new File(OUT_DIR)
+                if(!folder.exists())
+                  folder.mkdirs()
+
 // ####################################################################################################
 // # Main
 // #################################################################################################### 
     node.findAll().each { n ->
+
         // Ignore the nodes that are under a specific node (see function declaration)
             if (ignoreNode(n))
                 return
 
             sTag = eTag = ''
+
             // ====================================================================================================
             // = Determine what is in the node
             // ==================================================================================================== 
+
                 // ----------------------------------------------------------------------------------------------------
                 // - Text
                 // ---------------------------------------------------------------------------------------------------- 

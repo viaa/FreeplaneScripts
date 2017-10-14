@@ -21,6 +21,7 @@
             // 7- Add new nodes to picklists and then press the hotkey on them and they will become checked. This way it allow to add new picklists values. It works also for the attributes picklist also.
             // 8- So basically, simply press the hotkey on any node that has the list icon or the checkbox icon.
         // Bugs
+            // There is an error when I edit the attribute of the TaskStartDate for example from a format like 4/21/17 10:35 AM to yyyy-MM-dd HH:mm:ss using the attribute panel, then I open the attribute as node using alt+4.
             // When closing the comma-separated list, it should update the inner attributes because then re-opening it, should show then values that where added (or removed) before closing it. 
             // If a comma-separated list attribute (in other attributes) is empty on opening, then the picklist doesn't show, there is an error message. It shows only when they is comma separated data already inside. 
             // If an attribute has no value node there is a null error.
@@ -40,6 +41,7 @@
             // Maybe in the multi-select picklist, if the user holds ctrl and click several nodes to select multiple nodes, then pressing the hotkey would select/unselect these nodes depending if they are checked or unchecked.
             // Maybe do a date picklist to select dates and times, a tree by year > month > day > hour > minutes
             // If there are 2 attributes with the same name and one of them is a VALUE and the other is a COMMA_SEPARATED_LIST_VALUE and the VALUE is first in the list, then the defineType() function will detect it as a VALUE, which is fine but maybe there could be a validation to prevent duplicated attribute names.
+            // s0 Add separator lines to the code 
         // Git
             // freeplane:/%20/D:/Work/MindMaps/Commands.mm#ID_262304796
         // Version history

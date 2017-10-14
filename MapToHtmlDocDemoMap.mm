@@ -762,7 +762,22 @@
 </html>
 </richcontent>
 <cloud COLOR="#ffffcc" SHAPE="ARC"/>
-<node TEXT="s0 Add a constant to specify if we want to use the memory or a file as a method to output the html." ID="ID_1997772567" CREATED="1507715785689" MODIFIED="1507715829347"/>
+<node TEXT="s0 After the &lt;li&gt; tags that have details there is 1 &lt;BR&gt; too much if for example a &lt;h4&gt; is following, then there are like 2 lines of spacing instead of 1. Try to fix that. Maybe use &lt;ul&gt; tags..?" ID="ID_157984181" CREATED="1507758060574" MODIFIED="1507758190449"/>
+<node ID="ID_1997772567" CREATED="1507715785689" MODIFIED="1507758058885"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s2 Add a constant to specify if we want to use the memory or a file as a method to output the html.
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
 <node FOLDED="true" ID="ID_1979560022" CREATED="1491381602871" MODIFIED="1492507259075"><richcontent TYPE="NODE">
 
 <html>
