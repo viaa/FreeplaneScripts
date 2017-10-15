@@ -3,6 +3,8 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version 2017-10-25_01.08.34 
+            // Added basic support for Latex formulas in core text.
         // Version: 2017-10-23_19.41.21
             // Added support for formulas in attributes.
             // Modified the icons so that icons with a null path will not add an image tag with null as the path.
@@ -55,6 +57,16 @@
         import groovy.transform.Field
         // SimpleDateFormat
             import java.text.*
+    // Imports for latex
+        // BEGIN - LATEX (Comment out this section if jlatexmath-1.0.6.jar is not in C:\Users\%USERNAME%\AppData\Roaming\Freeplane\1.6.x\lib. See the demo map documentation for Latex usage)
+            /* import java.awt.image.BufferedImage */ 
+            /* import javax.imageio.ImageIO */
+            /* import javax.swing.JLabel */
+            /* import java.awt.Color */
+            /* import org.scilab.forge.jlatexmath.TeXFormula */ 
+            /* import org.scilab.forge.jlatexmath.TeXIcon */ 
+            /* import org.scilab.forge.jlatexmath.TeXConstants */
+        // END - LATEX
 
 // ####################################################################################################
 // # Constants and variables
@@ -90,7 +102,9 @@
             def OUT_FILENAME = 'out.html'
             def OUT_TMP_FILENAME = 'outtmp.html'
 
-        def ICONS_PATH = 'C:/Users/' + System.getenv("USERNAME") + '/AppData/Roaming/Freeplane/1.6.x/icons/'
+        def USER_PATH = 'C:/Users/' + System.getenv("USERNAME") + '/AppData/Roaming/Freeplane/1.6.x/'
+        def ICONS_PATH = USER_PATH + 'icons/'
+        def LIB_PATH = USER_PATH + 'lib/'
 
         // ----------------------------------------------------------------------------------------------------
         // - Styles
@@ -274,6 +288,15 @@
                 }
             }
 
+    // ====================================================================================================
+    // = Other initializations
+    // ==================================================================================================== 
+
+        // Check if JLatexMath is in the lib directory
+            hasJLatexMathLib = false
+            if (new File(LIB_PATH + 'jlatexmath-1.0.6.jar').exists())
+                hasJLatexMathLib = true
+
 // ####################################################################################################
 // # Main
 // #################################################################################################### 
@@ -298,16 +321,21 @@
                     // ----------------------------------------------------------------------------------------------------
                     // - Formula
                     // ---------------------------------------------------------------------------------------------------- 
-                        if (text.startsWith('='))
+                        if (text.startsWith('=')) {
                             text = n.transformedText
+                        }
+
+                    // ----------------------------------------------------------------------------------------------------
+                    // - Latex
+                    // ---------------------------------------------------------------------------------------------------- 
+                        hasLatex = false
+                        if (text.startsWith('\\latex'))
+                            hasLatex = true
 
                     // ----------------------------------------------------------------------------------------------------
                     // - Text
                     // ---------------------------------------------------------------------------------------------------- 
                         rText = rawText(text, false)
-                        hasText = false
-                        if (rText != '')
-                            hasText = true
 
                     // ----------------------------------------------------------------------------------------------------
                     // - Link
@@ -414,6 +442,36 @@
                                 iconsHtml += ('<img src="' + iconPath + '" width="12" height="12" />')
                         }
                     }
+
+            // ====================================================================================================
+            // = Create the latex image files 
+            // ==================================================================================================== 
+                // BEGIN - LATEX (Comment out this section if jlatexmath-1.0.6.jar is not in C:\Users\%USERNAME%\AppData\Roaming\Freeplane\1.6.x\lib. See the demo map documentation for Latex usage)
+                    /* if (hasLatex && hasJLatexMathLib) { */
+                    /*     // Extract the first latex snippet between $ and $ */
+                    /*         int first = text.indexOf('$'); */
+                    /*         int second = text.indexOf('$', first + 1) */
+                    /*         latexInFormula = text.substring(first + 1, second) */
+                    /*         hasLatex = true */
+                    /*     // Add the latext extracted to the latext array (this is one of the environment supported by JLatexMath) */
+                    /*         latex = '\\begin{array}{lr}' */
+                    /*         latex += latexInFormula */
+                    /*         latex += '\\end{array}' */
+                    /*     // Process the latex string and create a latex image from it */
+                    /*         TeXFormula teXFormula = new TeXFormula(latex) */
+                    /*         TeXIcon icon = teXFormula.createTeXIcon(TeXConstants.STYLE_DISPLAY, 40) */
+                    /*         image = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_4BYTE_ABGR); */
+                    /*         jl = new JLabel(); */
+                    /*         icon.paintIcon(jl, image.getGraphics(), 0, 0); */
+                    /*     // Write the latex image to disk */
+                    /*         latexPng = OUT_DIR + n.id + ".png" */
+                    /*         File outputfile = new File(latexPng); */
+                    /*         ImageIO.write(image, "png", outputfile); */
+                    /*     // Set the link to the image created so it is treated as if the node had a link to a png */
+                    /*         link = latexPng */
+                    /*         hasLink = true */
+                    /* } */
+                // END - LATEX
 
             // ====================================================================================================
             // = Header nodes 
