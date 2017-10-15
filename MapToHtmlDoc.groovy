@@ -3,6 +3,8 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version: 2017-10-15_16.32.21
+            // Added the possibility of changing node levels by adding a specific icon with a number to the node.
         // Version: 2017-10-14_16.25.57
             // Will create debug directory and html output directory if they don't exists.
         // Version: 2017-10-12_00.44.39
@@ -54,12 +56,11 @@
     // = Constants
     // ==================================================================================================== 
 
-
         // Global (with @Field available in functions)
 
             // Debug
                 @Field def DEBUG = true
-                def DEBUG_DIR = 'c:/temp/'
+                def DEBUG_DIR = 'c:/Temp/'
                 @Field def DEBUG_FILE_PATH
                     DEBUG_FILE_PATH = DEBUG_DIR + 'debug.txt'
 
@@ -74,8 +75,10 @@
 
         def LARGE_MAP_USE_FILE = false // If the map is large there may be memory issues, so set this to true so that the script will use a file instead of the memory. Note that it is much faster when this is set to false, so set it to false for small maps.
 
+        def CHANGE_DEPTH_ICON = 'Dark-'
+
         // Html doc paths
-            def OUT_DIR = 'c:/temp/'
+            def OUT_DIR = 'c:/Temp/'
             def OUT_FILENAME = 'out.html'
             def OUT_TMP_FILENAME = 'outtmp.html'
 
@@ -156,6 +159,7 @@
         def depth = 0
         def initialDepth = getNodeLevel(false) + 1 // Get the level of the current node, this allows to generate the html document from anywhere, not only the root node
         @Field def SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-yy hh:mm:ss") // Used in the debug function 
+        def allIcons = ''
 
 // ####################################################################################################
 // # Functions
@@ -311,7 +315,8 @@
                 // ----------------------------------------------------------------------------------------------------
                 // - If icon is the red x then dont include this node
                 // ---------------------------------------------------------------------------------------------------- 
-                    if (n.icons.collect{it.toString()}.join(';') =~ '(^|;)(button_cancel)')
+                    allIcons = n.icons.collect{it.toString()}.join(';')
+                    if (allIcons =~ '(^|;)(button_cancel)')
                         return
            
         // ====================================================================================================
@@ -319,12 +324,29 @@
         // ==================================================================================================== 
             id = n.id // Used to reference the nodes one to another, and also for the toc
             aName = '<a name="' + id + '">'
-            depth = ((n.getNodeLevel(false) + 1) - initialDepth) + 1
-            indentSp = TAB_CHR_SP.multiply(depth * TAB) // Add indentation according to the depth level 
-            if (depth > 4)
-                indentNbsp = TAB_CHR_NBSP.multiply((depth - 4) * TAB) // Add indentation according to the depth level for the paragraphs, if a node is a child of paragraph it will appear indended under.
-            else
-                indentNbsp = ''
+
+            // Set depth according to the nodes locations
+                depth = ((n.getNodeLevel(false) + 1) - initialDepth) + 1
+
+            // ----------------------------------------------------------------------------------------------------
+            // - Adjust the depth according to some icons to indicate another depth.
+            // ---------------------------------------------------------------------------------------------------- 
+                if (allIcons.contains(CHANGE_DEPTH_ICON + '2'))
+                    depth = 2
+                else if (allIcons.contains(CHANGE_DEPTH_ICON + '3'))
+                    depth = 3
+                else if (allIcons.contains(CHANGE_DEPTH_ICON + '4'))
+                    depth = 4
+
+            // ----------------------------------------------------------------------------------------------------
+            // - Set indentation
+            // ---------------------------------------------------------------------------------------------------- 
+                indentSp = TAB_CHR_SP.multiply(depth * TAB) // Add indentation according to the depth level 
+                if (depth > 4)
+                    indentNbsp = TAB_CHR_NBSP.multiply((depth - 4) * TAB) // Add indentation according to the depth level for the paragraphs, if a node is a child of paragraph it will appear indended under.
+                else
+                    indentNbsp = ''
+
             iText = rText
             cptNode += 1 
 
