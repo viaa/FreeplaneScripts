@@ -1,6 +1,6 @@
 <map version="freeplane 1.6.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1507752514668"><richcontent TYPE="DETAILS">
+<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1508074252620"><richcontent TYPE="DETAILS">
 
 <html>
   <head>
@@ -8,13 +8,13 @@
   </head>
   <body>
     <p>
-      Version: 2017-10-11_23.08.07
+      Version: 2017-10-15_16.30.52
     </p>
   </body>
 </html>
 
 </richcontent>
-<hook NAME="MapStyle" background="#ffffff" zoom="0.815">
+<hook NAME="MapStyle" background="#ffffff" zoom="0.674">
     <conditional_styles>
         <conditional_style ACTIVE="true" STYLE_REF="s-1: Abandonned" LAST="false">
             <node_contains_condition VALUE="s-1" ITEM="filter_node" MATCH_APPROXIMATELY="false"/>
@@ -41,7 +41,7 @@
             <node_compare_condition user_name="IGNORE (BAK)" VALUE="BAK" MATCH_CASE="true" MATCH_APPROXIMATELY="false" COMPARATION_RESULT="0" SUCCEED="true" ITEM="filter_node"/>
         </conditional_style>
     </conditional_styles>
-    <properties fit_to_viewport="false;" show_icon_for_attributes="true" show_note_icons="true" edgeColorConfiguration="#808080ff,#808080ff,#808080ff,#808080ff,#808080ff"/>
+    <properties show_icon_for_attributes="true" fit_to_viewport="false;" show_note_icons="true" edgeColorConfiguration="#808080ff,#808080ff,#808080ff,#808080ff,#808080ff"/>
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node" STYLE="oval" UNIFORM_SHAPE="true" VGAP_QUANTITY="24.0 pt">
@@ -178,7 +178,7 @@
 </node>
 </node>
 </node>
-<node TEXT="Features" POSITION="right" ID="ID_998844426" CREATED="1497029381635" MODIFIED="1497107838979">
+<node TEXT="Features" POSITION="right" ID="ID_998844426" CREATED="1497029381635" MODIFIED="1508071999447">
 <edge COLOR="#808080"/>
 <node TEXT="Sections and structure" ID="ID_832412206" CREATED="1497109568309" MODIFIED="1497110394449">
 <node TEXT="Auto creation of sections" ID="ID_1270706494" CREATED="1497110129463" MODIFIED="1497110146034">
@@ -204,7 +204,7 @@
 </node>
 <node TEXT="If a main level like the level in blue or green (even red) are missing then they will just not show on the map but the structure of the nodes that follow will be as if they existed." ID="ID_1916539304" CREATED="1497112015971" MODIFIED="1497112057096"/>
 </node>
-<node TEXT="Auto creation of table of contents" ID="ID_1502529847" CREATED="1497110146703" MODIFIED="1497110381697">
+<node TEXT="Auto creation of table of contents" ID="ID_1502529847" CREATED="1497110146703" MODIFIED="1508073899674">
 <node ID="ID_229392823" CREATED="1497110274296" MODIFIED="1497110381689"><richcontent TYPE="NODE">
 
 <html>
@@ -219,7 +219,7 @@
 </html>
 </richcontent>
 </node>
-<node TEXT="You can also use the back button of the browser to go back after clicking a link in the table of content. It allows to quickly jump to sections and back to the top." ID="ID_1608736676" CREATED="1497111148499" MODIFIED="1497111194106"/>
+<node TEXT="You can also use the back button of the browser to go back after clicking a link in the table of content. It allows to quickly jump to sections and back to the top." ID="ID_1608736676" CREATED="1497111148499" MODIFIED="1508073881844"/>
 </node>
 <node TEXT="" ID="ID_528095958" CREATED="1497112384773" MODIFIED="1497112452667">
 <node TEXT="Try moving sections around, to one branch then to another, running the script and refreshing the html page, and see the html structure follow the changes." ID="ID_215647132" CREATED="1497112386037" MODIFIED="1497112452665"/>
@@ -363,7 +363,7 @@
 </node>
 </node>
 <node TEXT="Node levels" ID="ID_468582310" CREATED="1497029381635" MODIFIED="1497107945807">
-<node TEXT="Auto-indentation of child nodes" ID="ID_80948979" CREATED="1497029381635" MODIFIED="1497108103892">
+<node TEXT="Auto-indentation of child nodes" ID="ID_80948979" CREATED="1497029381635" MODIFIED="1508073892371">
 <node TEXT="Library" ID="ID_555585377" CREATED="1497106856140" MODIFIED="1497106858654">
 <node TEXT="Catalogs" ID="ID_963219391" CREATED="1497106859442" MODIFIED="1497106862470">
 <node ID="ID_1851779685" CREATED="1497107326752" MODIFIED="1497107337745"><richcontent TYPE="NODE">
@@ -400,13 +400,15 @@
 </node>
 </node>
 </node>
-<node TEXT="Bullet list" ID="ID_962226392" CREATED="1497029381635" MODIFIED="1497108051068">
-<node TEXT="* An asterix as the first char will be converted to a bullet" ID="ID_1641369483" CREATED="1497029516449" MODIFIED="1497108075829"/>
-<node TEXT="* List item 2" ID="ID_1183886613" CREATED="1497029521529" MODIFIED="1497029525675"/>
-<node TEXT="* List item 3" ID="ID_386527639" CREATED="1497029526169" MODIFIED="1497029530909"/>
+<node TEXT="Change node levels" ID="ID_1566502814" CREATED="1508073908810" MODIFIED="1508073912212">
+<node TEXT="Node level can be enforced by the user by setting specific icons on them. By default these icons will change the level of a node to level 2, 3 and 4 (level 1 is the root node and cannot be set):" ID="ID_1375312217" CREATED="1508073922046" MODIFIED="1508074136139">
+<node TEXT="* Dark-2" ID="ID_1998908557" CREATED="1508074007242" MODIFIED="1508074109342"/>
+<node TEXT="* Dark-3" ID="ID_1188948088" CREATED="1508074008231" MODIFIED="1508074114434"/>
+<node TEXT="* Dark-4" ID="ID_673194661" CREATED="1508074008971" MODIFIED="1508074118008"/>
 </node>
 </node>
-<node TEXT="Formating" ID="ID_1559534251" CREATED="1497108253313" MODIFIED="1497108385684">
+</node>
+<node TEXT="Formating" ID="ID_1559534251" CREATED="1497108253313" MODIFIED="1508073166077">
 <node TEXT="Color and size" ID="ID_1929185392" CREATED="1497108255963" MODIFIED="1497108260420">
 <node ID="ID_1026255183" CREATED="1497108261741" MODIFIED="1497109556664"><richcontent TYPE="NODE">
 
@@ -500,6 +502,14 @@
 <attribute NAME="Activity" VALUE="Tree climbing"/>
 <attribute NAME="Friends" VALUE="Kangaroos"/>
 </node>
+</node>
+</node>
+<node TEXT="Bullet lists" ID="ID_962226392" CREATED="1497029381635" MODIFIED="1508074246215">
+<node TEXT="" ID="ID_691129849" CREATED="1508074192151" MODIFIED="1508074192151">
+<node TEXT="An asterix as the first char will be converted to a bullet." ID="ID_1641369483" CREATED="1497029516449" MODIFIED="1508074235341"/>
+<node TEXT="* List item 1" ID="ID_1720286881" CREATED="1508074215728" MODIFIED="1508074219258"/>
+<node TEXT="* List item 2" ID="ID_1183886613" CREATED="1497029521529" MODIFIED="1497029525675"/>
+<node TEXT="* List item 3" ID="ID_386527639" CREATED="1497029526169" MODIFIED="1497029530909"/>
 </node>
 </node>
 </node>
@@ -685,7 +695,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="By default they are set like this:" ID="ID_72123664" CREATED="1507752454952" MODIFIED="1507752454952">
@@ -718,6 +727,22 @@
 </node>
 <node TEXT="Version: 2017-10-11_23.08.07" ID="ID_377706493" CREATED="1507752484955" MODIFIED="1507752489792">
 <node TEXT="Added HTML document path section to the configuration section." ID="ID_666494889" CREATED="1507752491057" MODIFIED="1507752507777"/>
+</node>
+<node ID="ID_1182643409" CREATED="1508074260652" MODIFIED="1508074260652"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Version: 2017-10-15_16.30.52
+    </p>
+  </body>
+</html>
+
+</richcontent>
+<node TEXT="Added the possibility of changing node levels by adding a specific icon with a number to the node." ID="ID_616869992" CREATED="1508074279089" MODIFIED="1508074325409"/>
 </node>
 </node>
 </node>
@@ -762,6 +787,21 @@
 </html>
 </richcontent>
 <cloud COLOR="#ffffcc" SHAPE="ARC"/>
+<node ID="ID_16701693" CREATED="1507919916831" MODIFIED="1507919953466"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s0 Put the name of the map as output name file? and the path to the map? Put this optional or to have it to c:\temp\out.html
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="s0 Add some special chars like #, =, - (or icons) to indicate that a node can become a h1, h2 or h3, and also add an additional char (or icons) to tell the script NOT to make the current node a header (h1, h2, h3) but if it contains the special char above then it could become another header... like for example if the current node is at h1 level, and the char = would be placed there it would become a level 2 (for example)." ID="ID_1997008504" CREATED="1507809514788" MODIFIED="1507809660496"/>
 <node TEXT="s0 After the &lt;li&gt; tags that have details there is 1 &lt;BR&gt; too much if for example a &lt;h4&gt; is following, then there are like 2 lines of spacing instead of 1. Try to fix that. Maybe use &lt;ul&gt; tags..?" ID="ID_157984181" CREATED="1507758060574" MODIFIED="1507758190449"/>
 <node ID="ID_1997772567" CREATED="1507715785689" MODIFIED="1507758058885"><richcontent TYPE="NODE">
 
@@ -775,7 +815,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node FOLDED="true" ID="ID_1979560022" CREATED="1491381602871" MODIFIED="1492507259075"><richcontent TYPE="NODE">
