@@ -3,6 +3,8 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version: 2017-10-16_11.23.21
+            // Added partial icons support. Some icons available in Freeplanes are not found in the icons directory and subdirectories so these will not be displayed at the moment but most seems be work.
         // Version: 2017-10-15_16.32.21
             // Added the possibility of changing node levels by adding a specific icon with a number to the node.
         // Version: 2017-10-14_16.25.57
@@ -59,7 +61,7 @@
         // Global (with @Field available in functions)
 
             // Debug
-                @Field def DEBUG = true
+                @Field def DEBUG = false 
                 def DEBUG_DIR = 'c:/Temp/'
                 @Field def DEBUG_FILE_PATH
                     DEBUG_FILE_PATH = DEBUG_DIR + 'debug.txt'
@@ -81,6 +83,8 @@
             def OUT_DIR = 'c:/Temp/'
             def OUT_FILENAME = 'out.html'
             def OUT_TMP_FILENAME = 'outtmp.html'
+
+        def ICONS_PATH = 'C:/Users/' + System.getenv("USERNAME") + '/AppData/Roaming/Freeplane/1.6.x/icons/'
 
         // ----------------------------------------------------------------------------------------------------
         // - Styles
@@ -159,7 +163,11 @@
         def depth = 0
         def initialDepth = getNodeLevel(false) + 1 // Get the level of the current node, this allows to generate the html document from anywhere, not only the root node
         @Field def SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-yy hh:mm:ss") // Used in the debug function 
-        def allIcons = ''
+
+        // Icons
+            def iconsText = ''
+            def iconsHtml = ''
+            def iconsMap = [:] // Key/value pair of icons with Name/FullDirectory
 
 // ####################################################################################################
 // # Functions
@@ -234,7 +242,6 @@
     // ====================================================================================================
     // = Create folders
     // ==================================================================================================== 
-
         // Debug folder
             def folder = new File(DEBUG_DIR)
                 if(!folder.exists())
@@ -245,271 +252,326 @@
                 if(!folder.exists())
                   folder.mkdirs()
 
+    // ====================================================================================================
+    // = Prepare icons for all nodes
+    // ==================================================================================================== 
+
+        // ----------------------------------------------------------------------------------------------------
+        // - Put all icons in a map (Key/value pair of icons with Name/FullDirectory)
+        // ---------------------------------------------------------------------------------------------------- 
+            new File(ICONS_PATH).eachFileRecurse() { file ->
+                String fileWithoutExt = file.name.take(file.name.lastIndexOf('.')) // Get icons name without directory and extension.
+                if (fileWithoutExt != '')
+                    // Store the file name without extension and directory as the key, and the full path as the value.
+                    iconsMap[fileWithoutExt] = file.getAbsolutePath().toString().replace("\\", "/")
+                    //d(file.getAbsolutePath().toString().replace("\\", "/"))
+            }
+
 // ####################################################################################################
 // # Main
 // #################################################################################################### 
-    node.findAll().each { n ->
 
-        // Ignore the nodes that are under a specific node (see function declaration)
-            if (ignoreNode(n))
-                return
+    // ====================================================================================================
+    // = Loop the nodes under the selected node 
+    // ==================================================================================================== 
+        node.findAll().each { n ->
 
-            sTag = eTag = ''
+            // Ignore the nodes that are under a specific node (see function declaration)
+                if (ignoreNode(n))
+                    return
 
-            // ====================================================================================================
-            // = Determine what is in the node
-            // ==================================================================================================== 
+                sTag = eTag = ''
 
-                // ----------------------------------------------------------------------------------------------------
-                // - Text
-                // ---------------------------------------------------------------------------------------------------- 
-                    text = n.text
-                    rText = rawText(text, false)
-                    hasText = false
-                    if (rText != '')
-                        hasText = true
-                // ----------------------------------------------------------------------------------------------------
-                // - Link
-                // ---------------------------------------------------------------------------------------------------- 
-                    link = ''
-                    hasLink = false
-                    if (n.link.text != null) {
-                        hasLink = true
-                        link = n.link.text
-                    }
-                // ----------------------------------------------------------------------------------------------------
-                // - Details
-                // ---------------------------------------------------------------------------------------------------- 
-                    details = ''
-                    hasDetails = false
-                    if (n.details != null) {
-                        hasDetails = true
-                        details = n.details
-                    }
-                // ----------------------------------------------------------------------------------------------------
-                // - Note
-                // ---------------------------------------------------------------------------------------------------- 
-                    note = ''
-                    hasNote = false
-                    if (n.note != null) {
-                        if (n.note.text != null) {
-                            hasNote = true
-                            note = n.note.html
-                            rNote = rawNote(n.note.html)
-                        }
-                    }
-                // ----------------------------------------------------------------------------------------------------
-                // - External URI
-                // ---------------------------------------------------------------------------------------------------- 
-                    xUri = ''
-                    hasXUri = false
-                    if (n.externalObject.uri != null) {
-                        hasXUri = true
-                        xUri = n.externalObject.uri
-                    }
-                // ----------------------------------------------------------------------------------------------------
-                // - Personal note (Allows to add my notes to the documentation without having it appearing on the final doc. It allows also to disable (hide) nodes (add s-1 for example) from the final doc.)
-                // ---------------------------------------------------------------------------------------------------- 
-                    if (rText =~ /^(s-1|s0|s1|s2|s3)\s/)
-                        return
-                // ----------------------------------------------------------------------------------------------------
-                // - If icon is the red x then dont include this node
-                // ---------------------------------------------------------------------------------------------------- 
-                    allIcons = n.icons.collect{it.toString()}.join(';')
-                    if (allIcons =~ '(^|;)(button_cancel)')
-                        return
-           
-        // ====================================================================================================
-        // = Initialize stuff like counters, depth 
-        // ==================================================================================================== 
-            id = n.id // Used to reference the nodes one to another, and also for the toc
-            aName = '<a name="' + id + '">'
+                // ====================================================================================================
+                // = Determine what is in the node
+                // ==================================================================================================== 
 
-            // Set depth according to the nodes locations
-                depth = ((n.getNodeLevel(false) + 1) - initialDepth) + 1
-
-            // ----------------------------------------------------------------------------------------------------
-            // - Adjust the depth according to some icons to indicate another depth.
-            // ---------------------------------------------------------------------------------------------------- 
-                if (allIcons.contains(CHANGE_DEPTH_ICON + '2'))
-                    depth = 2
-                else if (allIcons.contains(CHANGE_DEPTH_ICON + '3'))
-                    depth = 3
-                else if (allIcons.contains(CHANGE_DEPTH_ICON + '4'))
-                    depth = 4
-
-            // ----------------------------------------------------------------------------------------------------
-            // - Set indentation
-            // ---------------------------------------------------------------------------------------------------- 
-                indentSp = TAB_CHR_SP.multiply(depth * TAB) // Add indentation according to the depth level 
-                if (depth > 4)
-                    indentNbsp = TAB_CHR_NBSP.multiply((depth - 4) * TAB) // Add indentation according to the depth level for the paragraphs, if a node is a child of paragraph it will appear indended under.
-                else
-                    indentNbsp = ''
-
-            iText = rText
-            cptNode += 1 
-
-        // ====================================================================================================
-        // = Header nodes 
-        // ==================================================================================================== 
-
-            // ----------------------------------------------------------------------------------------------------
-            // - H1
-            // ---------------------------------------------------------------------------------------------------- 
-                if (depth == 1) { // Root node
-                    if (!SHOW_TITLE) // Don't show the title
-                        return
-                    sTag = EOL + indentSp + '<h1>' + aName
-                    eTag = '</h1>' + EOL
-                }
-            // ----------------------------------------------------------------------------------------------------
-            // - H2
-            // ---------------------------------------------------------------------------------------------------- 
-                else if (depth == 2) {
-                    if (cptNode == 2) { // If it is the 2nd node, add the table of content placeholder before. It is not added after the first node because there may be detail added after the node 1.
-                        sTag = indentSp + '@@TOC@@'
-                        tocIndent = indentSp
-                    }
-                    if (rText != '') {
-                        if (cptNode == 2) // If it is the second node don't add the '<br>' because it put too many space after the table of content
-                            sTag += EOL + indentSp + SEP2 + '<div><h2 style="' + STYLE_H2 + '">' + aName
-                        else
-                            sTag += EOL + '<br>' + indentSp + SEP2 + '<h2 style="' + STYLE_H2 + '">' + aName
-                        eTag = '</h2>' + TOC_BACK_LINK 
-                        toc += indentSp + '&#8226; <big><a style="' + STYLE_H2 + '" href="#' + id + '">' + rText + '</a></big>' + EOL
-                    }
-                }
-            // ----------------------------------------------------------------------------------------------------
-            // - H3
-            // ---------------------------------------------------------------------------------------------------- 
-                else if (depth == 3) {
-                    if (rText != '') {
-                        sTag = EOL + indentSp + SEP3 + '<h3 style="' + STYLE_H3 + '">' + aName
-                        eTag = '</h3>' + EOL
-                        toc += indentSp + '&#9675; <a style="' + STYLE_H3 + '" href="#' + id + '">' + rText + '</a>' + EOL
-                    }
-                }
-            // ----------------------------------------------------------------------------------------------------
-            // - H4
-            // ---------------------------------------------------------------------------------------------------- 
-                else if (depth == 4) {
-                    if (rText != '') {
-                        sTag = EOL + indentSp + SEP4 + '<h4 style="' + STYLE_H4 + '" style="' + STYLE_H4 + '">' + aName
-                        eTag = '</h4>' + EOL
-                        toc += indentSp + '&#183; <i><small><a style="' + STYLE_H4 + '" href="#' + id + '">' + rText + '</a></small></i>' + EOL
-                    }
-                }
-
-        // ====================================================================================================
-        // = Not H1, H2, ..., so determine the type of node it is. The elements below cannot be added at the H1 level for example, there cannot be an image as H1. 
-        // ==================================================================================================== 
-            else {
-                // ----------------------------------------------------------------------------------------------------
-                // - Image inserted (displayed in the map)
-                // ---------------------------------------------------------------------------------------------------- 
-                    if (hasXUri) {
-                        p = ''
+                    // ----------------------------------------------------------------------------------------------------
+                    // - Text
+                    // ---------------------------------------------------------------------------------------------------- 
+                        text = n.text
+                        rText = rawText(text, false)
+                        hasText = false
                         if (rText != '')
-                            p = '<p>' + indentNbsp + text + '</p>' + EOL
-                        sTag = indentSp + p + indentNbsp + '<img src="' + xUri + '" alt="' + rText + '" style="' + STYLE_IMG + '"/>' + aName
-                        eTag = '<br>' + EOL
-                        iText = ''
-                        }
-                // ----------------------------------------------------------------------------------------------------
-                // - Nodes that have no links and no notes
-                // ---------------------------------------------------------------------------------------------------- 
-                    else if (!hasLink && !hasNote) {
-                        // List element
-                            if (rText.take(2) == '* ') {
-                                sTag = indentSp + '<li>' + aName
-                                eTag = '</li>' + EOL
-                                iText = rText.substring(2) // Remove 2 first chars '* ' 
-                            }
-                        // Paragraph
-                            else {
-                                sTag = indentSp + '<p>' + aName + indentNbsp
-                                eTag = '</p>' + EOL
-                            }
-                    }
-                // ----------------------------------------------------------------------------------------------------
-                // - Nodes that are only links
-                // ---------------------------------------------------------------------------------------------------- 
-                    else if (hasLink && !hasNote) {
-                        // Insert the file in the document in a gray box (for the following file types) (add file types if necessary)
-                            if (link =~ /(txt|log|sh|groovy|vim|ini)$/) {
-                                link = link.replace('file://', '')
-                                link = link.replace('file:/', '')
-                                file = new File(link)
-                                if (file.exists())
-                                    iText = file.getText('UTF-8')
-                                else
-                                    iText = "File '" + link + "' doesn't exist."
-                                sTag = indentSp + S_BOX + aName
-                                eTag = EOL + indentSp + E_BOX
-                            }
-                        // Show as image
-                            else if (link =~ /(png|jpg)$/) {
-                                sTag = indentSp + indentNbsp + '<img src="' + link + '" alt="' + rText + '" style="' + STYLE_IMG + '"/>' + aName
-                                eTag = '<br>' + EOL
-                                iText = ''
-                            }
-                        // Freeplane link
-                            else if (link =~ /mm#ID_/) {
-                                linkId = (link =~ /#(ID_.*)/)[0][1] // Extract ID_<NUMBER> part from the link
-                                sTag = indentSp + aName + indentNbsp + '<a href="#' + linkId + '">'
-                                eTag = '</a><br>' + EOL
-                            }
-                        // Just add the link to the file
-                            else { 
-                                sTag = indentSp + aName + indentNbsp + '<a href="' + link + '">'
-                                eTag = '</a><br>' + EOL
-                            }
-                        }
-                // ----------------------------------------------------------------------------------------------------
-                // - Nodes that are notes (Notes node have to have core text, just put something that describe the node but it will not be displayed).
-                // ---------------------------------------------------------------------------------------------------- 
-                    else if (hasNote && !hasLink) {
-                        sTag = indentSp + S_BOX + aName
-                        eTag = E_BOX
-                        iText = rNote
-                    }
-            } // End - else { // Determine the type of node it is
+                            hasText = true
 
-            // Once the tags and the text have being determined and set, add them to the document string.
-                if (sTag != '' || eTag != '')
-                    htmlStr += sTag + iText + eTag
+                    // ----------------------------------------------------------------------------------------------------
+                    // - Link
+                    // ---------------------------------------------------------------------------------------------------- 
+                        link = ''
+                        hasLink = false
+                        if (n.link.text != null) {
+                            hasLink = true
+                            link = n.link.text
+                        }
+
+                    // ----------------------------------------------------------------------------------------------------
+                    // - Details
+                    // ---------------------------------------------------------------------------------------------------- 
+                        details = ''
+                        hasDetails = false
+                        if (n.details != null) {
+                            hasDetails = true
+                            details = n.details
+                        }
+
+                    // ----------------------------------------------------------------------------------------------------
+                    // - Note
+                    // ---------------------------------------------------------------------------------------------------- 
+                        note = ''
+                        hasNote = false
+                        if (n.note != null) {
+                            if (n.note.text != null) {
+                                hasNote = true
+                                note = n.note.html
+                                rNote = rawNote(n.note.html)
+                            }
+                        }
+
+                    // ----------------------------------------------------------------------------------------------------
+                    // - External URI
+                    // ---------------------------------------------------------------------------------------------------- 
+                        xUri = ''
+                        hasXUri = false
+                        if (n.externalObject.uri != null) {
+                            hasXUri = true
+                            xUri = n.externalObject.uri
+                        }
+
+                    // ----------------------------------------------------------------------------------------------------
+                    // - Personal note (Allows to add my notes to the documentation without having it appearing on the final doc. It allows also to disable (hide) nodes (add s-1 for example) from the final doc.)
+                    // ---------------------------------------------------------------------------------------------------- 
+                        if (rText =~ /^(s-1|s0|s1|s2|s3)\s/)
+                            return
+
+                    // ----------------------------------------------------------------------------------------------------
+                    // - If icon is the red x then dont include this node
+                    // ---------------------------------------------------------------------------------------------------- 
+                        iconsText = n.icons.collect{it.toString()}.join(';')
+                        if (iconsText =~ '(^|;)(button_cancel)')
+                            return
+               
+            // ====================================================================================================
+            // = Initialize stuff like counters, depth 
+            // ==================================================================================================== 
+                id = n.id // Used to reference the nodes one to another, and also for the toc
+                aName = '<a name="' + id + '">'
+
+                // Set depth according to the nodes locations
+                    depth = ((n.getNodeLevel(false) + 1) - initialDepth) + 1
+
+                // ----------------------------------------------------------------------------------------------------
+                // - Adjust the depth according to some icons to indicate another depth.
+                // ---------------------------------------------------------------------------------------------------- 
+                    if (iconsText.contains(CHANGE_DEPTH_ICON + '2'))
+                        depth = 2
+                    else if (iconsText.contains(CHANGE_DEPTH_ICON + '3'))
+                        depth = 3
+                    else if (iconsText.contains(CHANGE_DEPTH_ICON + '4'))
+                        depth = 4
+
+                // ----------------------------------------------------------------------------------------------------
+                // - Set indentation
+                // ---------------------------------------------------------------------------------------------------- 
+                    indentSp = TAB_CHR_SP.multiply(depth * TAB) // Add indentation according to the depth level 
+                    if (depth > 4)
+                        indentNbsp = TAB_CHR_NBSP.multiply((depth - 4) * TAB) // Add indentation according to the depth level for the paragraphs, if a node is a child of paragraph it will appear indended under.
+                    else
+                        indentNbsp = ''
+
+                iText = rText
+                cptNode += 1 
 
             // ====================================================================================================
-            // = Details 
+            // = Prepare icons for the current node
             // ==================================================================================================== 
-                if (hasDetails)
-                    //htmlStr += indentSp + '<p style="' + STYLE_DET + '">' + aName + indentNbsp + '<small><i>(' + details + ')</i></small></p>' + EOL
-                    htmlStr += indentSp + indentNbsp + aName + '<small style="' + STYLE_DET + '"><i>(' + details + ')</i></small><br>' + EOL
+
+                // ----------------------------------------------------------------------------------------------------
+                // Put them all side by side in this iconsHtml string
+                // ---------------------------------------------------------------------------------------------------- 
+                    iconsHtml = ''
+                    def iconPath = ''
+                    def iconName = ''
+                    n.icons.each {
+                        iconName = it.toString().tokenize('/').last() // Get the last part of the icon name because it may contain some of the path.
+                        if (!iconName.contains(CHANGE_DEPTH_ICON)) { // Ignore the icons that are the icons used to change the depth.
+                            iconPath = iconsMap.get(iconName)?.value
+                            // d(it.toString() + ' : ' + iconName + ' -> ' + iconPath)
+                            // Find the icon in the map and return its path.
+                                iconsHtml += ('<img src="' + iconPath + '" width="12" height="12" />')
+                        }
+                    }
 
             // ====================================================================================================
-            // = Add the attributes as a table if any
+            // = Header nodes 
             // ==================================================================================================== 
-                // s0 Try to add spaces before the tables... it doesn't work if I just add indentNbsp http://stackoverflow.com/questions/29046021/apply-space-character-before-table-in-html
-                if (n.attributes.size() > 0) {
-                    def tableStr = indentSp + '<table style="' + STYLE_ATTR_TAB + '">' + EOL
-                    // Loop the attributes and create a row with 2 cells for each
-                        n.attributes.names.eachWithIndex { attributeName, attributeIndex ->
-                            attributeValue = n.attributes.get(attributeIndex)
-                            tableStr += indentSp + '<tr>' + EOL
-                            tableStr += indentSp + '<td style="' + STYLE_ATTR_CELL + '">' + attributeName + '</td>' + EOL
-                            tableStr += indentSp + '<td style="' + STYLE_ATTR_CELL + '">' + attributeValue + '</td>' + EOL
-                            tableStr += indentSp + '</tr>' + EOL
-                        }
-                    tableStr += indentSp + '</table><br>' + EOL
-                    htmlStr += tableStr
-                }
 
-        if (LARGE_MAP_USE_FILE) {
-            htmlFileTmp.append(htmlStr, 'utf-8') // Append the chunck to the temp file.
-            htmlStr = '' // Reset the string for the next chunk appended.
-        }
-    } // End - c.findAll().each...
+                // ----------------------------------------------------------------------------------------------------
+                // - H1
+                // ---------------------------------------------------------------------------------------------------- 
+                    if (depth == 1) { // Root node
+                        if (!SHOW_TITLE) // Don't show the title
+                            return
+                        sTag = EOL + indentSp + '<h1>' + aName
+                        eTag = '</h1>' + EOL
+                    }
+
+                // ----------------------------------------------------------------------------------------------------
+                // - H2
+                // ---------------------------------------------------------------------------------------------------- 
+                    else if (depth == 2) {
+                        if (cptNode == 2) { // If it is the 2nd node, add the table of content placeholder before. It is not added after the first node because there may be detail added after the node 1.
+                            sTag = indentSp + '@@TOC@@'
+                            tocIndent = indentSp
+                        }
+                        if (rText != '') {
+                            if (cptNode == 2) // If it is the second node don't add the '<br>' because it put too many space after the table of content
+                                sTag += EOL + indentSp + SEP2 + '<h2 style="' + STYLE_H2 + '">' + aName
+                            else
+                                sTag += EOL + '<br>' + indentSp + SEP2 + '<h2 style="' + STYLE_H2 + '">' + aName
+                            eTag = '</h2>' + TOC_BACK_LINK + '<br>'
+                            toc += indentSp + '&#8226; ' + ' <big><a style="' + STYLE_H2 + '" href="#' + id + '">' + rText + '</a></big> ' + iconsHtml + EOL
+                        }
+                    }
+
+                // ----------------------------------------------------------------------------------------------------
+                // - H3
+                // ---------------------------------------------------------------------------------------------------- 
+                    else if (depth == 3) {
+                        if (rText != '') {
+                            sTag = EOL + indentSp + SEP3 + '<h3 style="' + STYLE_H3 + '">' + aName
+                            eTag = '</h3>' + EOL
+                            toc += indentSp + '&#9675; ' + ' <a style="' + STYLE_H3 + '" href="#' + id + '">' + rText + '</a> ' + iconsHtml + EOL
+                        }
+                    }
+
+                // ----------------------------------------------------------------------------------------------------
+                // - H4
+                // ---------------------------------------------------------------------------------------------------- 
+                    else if (depth == 4) {
+                        if (rText != '') {
+                            sTag = EOL + indentSp + SEP4 + '<h4 style="' + STYLE_H4 + '" style="' + STYLE_H4 + '">' + aName
+                            eTag = '</h4>' + EOL
+                            //toc += indentSp + '&#183; <i><small><a style="' + STYLE_H4 + '" href="#' + id + '">' + rText + '</a></small></i>' + EOL
+                            toc += indentSp + '&#183; ' + ' <i><small><a style="' + STYLE_H4 + '" href="#' + id + '">' + rText + '</a></small></i> ' + iconsHtml + EOL
+                        }
+                    }
+
+            // ====================================================================================================
+            // = Not H1, H2, ..., so determine the type of node it is. The elements below cannot be added at the H1 level for example, there cannot be an image as H1. 
+            // ==================================================================================================== 
+                else {
+
+                    // ----------------------------------------------------------------------------------------------------
+                    // - Image inserted (displayed in the map)
+                    // ---------------------------------------------------------------------------------------------------- 
+                        if (hasXUri) {
+                            p = ''
+                            if (rText != '')
+                                p = '<p>' + indentNbsp + text + '</p>' + EOL
+                            sTag = indentSp + p + indentNbsp + '<img src="' + xUri + '" alt="' + rText + '" style="' + STYLE_IMG + '"/>' + aName
+                            eTag = '<br>' + EOL
+                            iText = ''
+                            }
+
+                    // ----------------------------------------------------------------------------------------------------
+                    // - Nodes that have no links and no notes
+                    // ---------------------------------------------------------------------------------------------------- 
+                        else if (!hasLink && !hasNote) {
+                            // List element
+                                if (rText.take(2) == '* ') {
+                                    sTag = indentSp + '<li>' + aName
+                                    eTag = '</li>' + EOL
+                                    iText = rText.substring(2) // Remove 2 first chars '* ' 
+                                }
+                            // Paragraph
+                                else {
+                                    sTag = indentSp + '<p>' + aName + indentNbsp
+                                    eTag = '</p>' + EOL
+                                }
+                        }
+
+                    // ----------------------------------------------------------------------------------------------------
+                    // - Nodes that are only links
+                    // ---------------------------------------------------------------------------------------------------- 
+                        else if (hasLink && !hasNote) {
+                            // Insert the file in the document in a gray box (for the following file types) (add file types if necessary)
+                                if (link =~ /(txt|log|sh|groovy|vim|ini)$/) {
+                                    link = link.replace('file://', '')
+                                    link = link.replace('file:/', '')
+                                    file = new File(link)
+                                    if (file.exists())
+                                        iText = file.getText('UTF-8')
+                                    else
+                                        iText = "File '" + link + "' doesn't exist."
+                                    sTag = indentSp + S_BOX + aName
+                                    eTag = EOL + indentSp + E_BOX
+                                }
+                            // Show as image
+                                else if (link =~ /(png|jpg)$/) {
+                                    sTag = indentSp + indentNbsp + '<img src="' + link + '" alt="' + rText + '" style="' + STYLE_IMG + '"/>' + aName
+                                    eTag = '<br>' + EOL
+                                    iText = ''
+                                }
+                            // Freeplane link
+                                else if (link =~ /mm#ID_/) {
+                                    linkId = (link =~ /#(ID_.*)/)[0][1] // Extract ID_<NUMBER> part from the link
+                                    sTag = indentSp + aName + indentNbsp + '<a href="#' + linkId + '">'
+                                    eTag = '</a><br>' + EOL
+                                }
+                            // Just add the link to the file
+                                else { 
+                                    sTag = indentSp + aName + indentNbsp + '<a href="' + link + '">'
+                                    eTag = '</a><br>' + EOL
+                                }
+                            }
+                    // ----------------------------------------------------------------------------------------------------
+                    // - Nodes that are notes (Notes node have to have core text, just put something that describe the node but it will not be displayed).
+                    // ---------------------------------------------------------------------------------------------------- 
+                        else if (hasNote && !hasLink) {
+                            sTag = indentSp + S_BOX + aName
+                            eTag = E_BOX
+                            iText = rNote
+                        }
+                } // End - else { // Determine the type of node it is
+
+                // Once the tags and the text have being determined and set, add them to the document string.
+                    if (sTag != '' || eTag != '') {
+                        if (iconsHtml != '')
+                            iconsHtml += ' '
+                        htmlStr += sTag + iconsHtml + iText + eTag
+                    }
+
+                // ====================================================================================================
+                // = Details 
+                // ==================================================================================================== 
+                    if (hasDetails)
+                        //htmlStr += indentSp + '<p style="' + STYLE_DET + '">' + aName + indentNbsp + '<small><i>(' + details + ')</i></small></p>' + EOL
+                        htmlStr += indentSp + indentNbsp + aName + '<small style="' + STYLE_DET + '"><i>(' + details + ')</i></small><br>' + EOL
+
+                // ====================================================================================================
+                // = Add the attributes as a table if any
+                // ==================================================================================================== 
+                    // s0 Try to add spaces before the tables... it doesn't work if I just add indentNbsp http://stackoverflow.com/questions/29046021/apply-space-character-before-table-in-html
+                    if (n.attributes.size() > 0) {
+                        def tableStr = indentSp + '<table style="' + STYLE_ATTR_TAB + '">' + EOL
+                        // Loop the attributes and create a row with 2 cells for each
+                            n.attributes.names.eachWithIndex { attributeName, attributeIndex ->
+                                attributeValue = n.attributes.get(attributeIndex)
+                                tableStr += indentSp + '<tr>' + EOL
+                                tableStr += indentSp + '<td style="' + STYLE_ATTR_CELL + '">' + attributeName + '</td>' + EOL
+                                tableStr += indentSp + '<td style="' + STYLE_ATTR_CELL + '">' + attributeValue + '</td>' + EOL
+                                tableStr += indentSp + '</tr>' + EOL
+                            }
+                        tableStr += indentSp + '</table><br>' + EOL
+                        htmlStr += tableStr
+                    }
+
+            if (LARGE_MAP_USE_FILE) {
+                htmlFileTmp.append(htmlStr, 'utf-8') // Append the chunck to the temp file.
+                htmlStr = '' // Reset the string for the next chunk appended.
+            }
+        } // End - c.findAll().each...
 
     // ====================================================================================================
     // = Create/update the html file
