@@ -1,6 +1,6 @@
 <map version="freeplane 1.6.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1508074252620"><richcontent TYPE="DETAILS">
+<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1508142322835"><richcontent TYPE="DETAILS">
 
 <html>
   <head>
@@ -8,7 +8,7 @@
   </head>
   <body>
     <p>
-      Version: 2017-10-15_16.30.52
+      Version: 2017-10-16_11.24.52
     </p>
   </body>
 </html>
@@ -128,7 +128,8 @@
 <hook NAME="accessories/plugins/AutomaticLayout.properties" VALUE="ALL"/>
 <node TEXT="Introduction" POSITION="right" ID="ID_566377176" CREATED="1497111225374" MODIFIED="1499439933595">
 <edge COLOR="#808080"/>
-<node TEXT="What is it?" ID="ID_1808926678" CREATED="1497111702297" MODIFIED="1497111706820">
+<node TEXT="What is it?" ID="ID_1808926678" CREATED="1497111702297" MODIFIED="1508139732946">
+<icon BUILTIN="info"/>
 <node TEXT="" ID="ID_1488609538" CREATED="1497111708022" MODIFIED="1497111708022">
 <node ID="ID_1464493212" CREATED="1497111709652" MODIFIED="1497111740978"><richcontent TYPE="NODE">
 
@@ -151,7 +152,9 @@
 <node TEXT="Once you copied the script to your Freeplane scripts folder and restarted Freeplane, just run the script while this map is in focus in freeplane, then a file called c:\temp\out.html will be created that will be the html version of this map, or any other map that you created and run the script on. It works on any map, but it is better if you keep the structure similar to this one. See the Sections and Structure section below." ID="ID_288990436" CREATED="1497111802087" MODIFIED="1497111917396"/>
 </node>
 </node>
-<node TEXT="Quick and easy basic documentation" ID="ID_411145636" CREATED="1497111244683" MODIFIED="1497112663490">
+<node TEXT="Quick and easy basic documentation" ID="ID_411145636" CREATED="1497111244683" MODIFIED="1508139817192">
+<icon BUILTIN="PalmIcons/aOffice/Folders/Books"/>
+<icon BUILTIN="PalmIcons/aOffice/Misc/Hourglass"/>
 <node TEXT="" ID="ID_603809610" CREATED="1497111289402" MODIFIED="1497111289402">
 <node TEXT="One problem with creating documents with Word is that it is not very easy as in Freeplane to shuffle sections around and restructure the documents. This is actually the main reason I use Freeplane, because it is easy to restructure things, but there are also many other reasons like searching and linking." ID="ID_570876380" CREATED="1497111489479" MODIFIED="1497111581849">
 <node TEXT="Sections and structure" ID="ID_1939097856" CREATED="1497111921920" MODIFIED="1497111921921" LINK="file:/D:/Work/MindMaps/Doc/MapToHtmlDocDemoMap.mm#ID_832412206"/>
@@ -159,7 +162,8 @@
 <node TEXT="I wanted to be able to create documents using Freeplane and just moves blocs of nodes arount to restructure my documents easily." ID="ID_995873642" CREATED="1497111289766" MODIFIED="1497111371358"/>
 </node>
 </node>
-<node TEXT="Compose documents from existing nodes" ID="ID_601793243" CREATED="1497111464701" MODIFIED="1497111968976">
+<node TEXT="Compose documents from existing nodes" ID="ID_601793243" CREATED="1497111464701" MODIFIED="1508139864757">
+<icon BUILTIN="pencil"/>
 <node TEXT="" ID="ID_1148351141" CREATED="1497111611331" MODIFIED="1497111611331">
 <node TEXT="It is easy to compose a document using text and images and links that are stored in other maps, just by copying them into the document map." ID="ID_65028233" CREATED="1497111612365" MODIFIED="1497111651900"/>
 <node TEXT="Also someone may want to keep the structure of maps like this map for example so that it can be converted to html later if needed." ID="ID_950856550" CREATED="1497111652250" MODIFIED="1497111699946"/>
@@ -180,7 +184,7 @@
 </node>
 <node TEXT="Features" POSITION="right" ID="ID_998844426" CREATED="1497029381635" MODIFIED="1508071999447">
 <edge COLOR="#808080"/>
-<node TEXT="Sections and structure" ID="ID_832412206" CREATED="1497109568309" MODIFIED="1497110394449">
+<node TEXT="Sections and structure" ID="ID_832412206" CREATED="1497109568309" MODIFIED="1508138032707">
 <node TEXT="Auto creation of sections" ID="ID_1270706494" CREATED="1497110129463" MODIFIED="1497110146034">
 <node ID="ID_317161472" CREATED="1497110159233" MODIFIED="1497110250318"><richcontent TYPE="NODE">
 
@@ -225,7 +229,7 @@
 <node TEXT="Try moving sections around, to one branch then to another, running the script and refreshing the html page, and see the html structure follow the changes." ID="ID_215647132" CREATED="1497112386037" MODIFIED="1497112452665"/>
 </node>
 </node>
-<node TEXT="Node properties" ID="ID_224771795" CREATED="1497029381635" MODIFIED="1497108137666">
+<node TEXT="Node properties" ID="ID_224771795" CREATED="1497029381635" MODIFIED="1508138034225">
 <node TEXT="Links" ID="ID_1056115359" CREATED="1497029381635" MODIFIED="1497106628408">
 <node ID="ID_325032601" CREATED="1497029600618" MODIFIED="1497108881265"><richcontent TYPE="NODE">
 
@@ -295,7 +299,7 @@
 <node TEXT="Windows" ID="ID_756047969" CREATED="1497106587701" MODIFIED="1497106587701" LINK="file:/C:/Windows/"/>
 </node>
 </node>
-<node TEXT="Node details" ID="ID_233445031" CREATED="1497107024512" MODIFIED="1497107029316">
+<node TEXT="Node details" ID="ID_233445031" CREATED="1497107024512" MODIFIED="1508140309302">
 <node TEXT="This node has details" ID="ID_382894597" CREATED="1497107030112" MODIFIED="1497107043134"><richcontent TYPE="DETAILS">
 
 <html>
@@ -344,7 +348,7 @@
 </html>
 </richcontent>
 </node>
-<node TEXT="If a node is a link for example and has a note, the note content will not be inserted." ID="ID_905083844" CREATED="1497110582938" MODIFIED="1497110614524">
+<node TEXT="If a node is a link for example and has a note, the note content will not be inserted." ID="ID_905083844" CREATED="1497110582938" MODIFIED="1508138055872">
 <node TEXT="Test link" ID="ID_1324567726" CREATED="1497110645745" MODIFIED="1497110670031" LINK="https://sourceforge.net/projects/freeplane/"><richcontent TYPE="NOTE">
 
 <html>
@@ -359,6 +363,24 @@
 </html>
 </richcontent>
 </node>
+</node>
+</node>
+</node>
+<node TEXT="Formating" ID="ID_1559534251" CREATED="1497108253313" MODIFIED="1508073166077">
+<node TEXT="Color and size" ID="ID_1929185392" CREATED="1497108255963" MODIFIED="1497108260420">
+<node ID="ID_1026255183" CREATED="1497108261741" MODIFIED="1497109556664"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      <font size="6">The </font><b><font size="6" color="#ff0000" face="Snap ITC">color</font></b><font size="6">&#160;and </font><font size="6" color="#0000ff" face="Vijaya">size</font><font size="6">&#160;<u>are retained</u>&#160;</font><i><font size="3">as it is in the map</font></i><font size="6">.</font>
+    </p>
+  </body>
+</html>
+</richcontent>
 </node>
 </node>
 </node>
@@ -406,30 +428,16 @@
 <node TEXT="* Dark-3" ID="ID_1188948088" CREATED="1508074008231" MODIFIED="1508074114434"/>
 <node TEXT="* Dark-4" ID="ID_673194661" CREATED="1508074008971" MODIFIED="1508074118008"/>
 </node>
-</node>
-</node>
-<node TEXT="Formating" ID="ID_1559534251" CREATED="1497108253313" MODIFIED="1508073166077">
-<node TEXT="Color and size" ID="ID_1929185392" CREATED="1497108255963" MODIFIED="1497108260420">
-<node ID="ID_1026255183" CREATED="1497108261741" MODIFIED="1497109556664"><richcontent TYPE="NODE">
-
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      <font size="6">The </font><b><font size="6" color="#ff0000" face="Snap ITC">color</font></b><font size="6">&#160;and </font><font size="6" color="#0000ff" face="Vijaya">size</font><font size="6">&#160;<u>are retained</u>&#160;</font><i><font size="3">as it is in the map</font></i><font size="6">.</font>
-    </p>
-  </body>
-</html>
-</richcontent>
+<node TEXT="This node will be changed a level 3 node (H3) because it has the icon with a number 3." ID="ID_371800472" CREATED="1508138195101" MODIFIED="1508139652364">
+<icon BUILTIN="PalmIcons/cSeries/NumbersDark/Dark-3-"/>
 </node>
 </node>
 </node>
 </node>
-<node TEXT="More features" POSITION="right" ID="ID_106028219" CREATED="1497029381635" MODIFIED="1507668047701">
+<node TEXT="More features" POSITION="right" ID="ID_106028219" CREATED="1497029381635" MODIFIED="1508138066709">
 <edge COLOR="#808080"/>
-<node TEXT="Images" ID="ID_34785326" CREATED="1497029381635" MODIFIED="1497108400598">
+<node TEXT="Images" ID="ID_34785326" CREATED="1497029381635" MODIFIED="1508142040129">
+<icon BUILTIN="PalmIcons/dFileMan/Image/Image-file"/>
 <node TEXT="2 types of image insertion" ID="ID_336707127" CREATED="1497029381635" MODIFIED="1497108411475">
 <node ID="ID_1071338087" CREATED="1497029825254" MODIFIED="1497108576998"><richcontent TYPE="NODE">
 
@@ -492,7 +500,21 @@
 </node>
 </node>
 </node>
-<node TEXT="Attributes" ID="ID_1127853689" CREATED="1497197384853" MODIFIED="1497197388298">
+<node TEXT="Icons" ID="ID_1373311502" CREATED="1508139904515" MODIFIED="1508141639275">
+<icon BUILTIN="group"/>
+<node TEXT="Icons are partially supported" ID="ID_933116811" CREATED="1508139907780" MODIFIED="1508141985414">
+<node TEXT="Icons are shown in the table of content and in the content of the document. If there are multiple icons on a node, all the icons will be shown." ID="ID_828839388" CREATED="1508139914134" MODIFIED="1508139953131"/>
+<node TEXT="Icons are automatically resized, so large icons and small icons will have the same size, by default 12 pixels by 12 pixels." ID="ID_643855794" CREATED="1508140121957" MODIFIED="1508140169234"/>
+<node TEXT="The path to the icons path is set using the constant ICONS_PATH. On Windows for Freeplane version 1.6.x and non-portable the path should be fine by default. For other types of installations the path should be changed using that constant." ID="ID_54696375" CREATED="1508140335235" MODIFIED="1508140445481"/>
+<node TEXT="For some reason some icons like the bee icon (small), has a different name when read from script (bee.svg from bundle), than from the icons selector (Freeplane), so for this icons for example cannot be inserted. This icon is not located in the icons folder and its subfolders. I will try to resolve that later. That is why I say that they are partially supported." ID="ID_626597562" CREATED="1508141486497" MODIFIED="1508142103000">
+<icon BUILTIN="smiley-oh"/>
+</node>
+</node>
+<node TEXT="Reserved icons" ID="ID_618422947" CREATED="1508141800964" MODIFIED="1508141811067">
+<node TEXT="Some icons are use to accomplish some features so they will not be displayed if used and may modify the rendering of the html. These icons are the red X, the impass sign, and the numbers 2 to 4 inclusively with a blue-green background." ID="ID_923298642" CREATED="1508141812186" MODIFIED="1508141919991"/>
+</node>
+</node>
+<node TEXT="Attributes" ID="ID_1127853689" CREATED="1497197384853" MODIFIED="1508138064099">
 <node TEXT="Attributes are rendered as html tables" ID="ID_1163312747" CREATED="1497197389392" MODIFIED="1497197409246">
 <node TEXT="This is a table with attributes" ID="ID_19088320" CREATED="1497197412404" MODIFIED="1497350041511">
 <attribute_layout NAME_WIDTH="81.74999756366022 pt" VALUE_WIDTH="146.2499956414105 pt"/>
@@ -744,9 +766,13 @@
 </richcontent>
 <node TEXT="Added the possibility of changing node levels by adding a specific icon with a number to the node." ID="ID_616869992" CREATED="1508074279089" MODIFIED="1508074325409"/>
 </node>
+<node TEXT="Version: 2017-10-16_11.24.52" ID="ID_278235010" CREATED="1508142289596" MODIFIED="1508142293486">
+<node TEXT="Added partial icons support." ID="ID_192754019" CREATED="1508142295376" MODIFIED="1508142310818"/>
 </node>
 </node>
-<node TEXT="I hope you&apos;ll find it useful too" POSITION="right" ID="ID_495374163" CREATED="1497112090702" MODIFIED="1497112363928">
+</node>
+<node TEXT="I hope you&apos;ll find it useful too" POSITION="right" ID="ID_495374163" CREATED="1497112090702" MODIFIED="1508142077622">
+<icon BUILTIN="ksmiletris"/>
 <edge COLOR="#808080"/>
 <node TEXT="" ID="ID_716371057" CREATED="1497112137307" MODIFIED="1497112137307">
 <node TEXT="" ID="ID_519608694" CREATED="1497112136062" MODIFIED="1497112136062">
@@ -787,6 +813,25 @@
 </html>
 </richcontent>
 <cloud COLOR="#ffffcc" SHAPE="ARC"/>
+<node ID="ID_757933509" CREATED="1508096475993" MODIFIED="1508096484199"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s0 Some blue titles have 2 times the spacing after the table of contents link, try to find why
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="s0 Maybe get plainText or getRawText instead of my own function to get raw text." ID="ID_695176146" CREATED="1508094008095" MODIFIED="1508094030656">
+<node TEXT="s0 Also maybe use the freeplane logging function instead of my own debug function." ID="ID_204257375" CREATED="1508094151038" MODIFIED="1508094172707"/>
+<node TEXT="s0 There are also functions to get text from html... so maybe this instead of rawNote...?" ID="ID_1506095464" CREATED="1508094076529" MODIFIED="1508094104909"/>
+</node>
 <node ID="ID_16701693" CREATED="1507919916831" MODIFIED="1507919953466"><richcontent TYPE="NODE">
 
 <html>
