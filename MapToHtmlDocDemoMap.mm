@@ -1,6 +1,6 @@
 <map version="freeplane 1.6.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1508142322835"><richcontent TYPE="DETAILS">
+<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1508225417563"><richcontent TYPE="DETAILS">
 
 <html>
   <head>
@@ -8,13 +8,13 @@
   </head>
   <body>
     <p>
-      Version: 2017-10-16_11.24.52
+      Version: 2017-10-17_10.30.17
     </p>
   </body>
 </html>
 
 </richcontent>
-<hook NAME="MapStyle" background="#ffffff" zoom="0.674">
+<hook NAME="MapStyle" background="#ffffff" zoom="0.897">
     <conditional_styles>
         <conditional_style ACTIVE="true" STYLE_REF="s-1: Abandonned" LAST="false">
             <node_contains_condition VALUE="s-1" ITEM="filter_node" MATCH_APPROXIMATELY="false"/>
@@ -41,7 +41,7 @@
             <node_compare_condition user_name="IGNORE (BAK)" VALUE="BAK" MATCH_CASE="true" MATCH_APPROXIMATELY="false" COMPARATION_RESULT="0" SUCCEED="true" ITEM="filter_node"/>
         </conditional_style>
     </conditional_styles>
-    <properties show_icon_for_attributes="true" fit_to_viewport="false;" show_note_icons="true" edgeColorConfiguration="#808080ff,#808080ff,#808080ff,#808080ff,#808080ff"/>
+    <properties fit_to_viewport="false;" show_icon_for_attributes="true" show_note_icons="true" edgeColorConfiguration="#808080ff,#808080ff,#808080ff,#808080ff,#808080ff"/>
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node" STYLE="oval" UNIFORM_SHAPE="true" VGAP_QUANTITY="24.0 pt">
@@ -330,7 +330,9 @@
 </node>
 </node>
 <node TEXT="Node notes" ID="ID_1049692305" CREATED="1497109628062" MODIFIED="1497109631647">
-<node TEXT="If a node as (only) a note, the node will appear in a gray box." ID="ID_231008527" CREATED="1497109913812" MODIFIED="1497109938808"/>
+<node TEXT="If a node as (only) a note, the node will appear in a gray box." ID="ID_231008527" CREATED="1497109913812" MODIFIED="1508225044439">
+<font NAME="Segoe WP Semibold"/>
+</node>
 <node TEXT="If a map as a note, the node will be displayed in a gray box." ID="ID_1406551923" CREATED="1497109632894" MODIFIED="1497109891113"><richcontent TYPE="NOTE">
 
 <html>
@@ -382,6 +384,21 @@
 </html>
 </richcontent>
 </node>
+<node ID="ID_1657305039" CREATED="1508225233746" MODIFIED="1508225395665"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      But there is a limitation. The color and size are only retained if they are added using the Menu Edit &gt; Node core &gt; <b>Edit node core in dialog</b>&#160;feature. The format is not retained if it is changed using the toolbar or the format panel. I will try to fix that in a next version, for now please use Edit node core in dialog or ctrl+b (for bold) ctrl+r (for red) etc these are working also.
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
 </node>
 </node>
 <node TEXT="Node levels" ID="ID_468582310" CREATED="1497029381635" MODIFIED="1497107945807">
@@ -423,7 +440,7 @@
 </node>
 </node>
 <node TEXT="Change node levels" ID="ID_1566502814" CREATED="1508073908810" MODIFIED="1508073912212">
-<node TEXT="Node level can be enforced by the user by setting specific icons on them. By default these icons will change the level of a node to level 2, 3 and 4 (level 1 is the root node and cannot be set):" ID="ID_1375312217" CREATED="1508073922046" MODIFIED="1508074136139">
+<node TEXT="Node level can be enforced by the user by setting specific icons on them. By default these icons will change the level of a node to level 2, 3 and 4 (level 1 is the root node and cannot be set):" ID="ID_1375312217" CREATED="1508073922046" MODIFIED="1508224742537">
 <node TEXT="* Dark-2" ID="ID_1998908557" CREATED="1508074007242" MODIFIED="1508074109342"/>
 <node TEXT="* Dark-3" ID="ID_1188948088" CREATED="1508074008231" MODIFIED="1508074114434"/>
 <node TEXT="* Dark-4" ID="ID_673194661" CREATED="1508074008971" MODIFIED="1508074118008"/>
@@ -729,6 +746,9 @@
 <node TEXT="History" POSITION="right" ID="ID_1784484328" CREATED="1507667504082" MODIFIED="1507667565777">
 <edge COLOR="#808080"/>
 <node TEXT="Documentation" ID="ID_273653473" CREATED="1507667511885" MODIFIED="1507667570837">
+<node TEXT="Version: 2017-10-17_10.30.17" ID="ID_727345545" CREATED="1508225456210" MODIFIED="1508225457563">
+<node TEXT="Added comments about formatting limitations." ID="ID_123343227" CREATED="1508225458084" MODIFIED="1508225467059"/>
+</node>
 <node TEXT="Version: 2017-10-10_23.31.35" ID="ID_725781849" CREATED="1507667517993" MODIFIED="1507667543085">
 <node TEXT="Added the &apos;Freeplane Configuration&apos; section." ID="ID_1275234350" CREATED="1507667554585" MODIFIED="1507667585045"/>
 </node>
@@ -762,7 +782,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="Added the possibility of changing node levels by adding a specific icon with a number to the node." ID="ID_616869992" CREATED="1508074279089" MODIFIED="1508074325409"/>
 </node>
@@ -813,6 +832,11 @@
 </html>
 </richcontent>
 <cloud COLOR="#ffffcc" SHAPE="ARC"/>
+<node TEXT="s0 Make the formatting work also when the format is changed with the format toolbar or the format panel." ID="ID_170672124" CREATED="1508225422304" MODIFIED="1508225446197"/>
+<node TEXT="s0 Add the possibility to have relative paths" ID="ID_1431484756" CREATED="1508222412366" MODIFIED="1508222425546"/>
+<node TEXT="s0 Maybe add images at h1, h2, h3, h4 levels?" ID="ID_686943658" CREATED="1508222426495" MODIFIED="1508222437395"/>
+<node TEXT="s0 For the node-change icon feature, add an icon that would change the node to a node that that is below level 4, so level 5+... so a node at Level 2 could be change to a simple node 5+ for example." ID="ID_804260926" CREATED="1508156757197" MODIFIED="1508156816087"/>
+<node TEXT="s0 Add support for SVG files?" ID="ID_508838701" CREATED="1508156730474" MODIFIED="1508156756510"/>
 <node ID="ID_757933509" CREATED="1508096475993" MODIFIED="1508096484199"><richcontent TYPE="NODE">
 
 <html>
@@ -825,7 +849,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="s0 Maybe get plainText or getRawText instead of my own function to get raw text." ID="ID_695176146" CREATED="1508094008095" MODIFIED="1508094030656">
