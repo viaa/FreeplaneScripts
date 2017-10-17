@@ -14,7 +14,7 @@
 </html>
 
 </richcontent>
-<hook NAME="MapStyle" background="#ffffff" zoom="0.897">
+<hook NAME="MapStyle" background="#ffffff" zoom="0.741">
     <conditional_styles>
         <conditional_style ACTIVE="true" STYLE_REF="s-1: Abandonned" LAST="false">
             <node_contains_condition VALUE="s-1" ITEM="filter_node" MATCH_APPROXIMATELY="false"/>
@@ -169,8 +169,10 @@
 <node TEXT="Also someone may want to keep the structure of maps like this map for example so that it can be converted to html later if needed." ID="ID_950856550" CREATED="1497111652250" MODIFIED="1497111699946"/>
 </node>
 </node>
-<node TEXT="Other usages" ID="ID_1066963525" CREATED="1497119788023" MODIFIED="1497119796600">
-<node TEXT="Outlook Emails" ID="ID_805180690" CREATED="1497119797548" MODIFIED="1497119874657">
+<node TEXT="Other usages" ID="ID_1066963525" CREATED="1497119788023" MODIFIED="1508246343186">
+<icon BUILTIN="PalmIcons/dFileMan/Command/User-form"/>
+<node TEXT="Outlook Emails" ID="ID_805180690" CREATED="1497119797548" MODIFIED="1508246417390">
+<icon BUILTIN="Mail"/>
 <node TEXT="The html created can also for example copy pasted from Chrome (for example) into an outlook email, and the links and images will be preserved. So it allows to compose complex emails in Freeplane with a lot of hyperlinking, sections and content." ID="ID_446817172" CREATED="1497119609464" MODIFIED="1497119680548"/>
 <node TEXT="If you want to copy-paste the html to Outlook, you can use Internet Explorer to view the html and copy the output from there, once pasted the line spacing is better. But with Chrome the links from one node to another are kept and they worked from the Outlook Email so better to use Chrome." ID="ID_317163407" CREATED="1498550963252" MODIFIED="1498558614954"/>
 </node>
@@ -182,7 +184,8 @@
 </node>
 </node>
 </node>
-<node TEXT="Features" POSITION="right" ID="ID_998844426" CREATED="1497029381635" MODIFIED="1508071999447">
+<node TEXT="Features" POSITION="right" ID="ID_998844426" CREATED="1497029381635" MODIFIED="1508246742902">
+<icon BUILTIN="idea"/>
 <edge COLOR="#808080"/>
 <node TEXT="Sections and structure" ID="ID_832412206" CREATED="1497109568309" MODIFIED="1508138032707">
 <node TEXT="Auto creation of sections" ID="ID_1270706494" CREATED="1497110129463" MODIFIED="1497110146034">
@@ -368,7 +371,8 @@
 </node>
 </node>
 </node>
-<node TEXT="Formating" ID="ID_1559534251" CREATED="1497108253313" MODIFIED="1508073166077">
+<node TEXT="Formating" ID="ID_1559534251" CREATED="1497108253313" MODIFIED="1508245958215">
+<icon BUILTIN="PalmIcons/dFileMan/Panes/Word-window"/>
 <node TEXT="Color and size" ID="ID_1929185392" CREATED="1497108255963" MODIFIED="1497108260420">
 <node ID="ID_1026255183" CREATED="1497108261741" MODIFIED="1497109556664"><richcontent TYPE="NODE">
 
@@ -401,7 +405,8 @@
 </node>
 </node>
 </node>
-<node TEXT="Node levels" ID="ID_468582310" CREATED="1497029381635" MODIFIED="1497107945807">
+<node TEXT="Node levels" ID="ID_468582310" CREATED="1497029381635" MODIFIED="1508246466116">
+<icon BUILTIN="PalmIcons/dFileMan/Trees/Blue-tree"/>
 <node TEXT="Auto-indentation of child nodes" ID="ID_80948979" CREATED="1497029381635" MODIFIED="1508073892371">
 <node TEXT="Library" ID="ID_555585377" CREATED="1497106856140" MODIFIED="1497106858654">
 <node TEXT="Catalogs" ID="ID_963219391" CREATED="1497106859442" MODIFIED="1497106862470">
@@ -451,7 +456,9 @@
 </node>
 </node>
 </node>
-<node TEXT="More features" POSITION="right" ID="ID_106028219" CREATED="1497029381635" MODIFIED="1508138066709">
+<node TEXT="More features" POSITION="right" ID="ID_106028219" CREATED="1497029381635" MODIFIED="1508246859860">
+<icon BUILTIN="idea"/>
+<icon BUILTIN="PalmIcons/dFileMan/Misc/Spark"/>
 <edge COLOR="#808080"/>
 <node TEXT="Images" ID="ID_34785326" CREATED="1497029381635" MODIFIED="1508142040129">
 <icon BUILTIN="PalmIcons/dFileMan/Image/Image-file"/>
@@ -552,7 +559,9 @@
 </node>
 </node>
 </node>
-<node TEXT="Extra features" POSITION="right" ID="ID_797831984" CREATED="1497108979742" MODIFIED="1497108982493">
+<node TEXT="Extra features" POSITION="right" ID="ID_797831984" CREATED="1497108979742" MODIFIED="1508246942839">
+<icon BUILTIN="idea"/>
+<icon BUILTIN="launch"/>
 <edge COLOR="#808080"/>
 <node TEXT="Ignored sections" ID="ID_1455741693" CREATED="1497109000350" MODIFIED="1497109020774">
 <node TEXT="Why this feature was added?" ID="ID_1664469574" CREATED="1497109125121" MODIFIED="1497112345518">
@@ -691,7 +700,8 @@
 </node>
 </node>
 </node>
-<node TEXT="Configuration" POSITION="right" ID="ID_662083576" CREATED="1507667102285" MODIFIED="1507716387932">
+<node TEXT="Configuration" POSITION="right" ID="ID_662083576" CREATED="1507667102285" MODIFIED="1508246664610">
+<icon BUILTIN="PalmIcons/cSeries/Blue1/Blue-pc"/>
 <edge COLOR="#808080"/>
 <node TEXT="Freeplane preferences" ID="ID_1037169726" CREATED="1507667110409" MODIFIED="1507716393207">
 <node TEXT="Allow script execution" ID="ID_1600618141" CREATED="1507667121107" MODIFIED="1507667203462">
@@ -743,7 +753,8 @@
 </node>
 </node>
 </node>
-<node TEXT="History" POSITION="right" ID="ID_1784484328" CREATED="1507667504082" MODIFIED="1507667565777">
+<node TEXT="History" POSITION="right" ID="ID_1784484328" CREATED="1507667504082" MODIFIED="1508246710686">
+<icon BUILTIN="calendar"/>
 <edge COLOR="#808080"/>
 <node TEXT="Documentation" ID="ID_273653473" CREATED="1507667511885" MODIFIED="1507667570837">
 <node TEXT="Version: 2017-10-17_10.30.17" ID="ID_727345545" CREATED="1508225456210" MODIFIED="1508225457563">
@@ -832,12 +843,13 @@
 </html>
 </richcontent>
 <cloud COLOR="#ffffcc" SHAPE="ARC"/>
+<node TEXT="s0 Add connectors as links with a section with connectors from, and a section connectors to." ID="ID_1322503317" CREATED="1508246506100" MODIFIED="1508246540014"/>
 <node TEXT="s0 Make the formatting work also when the format is changed with the format toolbar or the format panel." ID="ID_170672124" CREATED="1508225422304" MODIFIED="1508225446197"/>
 <node TEXT="s0 Add the possibility to have relative paths" ID="ID_1431484756" CREATED="1508222412366" MODIFIED="1508222425546"/>
 <node TEXT="s0 Maybe add images at h1, h2, h3, h4 levels?" ID="ID_686943658" CREATED="1508222426495" MODIFIED="1508222437395"/>
 <node TEXT="s0 For the node-change icon feature, add an icon that would change the node to a node that that is below level 4, so level 5+... so a node at Level 2 could be change to a simple node 5+ for example." ID="ID_804260926" CREATED="1508156757197" MODIFIED="1508156816087"/>
 <node TEXT="s0 Add support for SVG files?" ID="ID_508838701" CREATED="1508156730474" MODIFIED="1508156756510"/>
-<node ID="ID_757933509" CREATED="1508096475993" MODIFIED="1508096484199"><richcontent TYPE="NODE">
+<node ID="ID_757933509" CREATED="1508096475993" MODIFIED="1508236650348"><richcontent TYPE="NODE">
 
 <html>
   <head>
@@ -845,10 +857,11 @@
   </head>
   <body>
     <p>
-      s0 Some blue titles have 2 times the spacing after the table of contents link, try to find why
+      s2 Some blue titles have 2 times the spacing after the table of contents link, try to find why
     </p>
   </body>
 </html>
+
 </richcontent>
 </node>
 <node TEXT="s0 Maybe get plainText or getRawText instead of my own function to get raw text." ID="ID_695176146" CREATED="1508094008095" MODIFIED="1508094030656">
@@ -869,7 +882,21 @@
 </html>
 </richcontent>
 </node>
-<node TEXT="s0 Add some special chars like #, =, - (or icons) to indicate that a node can become a h1, h2 or h3, and also add an additional char (or icons) to tell the script NOT to make the current node a header (h1, h2, h3) but if it contains the special char above then it could become another header... like for example if the current node is at h1 level, and the char = would be placed there it would become a level 2 (for example)." ID="ID_1997008504" CREATED="1507809514788" MODIFIED="1507809660496"/>
+<node ID="ID_1997008504" CREATED="1507809514788" MODIFIED="1508236663414"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s2 Add some special chars like #, =, - (or icons) to indicate that a node can become a h1, h2 or h3, and also add an additional char (or icons) to tell the script NOT to make the current node a header (h1, h2, h3) but if it contains the special char above then it could become another header... like for example if the current node is at h1 level, and the char = would be placed there it would become a level 2 (for example).
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
 <node TEXT="s0 After the &lt;li&gt; tags that have details there is 1 &lt;BR&gt; too much if for example a &lt;h4&gt; is following, then there are like 2 lines of spacing instead of 1. Try to fix that. Maybe use &lt;ul&gt; tags..?" ID="ID_157984181" CREATED="1507758060574" MODIFIED="1507758190449"/>
 <node ID="ID_1997772567" CREATED="1507715785689" MODIFIED="1507758058885"><richcontent TYPE="NODE">
 
