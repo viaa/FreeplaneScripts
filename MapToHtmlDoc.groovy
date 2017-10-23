@@ -67,7 +67,7 @@
         // Global (with @Field available in functions)
 
             // Debug
-                @Field def DEBUG = true 
+                @Field def DEBUG = false 
                 def DEBUG_DIR = 'c:/Temp/'
                 @Field def DEBUG_FILE_PATH
                     DEBUG_FILE_PATH = DEBUG_DIR + 'debug.txt'
@@ -270,7 +270,7 @@
                 if (fileWithoutExt != '') {
                     // Store the file name without extension and directory as the key, and the full path as the value.
                         iconsMap[fileWithoutExt] = file.getAbsolutePath().toString().replace("\\", "/")
-                        d(iconsMap[fileWithoutExt])
+                        //d(iconsMap[fileWithoutExt])
                 }
             }
 
