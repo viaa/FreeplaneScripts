@@ -1,6 +1,6 @@
 <map version="freeplane 1.6.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1508225417563"><richcontent TYPE="DETAILS">
+<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1508778460606"><richcontent TYPE="DETAILS">
 
 <html>
   <head>
@@ -8,13 +8,13 @@
   </head>
   <body>
     <p>
-      Version: 2017-10-17_10.30.17
+      Version: 2017-10-23_20.07.39
     </p>
   </body>
 </html>
 
 </richcontent>
-<hook NAME="MapStyle" background="#ffffff" zoom="0.741">
+<hook NAME="MapStyle" background="#ffffff" zoom="0.815">
     <conditional_styles>
         <conditional_style ACTIVE="true" STYLE_REF="s-1: Abandonned" LAST="false">
             <node_contains_condition VALUE="s-1" ITEM="filter_node" MATCH_APPROXIMATELY="false"/>
@@ -41,7 +41,7 @@
             <node_compare_condition user_name="IGNORE (BAK)" VALUE="BAK" MATCH_CASE="true" MATCH_APPROXIMATELY="false" COMPARATION_RESULT="0" SUCCEED="true" ITEM="filter_node"/>
         </conditional_style>
     </conditional_styles>
-    <properties fit_to_viewport="false;" show_icon_for_attributes="true" show_note_icons="true" edgeColorConfiguration="#808080ff,#808080ff,#808080ff,#808080ff,#808080ff"/>
+    <properties show_icon_for_attributes="true" fit_to_viewport="false;" show_note_icons="true" edgeColorConfiguration="#808080ff,#808080ff,#808080ff,#808080ff,#808080ff"/>
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node" STYLE="oval" UNIFORM_SHAPE="true" VGAP_QUANTITY="24.0 pt">
@@ -124,7 +124,7 @@
 </stylenode>
 </map_styles>
 </hook>
-<hook NAME="AutomaticEdgeColor" COUNTER="162" RULE="ON_BRANCH_CREATION"/>
+<hook NAME="AutomaticEdgeColor" COUNTER="163" RULE="ON_BRANCH_CREATION"/>
 <hook NAME="accessories/plugins/AutomaticLayout.properties" VALUE="ALL"/>
 <node TEXT="Introduction" POSITION="right" ID="ID_566377176" CREATED="1497111225374" MODIFIED="1499439933595">
 <edge COLOR="#808080"/>
@@ -400,7 +400,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -460,6 +459,22 @@
 <icon BUILTIN="idea"/>
 <icon BUILTIN="PalmIcons/dFileMan/Misc/Spark"/>
 <edge COLOR="#808080"/>
+<node TEXT="Formulas" ID="ID_1337234133" CREATED="1508262881443" MODIFIED="1508262885617">
+<node TEXT="Core text" ID="ID_631174457" CREATED="1508262887920" MODIFIED="1508262891665">
+<node TEXT="Formulas specified in the core text of nodes will be evaluated." ID="ID_1738122118" CREATED="1508262893444" MODIFIED="1508262913636"/>
+<node TEXT="The formulas in attributes are not yet supported." ID="ID_1753170571" CREATED="1508262913815" MODIFIED="1508262932108"/>
+<node TEXT="Example 5+5 =" ID="ID_554175573" CREATED="1508331265439" MODIFIED="1508331304106">
+<node TEXT="=5+5" ID="ID_558271090" CREATED="1508262467551" MODIFIED="1508331326099">
+<font BOLD="false"/>
+</node>
+</node>
+</node>
+<node TEXT="Formulas" ID="ID_1473215467" CREATED="1508776574161" MODIFIED="1508776576291">
+<node TEXT="Node with formula as attributes" ID="ID_1547201111" CREATED="1508776580433" MODIFIED="1508776666651">
+<attribute NAME="5 + 6 =" VALUE="= 5 + 6"/>
+</node>
+</node>
+</node>
 <node TEXT="Images" ID="ID_34785326" CREATED="1497029381635" MODIFIED="1508142040129">
 <icon BUILTIN="PalmIcons/dFileMan/Image/Image-file"/>
 <node TEXT="2 types of image insertion" ID="ID_336707127" CREATED="1497029381635" MODIFIED="1497108411475">
@@ -757,9 +772,6 @@
 <icon BUILTIN="calendar"/>
 <edge COLOR="#808080"/>
 <node TEXT="Documentation" ID="ID_273653473" CREATED="1507667511885" MODIFIED="1507667570837">
-<node TEXT="Version: 2017-10-17_10.30.17" ID="ID_727345545" CREATED="1508225456210" MODIFIED="1508225457563">
-<node TEXT="Added comments about formatting limitations." ID="ID_123343227" CREATED="1508225458084" MODIFIED="1508225467059"/>
-</node>
 <node TEXT="Version: 2017-10-10_23.31.35" ID="ID_725781849" CREATED="1507667517993" MODIFIED="1507667543085">
 <node TEXT="Added the &apos;Freeplane Configuration&apos; section." ID="ID_1275234350" CREATED="1507667554585" MODIFIED="1507667585045"/>
 </node>
@@ -798,6 +810,28 @@
 </node>
 <node TEXT="Version: 2017-10-16_11.24.52" ID="ID_278235010" CREATED="1508142289596" MODIFIED="1508142293486">
 <node TEXT="Added partial icons support." ID="ID_192754019" CREATED="1508142295376" MODIFIED="1508142310818"/>
+</node>
+<node TEXT="Version: 2017-10-17_10.30.17" ID="ID_727345545" CREATED="1508225456210" MODIFIED="1508225457563">
+<node TEXT="Added comments about formatting limitations." ID="ID_123343227" CREATED="1508225458084" MODIFIED="1508225467059"/>
+</node>
+<node TEXT="Version: 2017-10-17_20.57.07:" ID="ID_930280637" CREATED="1508263024297" MODIFIED="1508263030343">
+<node TEXT="Added section for formulas in core text." ID="ID_693191358" CREATED="1508263034245" MODIFIED="1508778513834"/>
+</node>
+<node ID="ID_727607978" CREATED="1508778463909" MODIFIED="1508778463909"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Version: 2017-10-23_20.07.39
+    </p>
+  </body>
+</html>
+
+</richcontent>
+<node TEXT="Added section for formulas in attributes." ID="ID_1389419881" CREATED="1508778471113" MODIFIED="1508778518675"/>
 </node>
 </node>
 </node>
@@ -843,6 +877,21 @@
 </html>
 </richcontent>
 <cloud COLOR="#ffffcc" SHAPE="ARC"/>
+<node ID="ID_828298373" CREATED="1508331589816" MODIFIED="1508339871843"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s2 If level 3 is not there (empty) for example, there shouldn't be an extra empty line in the html..
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="s0 Check the numberingEnabled property in the api, maybe the sections could be numbered optionnaly" ID="ID_388254190" CREATED="1508261461420" MODIFIED="1508261496789"/>
 <node TEXT="s0 Add connectors as links with a section with connectors from, and a section connectors to." ID="ID_1322503317" CREATED="1508246506100" MODIFIED="1508246540014"/>
 <node TEXT="s0 Make the formatting work also when the format is changed with the format toolbar or the format panel." ID="ID_170672124" CREATED="1508225422304" MODIFIED="1508225446197"/>
 <node TEXT="s0 Add the possibility to have relative paths" ID="ID_1431484756" CREATED="1508222412366" MODIFIED="1508222425546"/>
@@ -861,7 +910,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="s0 Maybe get plainText or getRawText instead of my own function to get raw text." ID="ID_695176146" CREATED="1508094008095" MODIFIED="1508094030656">
@@ -894,7 +942,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="s0 After the &lt;li&gt; tags that have details there is 1 &lt;BR&gt; too much if for example a &lt;h4&gt; is following, then there are like 2 lines of spacing instead of 1. Try to fix that. Maybe use &lt;ul&gt; tags..?" ID="ID_157984181" CREATED="1507758060574" MODIFIED="1507758190449"/>
