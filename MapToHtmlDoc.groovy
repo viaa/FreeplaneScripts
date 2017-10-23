@@ -3,6 +3,12 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version: 2017-10-23_19.41.21
+            // Added support for formulas in attributes.
+            // Modified the icons so that icons with a null path will not add an image tag with null as the path.
+        // Version: 2017-10-17_20.51.53
+            // Remove a <br> after the link back to the table of contact.
+            // Added support for formulas (in the core text only, not in attributes).
         // Version: 2017-10-16_11.23.21
             // Added partial icons support. Some icons available in Freeplanes are not found in the icons directory and subdirectories so these will not be displayed at the moment but most seems be work.
         // Version: 2017-10-15_16.32.21
@@ -61,7 +67,7 @@
         // Global (with @Field available in functions)
 
             // Debug
-                @Field def DEBUG = false 
+                @Field def DEBUG = true 
                 def DEBUG_DIR = 'c:/Temp/'
                 @Field def DEBUG_FILE_PATH
                     DEBUG_FILE_PATH = DEBUG_DIR + 'debug.txt'
@@ -261,10 +267,11 @@
         // ---------------------------------------------------------------------------------------------------- 
             new File(ICONS_PATH).eachFileRecurse() { file ->
                 String fileWithoutExt = file.name.take(file.name.lastIndexOf('.')) // Get icons name without directory and extension.
-                if (fileWithoutExt != '')
+                if (fileWithoutExt != '') {
                     // Store the file name without extension and directory as the key, and the full path as the value.
-                    iconsMap[fileWithoutExt] = file.getAbsolutePath().toString().replace("\\", "/")
-                    //d(file.getAbsolutePath().toString().replace("\\", "/"))
+                        iconsMap[fileWithoutExt] = file.getAbsolutePath().toString().replace("\\", "/")
+                        d(iconsMap[fileWithoutExt])
+                }
             }
 
 // ####################################################################################################
@@ -286,10 +293,17 @@
                 // = Determine what is in the node
                 // ==================================================================================================== 
 
+                    text = n.text
+
+                    // ----------------------------------------------------------------------------------------------------
+                    // - Formula
+                    // ---------------------------------------------------------------------------------------------------- 
+                        if (text.startsWith('='))
+                            text = n.transformedText
+
                     // ----------------------------------------------------------------------------------------------------
                     // - Text
                     // ---------------------------------------------------------------------------------------------------- 
-                        text = n.text
                         rText = rawText(text, false)
                         hasText = false
                         if (rText != '')
@@ -396,8 +410,7 @@
                         iconName = it.toString().tokenize('/').last() // Get the last part of the icon name because it may contain some of the path.
                         if (!iconName.contains(CHANGE_DEPTH_ICON)) { // Ignore the icons that are the icons used to change the depth.
                             iconPath = iconsMap.get(iconName)?.value
-                            // d(it.toString() + ' : ' + iconName + ' -> ' + iconPath)
-                            // Find the icon in the map and return its path.
+                            if (iconPath != null) // If the path is null, it means that one of the icons in the current node doesn't have a path (file) in the iconsMap collected earlier from scanning the icons folder and subfolders. So that icon would be somewhere else not in these folders.
                                 iconsHtml += ('<img src="' + iconPath + '" width="12" height="12" />')
                         }
                     }
@@ -429,7 +442,7 @@
                                 sTag += EOL + indentSp + SEP2 + '<h2 style="' + STYLE_H2 + '">' + aName
                             else
                                 sTag += EOL + '<br>' + indentSp + SEP2 + '<h2 style="' + STYLE_H2 + '">' + aName
-                            eTag = '</h2>' + TOC_BACK_LINK + '<br>'
+                            eTag = '</h2>' + TOC_BACK_LINK
                             toc += indentSp + '&#8226; ' + ' <big><a style="' + STYLE_H2 + '" href="#' + id + '">' + rText + '</a></big> ' + iconsHtml + EOL
                         }
                     }
@@ -556,8 +569,9 @@
                     if (n.attributes.size() > 0) {
                         def tableStr = indentSp + '<table style="' + STYLE_ATTR_TAB + '">' + EOL
                         // Loop the attributes and create a row with 2 cells for each
-                            n.attributes.names.eachWithIndex { attributeName, attributeIndex ->
-                                attributeValue = n.attributes.get(attributeIndex)
+                            n.attributes.names.each { attributeName ->
+                                //attributeValue = n.attributes.get(attributeIndex)
+                                attributeValue = n[attributeName]
                                 tableStr += indentSp + '<tr>' + EOL
                                 tableStr += indentSp + '<td style="' + STYLE_ATTR_CELL + '">' + attributeName + '</td>' + EOL
                                 tableStr += indentSp + '<td style="' + STYLE_ATTR_CELL + '">' + attributeValue + '</td>' + EOL
@@ -605,10 +619,10 @@
         // If memory (string) was used to keep the document
             else { 
                 // Add the table of contents
-                    if (SHOW_TOC)
-                        htmlStr = htmlStr.replace('@@TOC@@', S_TOC + toc + tocIndent + E_TOC) 
-                    else
-                        htmlStr = htmlStr.replace('@@TOC@@', '') 
+                if (SHOW_TOC)
+                    htmlStr = htmlStr.replace('@@TOC@@', S_TOC + toc + tocIndent + E_TOC) 
+                else
+                    htmlStr = htmlStr.replace('@@TOC@@', '') 
                 htmlFile.write(htmlStr, 'utf-8')
             }
 
