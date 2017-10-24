@@ -1,6 +1,6 @@
 <map version="freeplane 1.6.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1508778460606"><richcontent TYPE="DETAILS">
+<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1508885737003"><richcontent TYPE="DETAILS">
 
 <html>
   <head>
@@ -8,7 +8,7 @@
   </head>
   <body>
     <p>
-      Version: 2017-10-23_20.07.39
+      Version: 2017-10-25_01.55.36
     </p>
   </body>
 </html>
@@ -459,7 +459,7 @@
 <icon BUILTIN="idea"/>
 <icon BUILTIN="PalmIcons/dFileMan/Misc/Spark"/>
 <edge COLOR="#808080"/>
-<node TEXT="Formulas" ID="ID_1337234133" CREATED="1508262881443" MODIFIED="1508262885617">
+<node TEXT="Formulas" ID="ID_1337234133" CREATED="1508262881443" MODIFIED="1508883208235">
 <node TEXT="Core text" ID="ID_631174457" CREATED="1508262887920" MODIFIED="1508262891665">
 <node TEXT="Formulas specified in the core text of nodes will be evaluated." ID="ID_1738122118" CREATED="1508262893444" MODIFIED="1508262913636"/>
 <node TEXT="The formulas in attributes are not yet supported." ID="ID_1753170571" CREATED="1508262913815" MODIFIED="1508262932108"/>
@@ -470,8 +470,61 @@
 </node>
 </node>
 <node TEXT="Formulas" ID="ID_1473215467" CREATED="1508776574161" MODIFIED="1508776576291">
-<node TEXT="Node with formula as attributes" ID="ID_1547201111" CREATED="1508776580433" MODIFIED="1508776666651">
+<node TEXT="Node with formula as attributes:" ID="ID_1547201111" CREATED="1508776580433" MODIFIED="1508838234189">
 <attribute NAME="5 + 6 =" VALUE="= 5 + 6"/>
+</node>
+</node>
+</node>
+<node TEXT="Latex" ID="ID_750584323" CREATED="1508882619219" MODIFIED="1508883209183">
+<node TEXT="Core text" ID="ID_778374416" CREATED="1508882630774" MODIFIED="1508882633138">
+<node TEXT="\latex $\int_0^\infty e^{-x^2} dx=\frac{\sqrt{\pi}}{2}$" ID="ID_1146191452" CREATED="1508868564592" MODIFIED="1508886159120" STYLE="oval">
+<font SIZE="18"/>
+<richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      If this latex formula is not rendered it is because the JLatexMath library is not installed and the script is not configured. Read this section for more details.
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="For now it is only a basic support in the sense that the script will simply take the first latex formula it finds (the text between the first $...$) and will create a image file for it and link it like an embedded image." ID="ID_273715888" CREATED="1508885941280" MODIFIED="1508886073357"/>
+</node>
+<node TEXT="Library required" ID="ID_789196711" CREATED="1508882964820" MODIFIED="1508885551884">
+<node ID="ID_1931079163" CREATED="1508882967122" MODIFIED="1508884724551"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Copy <u>C:\Program Files\Freeplane\plugins\org.freeplane.plugin.latex\lib\jlatexmath-1.0.6.jar</u>&#160; to <u>C:\Users\%USERNAME%\AppData\Roaming\Freeplane\1.5.x\lib</u>&#160;&#160;and in the Freeplane Preferences in the Plugins tab, add that path to the &quot;<b>Script classpath: Additional directories containing classes and/or JARs (see tooltip)</b>&quot; field. Restart Freeplane after that so it will load the libraries to be used by Groovy).
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node ID="ID_1382656799" CREATED="1508885555382" MODIFIED="1508885684662"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      By default the code to execute the latex formulas is commented out. Search in the script for &quot;<font color="#ff0000">BEGIN - LATEX</font>&quot; and uncomment the code between it and &quot;<font color="#ff0000">END - LATEX</font>&quot;. There are 2 such section to uncomment, the imports and the code to create the latex image files.
+    </p>
+  </body>
+</html>
+
+</richcontent>
 </node>
 </node>
 </node>
@@ -829,9 +882,24 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="Added section for formulas in attributes." ID="ID_1389419881" CREATED="1508778471113" MODIFIED="1508778518675"/>
+</node>
+<node ID="ID_1956412856" CREATED="1508885742688" MODIFIED="1508885742688"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Version: 2017-10-25_01.55.36
+    </p>
+  </body>
+</html>
+
+</richcontent>
+<node TEXT="Added section about latex support." ID="ID_130037155" CREATED="1508885746528" MODIFIED="1508885756522"/>
 </node>
 </node>
 </node>
@@ -1395,7 +1463,7 @@
 <node TEXT="s0 Add AMT logs and maybe eventually central and pam logs?" ID="ID_1594451373" CREATED="1502714521215" MODIFIED="1507028507804"/>
 </node>
 <node TEXT="MAMDoc" ID="ID_320449551" CREATED="1502874369049" MODIFIED="1502874373243">
-<node ID="ID_398035361" CREATED="1497203378676" MODIFIED="1497203389323"><richcontent TYPE="NODE">
+<node ID="ID_398035361" CREATED="1497203378676" MODIFIED="1508779361865"><richcontent TYPE="NODE">
 
 <html>
   <head>
@@ -1403,7 +1471,7 @@
   </head>
   <body>
     <p>
-      s0 1) formulas are kept as formulas and not as values
+      s2 1) formulas are kept as formulas and not as values
     </p>
   </body>
 </html>
