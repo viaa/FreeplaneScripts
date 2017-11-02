@@ -3,6 +3,10 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version 2017-11-02_15.04.12
+            // Added 'file://' to the img tag paths.
+        // Version 2017-11-02_11.11.06
+            // Added the copy of the output html document to a document with the name of the map. This will allow to export multiple documents and link them together.
         // Version 2017-10-25_01.08.34 
             // Added basic support for Latex formulas in core text.
         // Version: 2017-10-23_19.41.21
@@ -67,6 +71,9 @@
             /* import org.scilab.forge.jlatexmath.TeXIcon */ 
             /* import org.scilab.forge.jlatexmath.TeXConstants */
         // END - LATEX
+
+    // For file copy
+        import org.apache.commons.io.FileUtils
 
 // ####################################################################################################
 // # Constants and variables
@@ -439,7 +446,7 @@
                         if (!iconName.contains(CHANGE_DEPTH_ICON)) { // Ignore the icons that are the icons used to change the depth.
                             iconPath = iconsMap.get(iconName)?.value
                             if (iconPath != null) // If the path is null, it means that one of the icons in the current node doesn't have a path (file) in the iconsMap collected earlier from scanning the icons folder and subfolders. So that icon would be somewhere else not in these folders.
-                                iconsHtml += ('<img src="' + iconPath + '" width="12" height="12" />')
+                                iconsHtml += ('<img src="file://' + iconPath + '" width="12" height="12" />')
                         }
                     }
 
@@ -464,7 +471,7 @@
                     /*         jl = new JLabel(); */
                     /*         icon.paintIcon(jl, image.getGraphics(), 0, 0); */
                     /*     // Write the latex image to disk */
-                    /*         latexPng = OUT_DIR + n.id + ".png" */
+                    /*         latexPng = OUT_DIR + id + ".png" */
                     /*         File outputfile = new File(latexPng); */
                     /*         ImageIO.write(image, "png", outputfile); */
                     /*     // Set the link to the image created so it is treated as if the node had a link to a png */
@@ -672,7 +679,7 @@
                     }
                 // Delete the temp file
                     htmlFileTmp.delete()
-                    
+
             }
         // If memory (string) was used to keep the document
             else { 
@@ -683,8 +690,15 @@
                     htmlStr = htmlStr.replace('@@TOC@@', '') 
                 htmlFile.write(htmlStr, 'utf-8')
             }
+			
+		// Copy the file to a file with the name of the map. This will allow to export multiple files and have them linked together.
+            try {
+                File outFile = new File(OUT_DIR + OUT_FILENAME);
+                File mapFile = new File(OUT_DIR + map.name + '.html');
+                FileUtils.copyFile(outFile, mapFile);
+            } catch(Exception e) {}
 
-        m("HTML document saved as '" + OUT_DIR + OUT_FILENAME + "'.")
+        m("HTML document saved as '" + OUT_DIR + OUT_FILENAME + "' and to '" + OUT_DIR + map.name + '.html' + "'.")
 
     // ====================================================================================================
     // = Create the PDF file (close the pdf file prior to running this)
