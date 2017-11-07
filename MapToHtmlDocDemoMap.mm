@@ -1,6 +1,6 @@
 <map version="freeplane 1.6.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1508885737003"><richcontent TYPE="DETAILS">
+<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1510095672117"><richcontent TYPE="DETAILS">
 
 <html>
   <head>
@@ -8,13 +8,13 @@
   </head>
   <body>
     <p>
-      Version: 2017-10-25_01.55.36
+      Version: 2017-11-08_01.00.26
     </p>
   </body>
 </html>
 
 </richcontent>
-<hook NAME="MapStyle" background="#ffffff" zoom="0.815">
+<hook NAME="MapStyle" background="#ffffff" zoom="0.987">
     <conditional_styles>
         <conditional_style ACTIVE="true" STYLE_REF="s-1: Abandonned" LAST="false">
             <node_contains_condition VALUE="s-1" ITEM="filter_node" MATCH_APPROXIMATELY="false"/>
@@ -41,7 +41,7 @@
             <node_compare_condition user_name="IGNORE (BAK)" VALUE="BAK" MATCH_CASE="true" MATCH_APPROXIMATELY="false" COMPARATION_RESULT="0" SUCCEED="true" ITEM="filter_node"/>
         </conditional_style>
     </conditional_styles>
-    <properties show_icon_for_attributes="true" fit_to_viewport="false;" show_note_icons="true" edgeColorConfiguration="#808080ff,#808080ff,#808080ff,#808080ff,#808080ff"/>
+    <properties fit_to_viewport="false;" show_icon_for_attributes="true" show_note_icons="true" edgeColorConfiguration="#808080ff,#808080ff,#808080ff,#808080ff,#808080ff"/>
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node" STYLE="oval" UNIFORM_SHAPE="true" VGAP_QUANTITY="24.0 pt">
@@ -184,8 +184,9 @@
 </node>
 </node>
 </node>
-<node TEXT="Features" POSITION="right" ID="ID_998844426" CREATED="1497029381635" MODIFIED="1508246742902">
+<node TEXT="Features" POSITION="right" ID="ID_998844426" CREATED="1497029381635" MODIFIED="1510093778792">
 <icon BUILTIN="idea"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_106028219" STARTINCLINATION="608;0;" ENDINCLINATION="-924;-174;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <edge COLOR="#808080"/>
 <node TEXT="Sections and structure" ID="ID_832412206" CREATED="1497109568309" MODIFIED="1508138032707">
 <node TEXT="Auto creation of sections" ID="ID_1270706494" CREATED="1497110129463" MODIFIED="1497110146034">
@@ -402,6 +403,9 @@
 </html>
 </richcontent>
 </node>
+<node TEXT="The formatting done by the format panel is different from the formatting done by &apos;Edit node core in dialog&apos;." ID="ID_161492346" CREATED="1508926372828" MODIFIED="1508926396641"/>
+<node TEXT="&apos;Edit node core in dialog&apos; generates a richcontent tag which contains basically a html document. The script extracts the html from it and inserts it in the output document. But it cannot do that with the formatting from the panel because it is not html. So some kind of conversion would need to be done or maybe freeplane as something available already, I would need to check for that." ID="ID_1338502029" CREATED="1508926372828" MODIFIED="1508926372828"/>
+<node TEXT="I suggest for now to set a keyboard shortcut to open the &apos;Edit node core in dialog&apos; window quickly if you need to change a lot of formatting." ID="ID_719284684" CREATED="1508931081803" MODIFIED="1508931122069"/>
 </node>
 </node>
 <node TEXT="Node levels" ID="ID_468582310" CREATED="1497029381635" MODIFIED="1508246466116">
@@ -455,79 +459,11 @@
 </node>
 </node>
 </node>
-<node TEXT="More features" POSITION="right" ID="ID_106028219" CREATED="1497029381635" MODIFIED="1508246859860">
+<node TEXT="More features" POSITION="right" ID="ID_106028219" CREATED="1497029381635" MODIFIED="1510093806563">
 <icon BUILTIN="idea"/>
 <icon BUILTIN="PalmIcons/dFileMan/Misc/Spark"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_797831984" STARTINCLINATION="-402;125;" ENDINCLINATION="497;41;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <edge COLOR="#808080"/>
-<node TEXT="Formulas" ID="ID_1337234133" CREATED="1508262881443" MODIFIED="1508883208235">
-<node TEXT="Core text" ID="ID_631174457" CREATED="1508262887920" MODIFIED="1508262891665">
-<node TEXT="Formulas specified in the core text of nodes will be evaluated." ID="ID_1738122118" CREATED="1508262893444" MODIFIED="1508262913636"/>
-<node TEXT="The formulas in attributes are not yet supported." ID="ID_1753170571" CREATED="1508262913815" MODIFIED="1508262932108"/>
-<node TEXT="Example 5+5 =" ID="ID_554175573" CREATED="1508331265439" MODIFIED="1508331304106">
-<node TEXT="=5+5" ID="ID_558271090" CREATED="1508262467551" MODIFIED="1508331326099">
-<font BOLD="false"/>
-</node>
-</node>
-</node>
-<node TEXT="Formulas" ID="ID_1473215467" CREATED="1508776574161" MODIFIED="1508776576291">
-<node TEXT="Node with formula as attributes:" ID="ID_1547201111" CREATED="1508776580433" MODIFIED="1508838234189">
-<attribute NAME="5 + 6 =" VALUE="= 5 + 6"/>
-</node>
-</node>
-</node>
-<node TEXT="Latex" ID="ID_750584323" CREATED="1508882619219" MODIFIED="1508883209183">
-<node TEXT="Core text" ID="ID_778374416" CREATED="1508882630774" MODIFIED="1508882633138">
-<node TEXT="\latex $\int_0^\infty e^{-x^2} dx=\frac{\sqrt{\pi}}{2}$" ID="ID_1146191452" CREATED="1508868564592" MODIFIED="1508886159120" STYLE="oval">
-<font SIZE="18"/>
-<richcontent TYPE="DETAILS">
-
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      If this latex formula is not rendered it is because the JLatexMath library is not installed and the script is not configured. Read this section for more details.
-    </p>
-  </body>
-</html>
-
-</richcontent>
-</node>
-<node TEXT="For now it is only a basic support in the sense that the script will simply take the first latex formula it finds (the text between the first $...$) and will create a image file for it and link it like an embedded image." ID="ID_273715888" CREATED="1508885941280" MODIFIED="1508886073357"/>
-</node>
-<node TEXT="Library required" ID="ID_789196711" CREATED="1508882964820" MODIFIED="1508885551884">
-<node ID="ID_1931079163" CREATED="1508882967122" MODIFIED="1508884724551"><richcontent TYPE="NODE">
-
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      Copy <u>C:\Program Files\Freeplane\plugins\org.freeplane.plugin.latex\lib\jlatexmath-1.0.6.jar</u>&#160; to <u>C:\Users\%USERNAME%\AppData\Roaming\Freeplane\1.5.x\lib</u>&#160;&#160;and in the Freeplane Preferences in the Plugins tab, add that path to the &quot;<b>Script classpath: Additional directories containing classes and/or JARs (see tooltip)</b>&quot; field. Restart Freeplane after that so it will load the libraries to be used by Groovy).
-    </p>
-  </body>
-</html>
-</richcontent>
-</node>
-<node ID="ID_1382656799" CREATED="1508885555382" MODIFIED="1508885684662"><richcontent TYPE="NODE">
-
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      By default the code to execute the latex formulas is commented out. Search in the script for &quot;<font color="#ff0000">BEGIN - LATEX</font>&quot; and uncomment the code between it and &quot;<font color="#ff0000">END - LATEX</font>&quot;. There are 2 such section to uncomment, the imports and the code to create the latex image files.
-    </p>
-  </body>
-</html>
-
-</richcontent>
-</node>
-</node>
-</node>
 <node TEXT="Images" ID="ID_34785326" CREATED="1497029381635" MODIFIED="1508142040129">
 <icon BUILTIN="PalmIcons/dFileMan/Image/Image-file"/>
 <node TEXT="2 types of image insertion" ID="ID_336707127" CREATED="1497029381635" MODIFIED="1497108411475">
@@ -602,7 +538,7 @@
 <icon BUILTIN="smiley-oh"/>
 </node>
 </node>
-<node TEXT="Reserved icons" ID="ID_618422947" CREATED="1508141800964" MODIFIED="1508141811067">
+<node TEXT="Reserved icons" ID="ID_618422947" CREATED="1508141800964" MODIFIED="1510094064021">
 <node TEXT="Some icons are use to accomplish some features so they will not be displayed if used and may modify the rendering of the html. These icons are the red X, the impass sign, and the numbers 2 to 4 inclusively with a blue-green background." ID="ID_923298642" CREATED="1508141812186" MODIFIED="1508141919991"/>
 </node>
 </node>
@@ -615,6 +551,86 @@
 <attribute NAME="Food" VALUE="Eucalyptus leaves"/>
 <attribute NAME="Activity" VALUE="Tree climbing"/>
 <attribute NAME="Friends" VALUE="Kangaroos"/>
+</node>
+</node>
+</node>
+<node TEXT="Connectors" ID="ID_1041428222" CREATED="1510090519356" MODIFIED="1510094385464">
+<icon BUILTIN="PalmIcons/bHome/Chores/Elec-outlet"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_962226392" SOURCE_LABEL="Connector label" TARGET_LABEL="Bullet list label" MIDDLE_LABEL="Middle label" STARTINCLINATION="-897;110;" ENDINCLINATION="-96;44;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+<node TEXT="" ID="ID_1269235487" CREATED="1510093979553" MODIFIED="1510093979553">
+<node TEXT="The connectors will simply be created a links to the section they are linked to. There will also be a link created in the target section to the source link. The labels are also shown as part of the text besided the link that forms some kind of textual arrow." ID="ID_1543602251" CREATED="1510093982280" MODIFIED="1510094516435"/>
+</node>
+<node TEXT="SHOW_CONNECTOR_DETAILS" ID="ID_257161057" CREATED="1510095380029" MODIFIED="1510095387456">
+<node TEXT="There is a constant called &apos;SHOW_CONNECTOR_DETAILS&apos;. When it is set to &apos;true&apos; (by default) the details of the connector is shown, so a textual arrow is displayed besided the link and it shows the source section and target section, all 3 labels if any is defined, and also the path to the source or target node." ID="ID_497556981" CREATED="1510095389500" MODIFIED="1510095516844"/>
+<node TEXT="If it is set to &apos;false&apos; then only a link is show but there is still the &lt; or &gt; char at the left of the link that shows if it is a &apos;in&apos; connector (&lt;) or &apos;out&apos; connector (&gt;)." ID="ID_1243698365" CREATED="1510095548731" MODIFIED="1510095610716"/>
+</node>
+</node>
+<node TEXT="Formulas" ID="ID_1337234133" CREATED="1508262881443" MODIFIED="1508883208235">
+<node TEXT="Core text" ID="ID_631174457" CREATED="1508262887920" MODIFIED="1508262891665">
+<node TEXT="Formulas specified in the core text of nodes will be evaluated." ID="ID_1738122118" CREATED="1508262893444" MODIFIED="1508262913636"/>
+<node TEXT="The formulas in attributes are not yet supported." ID="ID_1753170571" CREATED="1508262913815" MODIFIED="1508262932108"/>
+<node TEXT="Example 5+5 =" ID="ID_554175573" CREATED="1508331265439" MODIFIED="1508331304106">
+<node TEXT="=5+5" ID="ID_558271090" CREATED="1508262467551" MODIFIED="1508331326099">
+<font BOLD="false"/>
+</node>
+</node>
+</node>
+<node TEXT="Formulas" ID="ID_1473215467" CREATED="1508776574161" MODIFIED="1508776576291">
+<node TEXT="Node with formula as attributes:" ID="ID_1547201111" CREATED="1508776580433" MODIFIED="1508838234189">
+<attribute NAME="5 + 6 =" VALUE="= 5 + 6"/>
+</node>
+</node>
+</node>
+<node TEXT="Latex" ID="ID_750584323" CREATED="1508882619219" MODIFIED="1508883209183">
+<node TEXT="Core text" ID="ID_778374416" CREATED="1508882630774" MODIFIED="1508882633138">
+<node TEXT="\latex $\int_0^\infty e^{-x^2} dx=\frac{\sqrt{\pi}}{2}$" ID="ID_1146191452" CREATED="1508868564592" MODIFIED="1508923330751" STYLE="oval">
+<font SIZE="18"/>
+<richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      If this latex formula is not rendered in the html doc it is because the JLatexMath library is not installed and the script is not configured. Read this section for more details.
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="For now it is only a basic support in the sense that the script will simply take the first latex formula it finds (the text between the first $...$) and will create a image file for it and link it like an embedded image." ID="ID_273715888" CREATED="1508885941280" MODIFIED="1508886073357"/>
+</node>
+<node TEXT="Library required" ID="ID_789196711" CREATED="1508882964820" MODIFIED="1508885551884">
+<node ID="ID_1931079163" CREATED="1508882967122" MODIFIED="1508884724551"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Copy <u>C:\Program Files\Freeplane\plugins\org.freeplane.plugin.latex\lib\jlatexmath-1.0.6.jar</u>&#160; to <u>C:\Users\%USERNAME%\AppData\Roaming\Freeplane\1.5.x\lib</u>&#160;&#160;and in the Freeplane Preferences in the Plugins tab, add that path to the &quot;<b>Script classpath: Additional directories containing classes and/or JARs (see tooltip)</b>&quot; field. Restart Freeplane after that so it will load the libraries to be used by Groovy).
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="Script code configuration" ID="ID_792691799" CREATED="1508923160635" MODIFIED="1508923172436">
+<node ID="ID_1382656799" CREATED="1508885555382" MODIFIED="1508885684662"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      By default the code to execute the latex formulas is commented out. Search in the script for &quot;<font color="#ff0000">BEGIN - LATEX</font>&quot; and uncomment the code between it and &quot;<font color="#ff0000">END - LATEX</font>&quot;. There are 2 such section to uncomment, the imports and the code to create the latex image files.
+    </p>
+  </body>
+</html>
+</richcontent>
 </node>
 </node>
 </node>
@@ -824,7 +840,8 @@
 <node TEXT="History" POSITION="right" ID="ID_1784484328" CREATED="1507667504082" MODIFIED="1508246710686">
 <icon BUILTIN="calendar"/>
 <edge COLOR="#808080"/>
-<node TEXT="Documentation" ID="ID_273653473" CREATED="1507667511885" MODIFIED="1507667570837">
+<node TEXT="Documentation" ID="ID_273653473" CREATED="1507667511885" MODIFIED="1510093581158">
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1478027423" MIDDLE_LABEL="The End" STARTINCLINATION="792;-270;" ENDINCLINATION="1352;-83;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <node TEXT="Version: 2017-10-10_23.31.35" ID="ID_725781849" CREATED="1507667517993" MODIFIED="1507667543085">
 <node TEXT="Added the &apos;Freeplane Configuration&apos; section." ID="ID_1275234350" CREATED="1507667554585" MODIFIED="1507667585045"/>
 </node>
@@ -897,9 +914,11 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="Added section about latex support." ID="ID_130037155" CREATED="1508885746528" MODIFIED="1508885756522"/>
+</node>
+<node TEXT="Version: 2017-11-08_01.00.26" ID="ID_268697995" CREATED="1510095621922" MODIFIED="1510095627711">
+<node TEXT="Added section about connectors and I added connector samples in the map." ID="ID_1642950171" CREATED="1510095629676" MODIFIED="1510095662710"/>
 </node>
 </node>
 </node>
@@ -945,6 +964,7 @@
 </html>
 </richcontent>
 <cloud COLOR="#ffffcc" SHAPE="ARC"/>
+<node TEXT="s0 Add the export to markdown (optional using a constant) .md file" ID="ID_1158030717" CREATED="1509629454575" MODIFIED="1509629496048"/>
 <node ID="ID_828298373" CREATED="1508331589816" MODIFIED="1508339871843"><richcontent TYPE="NODE">
 
 <html>
@@ -959,9 +979,41 @@
 </html>
 </richcontent>
 </node>
+<node TEXT="s0 Make the formatting work also when the format is changed with the format toolbar or the format panel." ID="ID_170672124" CREATED="1508225422304" MODIFIED="1508225446197">
+<node ID="ID_1188639693" CREATED="1508926255322" MODIFIED="1508926255322"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 10px; padding-bottom: 0; padding-left: 10px; border-top-style: none; border-top-width: 0px; border-right-style: none; border-right-width: 0px; border-bottom-style: none; border-bottom-width: 0px; border-left-style: none; border-left-width: 0px; font-size: 13px; vertical-align: baseline; background-color: rgb(255,; background-position: 255, 255); background-image: null; background-repeat: repeat; background-attachment: scroll; color: rgb(85, 85, 85); font-family: sans-serif; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px">
+      I did a test and the formatting done by the format panel is different from the formating done by the Edit node core in dialog.
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node ID="ID_188051481" CREATED="1508926255323" MODIFIED="1508926290067"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 10px; padding-bottom: 0; padding-left: 10px; border-top-style: none; border-top-width: 0px; border-right-style: none; border-right-width: 0px; border-bottom-style: none; border-bottom-width: 0px; border-left-style: none; border-left-width: 0px; font-size: 13px; vertical-align: baseline; background-color: rgb(255,; background-position: 255, 255); background-image: null; background-repeat: repeat; background-attachment: scroll; color: rgb(85, 85, 85); font-family: sans-serif; font-style: normal; font-weight: normal; letter-spacing: normal; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px">
+      The Edit node core in dialog generate a richcontent tag which contains basically a html document. The script extracts the html from it and inserts it in the output document. But it cannot do that with the formatting from the panel because it is not html. So some kind of conversion would need to be done or <b><u>maybe freeplane as something available already, I would need to check for that.</u></b>
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="s0 Add css stylesheets to get same style as freeplane wiki/wikipedia and avid kb" ID="ID_163456607" CREATED="1508929803515" MODIFIED="1508929827518">
+<node TEXT="s0 Use CSS... but have a default style like the map? Generate CSS code from the script to have everything in the script." ID="ID_331635655" CREATED="1509544122210" MODIFIED="1509544169660"/>
+</node>
 <node TEXT="s0 Check the numberingEnabled property in the api, maybe the sections could be numbered optionnaly" ID="ID_388254190" CREATED="1508261461420" MODIFIED="1508261496789"/>
 <node TEXT="s0 Add connectors as links with a section with connectors from, and a section connectors to." ID="ID_1322503317" CREATED="1508246506100" MODIFIED="1508246540014"/>
-<node TEXT="s0 Make the formatting work also when the format is changed with the format toolbar or the format panel." ID="ID_170672124" CREATED="1508225422304" MODIFIED="1508225446197"/>
 <node TEXT="s0 Add the possibility to have relative paths" ID="ID_1431484756" CREATED="1508222412366" MODIFIED="1508222425546"/>
 <node TEXT="s0 Maybe add images at h1, h2, h3, h4 levels?" ID="ID_686943658" CREATED="1508222426495" MODIFIED="1508222437395"/>
 <node TEXT="s0 For the node-change icon feature, add an icon that would change the node to a node that that is below level 4, so level 5+... so a node at Level 2 could be change to a simple node 5+ for example." ID="ID_804260926" CREATED="1508156757197" MODIFIED="1508156816087"/>
