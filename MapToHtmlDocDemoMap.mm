@@ -558,11 +558,16 @@
 <icon BUILTIN="PalmIcons/bHome/Chores/Elec-outlet"/>
 <arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_962226392" SOURCE_LABEL="Connector label" TARGET_LABEL="Bullet list label" MIDDLE_LABEL="Middle label" STARTINCLINATION="-897;110;" ENDINCLINATION="-96;44;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <node TEXT="" ID="ID_1269235487" CREATED="1510093979553" MODIFIED="1510093979553">
-<node TEXT="The connectors will simply be created a links to the section they are linked to. There will also be a link created in the target section to the source link. The labels are also shown as part of the text besided the link that forms some kind of textual arrow." ID="ID_1543602251" CREATED="1510093982280" MODIFIED="1510094516435"/>
+<node TEXT="Connectors are an easy way to create links from one section to another, back and forth." ID="ID_173422651" CREATED="1510096503333" MODIFIED="1510096527017">
+<node TEXT="They will simply be created a links to the section they are linked to. There will also be a link created in the target section to the source link. The labels are also shown as part of the text besided the link that forms some kind of textual arrow." ID="ID_1543602251" CREATED="1510093982280" MODIFIED="1510096555513"/>
+</node>
 </node>
 <node TEXT="SHOW_CONNECTOR_DETAILS" ID="ID_257161057" CREATED="1510095380029" MODIFIED="1510095387456">
 <node TEXT="There is a constant called &apos;SHOW_CONNECTOR_DETAILS&apos;. When it is set to &apos;true&apos; (by default) the details of the connector is shown, so a textual arrow is displayed besided the link and it shows the source section and target section, all 3 labels if any is defined, and also the path to the source or target node." ID="ID_497556981" CREATED="1510095389500" MODIFIED="1510095516844"/>
 <node TEXT="If it is set to &apos;false&apos; then only a link is show but there is still the &lt; or &gt; char at the left of the link that shows if it is a &apos;in&apos; connector (&lt;) or &apos;out&apos; connector (&gt;)." ID="ID_1243698365" CREATED="1510095548731" MODIFIED="1510095610716"/>
+</node>
+<node TEXT="SHORT_TEXT_MAX_SIZE" ID="ID_1293978116" CREATED="1510096437065" MODIFIED="1510096438339">
+<node TEXT="This constant will simply defined the length of the text used for each node that form the path to the node in the details of the node. By default it is set to 25." ID="ID_1233953727" CREATED="1510096440100" MODIFIED="1510096488914"/>
 </node>
 </node>
 <node TEXT="Formulas" ID="ID_1337234133" CREATED="1508262881443" MODIFIED="1508883208235">
