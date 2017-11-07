@@ -113,7 +113,11 @@
 
         def USER_PATH = 'C:/Users/' + System.getenv("USERNAME") + '/AppData/Roaming/Freeplane/1.6.x/'
         def ICONS_PATH = USER_PATH + 'icons/'
-        def LIB_PATH = USER_PATH + 'lib/'
+        def LIB_PATH = USER_PATH + 'lib/' 
+
+        // For connectors
+            def SHORT_TEXT_MAX_SIZE = 25 // Number of chars to display in the ShortText field
+            def SHOW_CONNECTOR_DETAILS = true
 
         // ----------------------------------------------------------------------------------------------------
         // - Styles
@@ -662,8 +666,6 @@
                 // ====================================================================================================
                 // = Connectors: Add as links if any 
                 // ==================================================================================================== 
-                    def SHORT_TEXT_MAX_SIZE = 25 // Number of chars to display in the ShortText field
-                    def SHOW_CONNECTOR_DETAILS = true
                     // · Connectors
                         // · In
                             def connectorsInList = ''
