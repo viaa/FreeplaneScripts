@@ -3,6 +3,8 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version 2017-11-08_01.02.06
+            // Added connectors support. The connectors will be show as links with optional details of the connections (source, target, labels, path).
         // Version 2017-11-02_15.04.12
             // Added 'file://' to the img tag paths.
         // Version 2017-11-02_11.11.06
@@ -204,12 +206,11 @@
         def m(message) { // = Message box (mainly to debug)
         // ==================================================================================================== 
             ui.informationMessage(message + '') // + '' to convert numeric types to string
-        }
+            }
 
         // ====================================================================================================
-         def d(message) // = To write debug messages to a file
+         def d(message) { // = To write debug messages to a file
         // ====================================================================================================
-        {
             if (DEBUG) {
                 BufferedWriter bw = new BufferedWriter(new FileWriter(DEBUG_FILE_PATH, true));
                 Date date = new Date();
@@ -217,8 +218,8 @@
                 bw.newLine();
                 bw.flush();
                 bw.close();
+                }
             }
-        }
 
         // ====================================================================================================
         def rawText(text, removeStatus) { // = To get only the main text in the nodes without some html and the status 
@@ -244,7 +245,7 @@
                 rawNote = rawNote.replaceAll('&#160;', '')
                 rawNote = rawNote.replaceAll('(^|\n)\\s*', '$1')
             return rawNote.trim()
-        }
+            }
 
         // ====================================================================================================
         def ignoreNode(pNode) { // = Add the ability to ignore the nodes that are found under a node with
@@ -258,6 +259,18 @@
                     // or an attribute with the name 'Type' with the value 'Private' (For Quinbus' exclusion of nodes using an attribute name (https://sourceforge.net/p/freeplane/discussion/758437/thread/67f8576c/))
                         it.attributes.findAll{it.key.toLowerCase()=='type' && (it.value.toLowerCase()=='private' || it.value.toLOwerCase()=='NOEXPORT')}.size() > 0 // For Quinbus' exclusion of nodes using an attribute name 'Type' with the value 'Private' (https://sourceforge.net/p/freeplane/discussion/758437/thread/67f8576c/) 
                 } 
+            }
+
+        // ====================================================================================================
+        def truncateField(pStr, pSize) // =
+        // ====================================================================================================
+        {
+            def text = ''
+            if (pStr.length() > pSize) // If that text is longer than the max length of text allowed
+                text = pStr.substring(0, pSize - 1) + '...'
+            else
+                text = pStr
+            return text.replaceAll("'", "''") // Double the apostrophes so there is no issue inserting the strings in the database
         }
 
 // ####################################################################################################
@@ -628,7 +641,7 @@
                         htmlStr += indentSp + indentNbsp + aName + '<small style="' + STYLE_DET + '"><i>(' + details + ')</i></small><br>' + EOL
 
                 // ====================================================================================================
-                // = Add the attributes as a table if any
+                // = Attributes: Add as a table if any
                 // ==================================================================================================== 
                     // s0 Try to add spaces before the tables... it doesn't work if I just add indentNbsp http://stackoverflow.com/questions/29046021/apply-space-character-before-table-in-html
                     if (n.attributes.size() > 0) {
@@ -645,6 +658,63 @@
                         tableStr += indentSp + '</table><br>' + EOL
                         htmlStr += tableStr
                     }
+
+                // ====================================================================================================
+                // = Connectors: Add as links if any 
+                // ==================================================================================================== 
+                    def SHORT_TEXT_MAX_SIZE = 25 // Number of chars to display in the ShortText field
+                    def SHOW_CONNECTOR_DETAILS = true
+                    // · Connectors
+                        // · In
+                            def connectorsInList = ''
+                            def nbConnectorsIn = 0
+                            n.connectorsIn.each {
+                                // Connector labels
+                                    def sLabel = ''
+                                    def mLabel = ''
+                                    def tLabel = ''
+                                    if (it.sourceLabel != null)
+                                        sLabel = '[' + it.sourceLabel + ']'
+                                    if (it.middleLabel != null)
+                                        mLabel = '[' + it.middleLabel + ']---'
+                                    if (it.targetLabel != null)
+                                        tLabel = '[' + it.targetLabel + ']'
+                                // Get the full path of the connected node
+                                    pathToNode = ''
+                                    it.source.pathToRoot.each { it2 -> pathToNode += '/' + truncateField(it2.plainText, SHORT_TEXT_MAX_SIZE) }
+                                // Add the connector to the text list
+                                    connectorsInList += indentSp + indentNbsp + '< <a href="#' + it.source.id + '">' + it.source.plainText + '</a>'
+                                    if (SHOW_CONNECTOR_DETAILS)
+                                        connectorsInList += ' <i><small>This section' + tLabel + '<---' + mLabel + sLabel + it.source.plainText + '{' + pathToNode + '}</small></i><br>' + EOL
+                                    else
+                                        connectorsInList += '<br>' + EOL
+                            }
+                            htmlStr += connectorsInList
+                        // · Out
+                            def connectorsOutList = ''
+                            def nbConnectorsOut = 0
+                            n.connectorsOut.each {
+                                // Connector labels
+                                    def sLabel = ''
+                                    def mLabel = ''
+                                    def tLabel = ''
+                                    if (it.sourceLabel != null)
+                                        sLabel = '[' + it.sourceLabel + ']'
+                                    if (it.middleLabel != null)
+                                        mLabel = '---[' + it.middleLabel + ']'
+                                    if (it.targetLabel != null)
+                                        tLabel = '[' + it.targetLabel + ']'
+                                // Get the full path of the connected node
+                                    pathToNode = ''
+                                    it.target.pathToRoot.each { it2 -> pathToNode += '/' + truncateField(it2.plainText, SHORT_TEXT_MAX_SIZE) }
+                                // Add the connector to the text list
+                                    connectorsOutList += indentSp + indentNbsp + '> <a href="#' + it.target.id + '">' + it.target.plainText + '</a>'
+                                    if (SHOW_CONNECTOR_DETAILS)
+                                         connectorsOutList += ' <i><small>This section' + sLabel + mLabel+ '--->'  + tLabel + it.target.plainText + '{' + pathToNode + '}</small></i><br>' + EOL
+                                    else
+                                        connectorsOutList += '<br>' + EOL
+                            }
+                            htmlStr += connectorsOutList
 
             if (LARGE_MAP_USE_FILE) {
                 htmlFileTmp.append(htmlStr, 'utf-8') // Append the chunck to the temp file.
