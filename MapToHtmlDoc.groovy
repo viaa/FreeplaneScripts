@@ -3,6 +3,8 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version 2017-11-08_11.49.13
+            // Added the possibility to ignore connectors sections/nodes by added 'IGNORE' in the label.
         // Version 2017-11-08_01.02.06
             // Added connectors support. The connectors will be show as links with optional details of the connections (source, target, labels, path).
         // Version 2017-11-02_15.04.12
@@ -677,10 +679,18 @@
                                     def tLabel = ''
                                     if (it.sourceLabel != null)
                                         sLabel = '[' + it.sourceLabel + ']'
-                                    if (it.middleLabel != null)
+                                    if (it.middleLabel != null) {
+                                        // Don't add the connector link
+                                            if (it.middleLabel.contains('IGNORE'))
+                                                return
+                                        }
                                         mLabel = '[' + it.middleLabel + ']---'
-                                    if (it.targetLabel != null)
+                                    if (it.targetLabel != null) {
+                                        // Don't add the connector link
+                                            if (it.targetLabel.contains('IGNORE'))
+                                                return
                                         tLabel = '[' + it.targetLabel + ']'
+                                        }
                                 // Get the full path of the connected node
                                     pathToNode = ''
                                     it.source.pathToRoot.each { it2 -> pathToNode += '/' + truncateField(it2.plainText, SHORT_TEXT_MAX_SIZE) }
@@ -700,10 +710,18 @@
                                     def sLabel = ''
                                     def mLabel = ''
                                     def tLabel = ''
-                                    if (it.sourceLabel != null)
+                                    if (it.sourceLabel != null) {
+                                        // Don't add the connector link
+                                            if (it.sourceLabel.contains('IGNORE'))
+                                                return
                                         sLabel = '[' + it.sourceLabel + ']'
-                                    if (it.middleLabel != null)
+                                        }
+                                    if (it.middleLabel != null) {
+                                        // Don't add the connector link
+                                            if (it.middleLabel.contains('IGNORE'))
+                                                return
                                         mLabel = '---[' + it.middleLabel + ']'
+                                        }
                                     if (it.targetLabel != null)
                                         tLabel = '[' + it.targetLabel + ']'
                                 // Get the full path of the connected node
