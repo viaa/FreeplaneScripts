@@ -1,6 +1,6 @@
 <map version="freeplane 1.6.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1510134537222"><richcontent TYPE="DETAILS">
+<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1510140010604"><richcontent TYPE="DETAILS">
 
 <html>
   <head>
@@ -8,13 +8,13 @@
   </head>
   <body>
     <p>
-      Version: 2017-11-08_11.48.25
+      Version: 2017-11-08_13.19.48
     </p>
   </body>
 </html>
 
 </richcontent>
-<hook NAME="MapStyle" background="#ffffff" zoom="0.987">
+<hook NAME="MapStyle" background="#ffffff" zoom="0.674">
     <conditional_styles>
         <conditional_style ACTIVE="true" STYLE_REF="s-1: Abandonned" LAST="false">
             <node_contains_condition VALUE="s-1" ITEM="filter_node" MATCH_APPROXIMATELY="false"/>
@@ -185,7 +185,7 @@
 </node>
 </node>
 </node>
-<node TEXT="Features" POSITION="right" ID="ID_998844426" CREATED="1497029381635" MODIFIED="1510093778792">
+<node TEXT="Features" POSITION="right" ID="ID_998844426" CREATED="1497029381635" MODIFIED="1510138860023">
 <icon BUILTIN="idea"/>
 <arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_106028219" STARTINCLINATION="608;0;" ENDINCLINATION="-924;-174;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <edge COLOR="#808080"/>
@@ -459,6 +459,17 @@
 </node>
 </node>
 </node>
+<node TEXT="Breadcrumbs" ID="ID_1472184249" CREATED="1510139779342" MODIFIED="1510139782839">
+<node TEXT="" ID="ID_1504309059" CREATED="1510139783501" MODIFIED="1510139783501">
+<node TEXT="The breadcrumb feature will add the paths to each sections with each individual parts of the path as a link to be click to jump to that particular section. This is a little bit like the clickable paths feature in window managers." ID="ID_1420347834" CREATED="1510139786212" MODIFIED="1510139864653"/>
+<node TEXT="By defaul the breadcrumbs are added to H2 and H3 sections, but there is also the possibility to add them to H4 section as well by changing the constant ADD_H4_BREADCRUMBS = false." ID="ID_1413092494" CREATED="1510139865035" MODIFIED="1510139924931"/>
+<node TEXT="Each H2, H3, H4 have their contstant to add and remove the breadcrumbs." ID="ID_1607441233" CREATED="1510139925323" MODIFIED="1510139946040">
+<node TEXT="def ADD_H2_BREADCRUMBS = true" ID="ID_541280068" CREATED="1510139953199" MODIFIED="1510139953199"/>
+<node TEXT="def ADD_H3_BREADCRUMBS = true" ID="ID_1053244924" CREATED="1510139953199" MODIFIED="1510139953199"/>
+<node TEXT="def ADD_H4_BREADCRUMBS = false" ID="ID_1633021379" CREATED="1510139953199" MODIFIED="1510139953199"/>
+</node>
+</node>
+</node>
 </node>
 <node TEXT="More features" POSITION="right" ID="ID_106028219" CREATED="1497029381635" MODIFIED="1510093806563">
 <icon BUILTIN="idea"/>
@@ -555,7 +566,7 @@
 </node>
 </node>
 </node>
-<node TEXT="Connectors" ID="ID_1041428222" CREATED="1510090519356" MODIFIED="1510133500810">
+<node TEXT="Connectors" ID="ID_1041428222" CREATED="1510090519356" MODIFIED="1510134721402">
 <icon BUILTIN="PalmIcons/bHome/Chores/Elec-outlet"/>
 <arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_962226392" SOURCE_LABEL="Connector label (IGNORE)" TARGET_LABEL="Bullet list label" MIDDLE_LABEL="Middle label" STARTINCLINATION="-897;110;" ENDINCLINATION="-96;44;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <node TEXT="" ID="ID_1269235487" CREATED="1510093979553" MODIFIED="1510093979553">
@@ -850,8 +861,8 @@
 <node TEXT="History" POSITION="right" ID="ID_1784484328" CREATED="1507667504082" MODIFIED="1508246710686">
 <icon BUILTIN="calendar"/>
 <edge COLOR="#808080"/>
-<node TEXT="Documentation" ID="ID_273653473" CREATED="1507667511885" MODIFIED="1510093581158">
-<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1478027423" MIDDLE_LABEL="The End" STARTINCLINATION="792;-270;" ENDINCLINATION="1352;-83;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+<node TEXT="Documentation" ID="ID_273653473" CREATED="1507667511885" MODIFIED="1510137656096">
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1478027423" MIDDLE_LABEL="The End" STARTINCLINATION="980;-495;" ENDINCLINATION="1540;0;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <node TEXT="Version: 2017-10-10_23.31.35" ID="ID_725781849" CREATED="1507667517993" MODIFIED="1507667543085">
 <node TEXT="Added the &apos;Freeplane Configuration&apos; section." ID="ID_1275234350" CREATED="1507667554585" MODIFIED="1507667585045"/>
 </node>
@@ -933,6 +944,9 @@
 <node TEXT="Version: 2017-11-08_11.48.25" ID="ID_1919903400" CREATED="1510134501459" MODIFIED="1510134505492">
 <node TEXT="Added connectors &apos;IGNORE&apos; documentation." ID="ID_647739081" CREATED="1510134506443" MODIFIED="1510134530132"/>
 </node>
+<node TEXT="Version: 2017-11-08_13.19.48:" ID="ID_1435161528" CREATED="1510139986312" MODIFIED="1510139989944">
+<node TEXT="Added breadcrumb documentation." ID="ID_209983193" CREATED="1510139990727" MODIFIED="1510139998493"/>
+</node>
 </node>
 </node>
 <node TEXT="I hope you&apos;ll find it useful too" POSITION="right" ID="ID_495374163" CREATED="1497112090702" MODIFIED="1508142077622">
@@ -977,6 +991,21 @@
 </html>
 </richcontent>
 <cloud COLOR="#ffffcc" SHAPE="ARC"/>
+<node ID="ID_724005350" CREATED="1510136345466" MODIFIED="1510139768685"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s2 Add the paths to each h2, h3 and maybe h4 (do like small italic like I did for the connectors, use the same function to truncate the text). And put each parts of the path as a link to be clicked so the path would be a sequence of links to all its levels.
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
 <node TEXT="s0 Add the export to markdown (optional using a constant) .md file" ID="ID_1158030717" CREATED="1509629454575" MODIFIED="1509629496048"/>
 <node ID="ID_828298373" CREATED="1508331589816" MODIFIED="1508339871843"><richcontent TYPE="NODE">
 
