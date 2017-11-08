@@ -3,6 +3,8 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version 2017-11-08_20.35.37
+            // Fixed/Improved the connectors: Now if the source and target nodes are in a IGNORE section/path, then their links will not be created.
         // Version 2017-11-08_20.10.56
             // I fixed the rawNote() function, it now keeps the indentation of files and remove empty lines and spaces. 
         // Version 2017-11-08_13.20.22
@@ -709,6 +711,8 @@
                             def connectorsInList = ''
                             def nbConnectorsIn = 0
                             n.connectorsIn.each {
+                                if (ignoreNode(it.source)) // If the source node is in a IGNORE section then we exclude it.
+                                    return
                                 // Connector labels
                                     def sLabel = ''
                                     def mLabel = ''
@@ -742,6 +746,8 @@
                             def connectorsOutList = ''
                             def nbConnectorsOut = 0
                             n.connectorsOut.each {
+                                if (ignoreNode(it.target)) // If the target node is in a IGNORE section then we exclude it.
+                                    return
                                 // Connector labels
                                     def sLabel = ''
                                     def mLabel = ''
