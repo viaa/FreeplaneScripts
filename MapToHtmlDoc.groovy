@@ -3,6 +3,8 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version 2017-11-08_11.59.59
+            // Corrected a small bug that showed 'null' in the connector middle label.
         // Version 2017-11-08_11.49.13
             // Added the possibility to ignore connectors sections/nodes by added 'IGNORE' in the label.
         // Version 2017-11-08_01.02.06
@@ -683,8 +685,8 @@
                                         // Don't add the connector link
                                             if (it.middleLabel.contains('IGNORE'))
                                                 return
-                                        }
                                         mLabel = '[' + it.middleLabel + ']---'
+                                        }
                                     if (it.targetLabel != null) {
                                         // Don't add the connector link
                                             if (it.targetLabel.contains('IGNORE'))
