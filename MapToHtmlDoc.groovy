@@ -3,6 +3,8 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version 2017-11-08_13.20.22
+            // Added the breadcrumb feature (clickable fullpath parts in sections H2, H3 and optionaly H4 to jump back to previous sections).
         // Version 2017-11-08_11.59.59
             // Corrected a small bug that showed 'null' in the connector middle label.
         // Version 2017-11-08_11.49.13
@@ -123,6 +125,11 @@
             def SHORT_TEXT_MAX_SIZE = 25 // Number of chars to display in the ShortText field
             def SHOW_CONNECTOR_DETAILS = true
 
+        // For breadcrumbs
+            def ADD_H2_BREADCRUMBS = true
+            def ADD_H3_BREADCRUMBS = true
+            def ADD_H4_BREADCRUMBS = false
+
         // ----------------------------------------------------------------------------------------------------
         // - Styles
         // ---------------------------------------------------------------------------------------------------- 
@@ -174,9 +181,9 @@
             def toc = ''
             def tocIndent
             // Link to return to the toc
-                def TOC_BACK_LINK = ''
-                if (SHOW_TOC)
-                    TOC_BACK_LINK = '<p><small><a href="#toc">[Table of contents]</a></small></p>' + EOL
+                // def TOC_BACK_LINK = ''
+                // if (SHOW_TOC)
+                //     TOC_BACK_LINK = '<p><small><a href="#toc">[Table of contents]</a></small></p>' + EOL
 
         // Attribute tables
             def STYLE_ATTR_TAB = 'font-size: 12px; border-collapse:collapse; border-color:#cccccc; border-style:solid; border-width:1px; width: 25%; table-layout: fixed;'
@@ -524,11 +531,18 @@
                             tocIndent = indentSp
                         }
                         if (rText != '') {
+                            // Add breadcrumbs
+                                breadcrumbs = ''
+                                if (ADD_H2_BREADCRUMBS) {
+                                    breadcrumbs = '<i><small>'
+                                    n.pathToRoot.each { it -> breadcrumbs += ' / ' + '<a href="#' + it.id + '">' + truncateField(it.plainText, SHORT_TEXT_MAX_SIZE) + '</a>' }
+                                    breadcrumbs += '</small></i><br>'
+                                }
                             if (cptNode == 2) // If it is the second node don't add the '<br>' because it put too many space after the table of content
                                 sTag += EOL + indentSp + SEP2 + '<h2 style="' + STYLE_H2 + '">' + aName
                             else
                                 sTag += EOL + '<br>' + indentSp + SEP2 + '<h2 style="' + STYLE_H2 + '">' + aName
-                            eTag = '</h2>' + TOC_BACK_LINK
+                            eTag = '</h2>' + breadcrumbs // + TOC_BACK_LINK
                             toc += indentSp + '&#8226; ' + ' <big><a style="' + STYLE_H2 + '" href="#' + id + '">' + rText + '</a></big> ' + iconsHtml + EOL
                         }
                     }
@@ -538,8 +552,15 @@
                 // ---------------------------------------------------------------------------------------------------- 
                     else if (depth == 3) {
                         if (rText != '') {
+                            // Add breadcrumbs
+                                breadcrumbs = ''
+                                if (ADD_H3_BREADCRUMBS) {
+                                    breadcrumbs = '<i><small>'
+                                    n.pathToRoot.each { it -> breadcrumbs += ' / ' + '<a href="#' + it.id + '">' + truncateField(it.plainText, SHORT_TEXT_MAX_SIZE) + '</a>' }
+                                    breadcrumbs += '</small></i><br>'
+                                }
                             sTag = EOL + indentSp + SEP3 + '<h3 style="' + STYLE_H3 + '">' + aName
-                            eTag = '</h3>' + EOL
+                            eTag = '</h3>' + breadcrumbs + EOL
                             toc += indentSp + '&#9675; ' + ' <a style="' + STYLE_H3 + '" href="#' + id + '">' + rText + '</a> ' + iconsHtml + EOL
                         }
                     }
@@ -549,8 +570,15 @@
                 // ---------------------------------------------------------------------------------------------------- 
                     else if (depth == 4) {
                         if (rText != '') {
+                            // Add breadcrumbs
+                                breadcrumbs = ''
+                                if (ADD_H4_BREADCRUMBS) {
+                                    breadcrumbs = '<i><small>'
+                                    n.pathToRoot.each { it -> breadcrumbs += ' / ' + '<a href="#' + it.id + '">' + truncateField(it.plainText, SHORT_TEXT_MAX_SIZE) + '</a>' }
+                                    breadcrumbs += '</small></i><br>'
+                                }
                             sTag = EOL + indentSp + SEP4 + '<h4 style="' + STYLE_H4 + '" style="' + STYLE_H4 + '">' + aName
-                            eTag = '</h4>' + EOL
+                            eTag = '</h4>' + breadcrumbs + EOL
                             //toc += indentSp + '&#183; <i><small><a style="' + STYLE_H4 + '" href="#' + id + '">' + rText + '</a></small></i>' + EOL
                             toc += indentSp + '&#183; ' + ' <i><small><a style="' + STYLE_H4 + '" href="#' + id + '">' + rText + '</a></small></i> ' + iconsHtml + EOL
                         }
@@ -697,7 +725,7 @@
                                     pathToNode = ''
                                     it.source.pathToRoot.each { it2 -> pathToNode += '/' + truncateField(it2.plainText, SHORT_TEXT_MAX_SIZE) }
                                 // Add the connector to the text list
-                                    connectorsInList += indentSp + indentNbsp + '< <a href="#' + it.source.id + '">' + it.source.plainText + '</a>'
+                                    connectorsInList += indentSp + indentNbsp + '<small>< <a href="#' + it.source.id + '">' + it.source.plainText + '</a></small>'
                                     if (SHOW_CONNECTOR_DETAILS)
                                         connectorsInList += ' <i><small>This section' + tLabel + '<---' + mLabel + sLabel + it.source.plainText + '{' + pathToNode + '}</small></i><br>' + EOL
                                     else
@@ -730,7 +758,7 @@
                                     pathToNode = ''
                                     it.target.pathToRoot.each { it2 -> pathToNode += '/' + truncateField(it2.plainText, SHORT_TEXT_MAX_SIZE) }
                                 // Add the connector to the text list
-                                    connectorsOutList += indentSp + indentNbsp + '> <a href="#' + it.target.id + '">' + it.target.plainText + '</a>'
+                                    connectorsOutList += indentSp + indentNbsp + '<small>> <a href="#' + it.target.id + '">' + it.target.plainText + '</a></small>'
                                     if (SHOW_CONNECTOR_DETAILS)
                                          connectorsOutList += ' <i><small>This section' + sLabel + mLabel+ '--->'  + tLabel + it.target.plainText + '{' + pathToNode + '}</small></i><br>' + EOL
                                     else
