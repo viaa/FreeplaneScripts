@@ -945,7 +945,7 @@
 <node TEXT="Added connectors &apos;IGNORE&apos; documentation." ID="ID_647739081" CREATED="1510134506443" MODIFIED="1510134530132"/>
 </node>
 <node TEXT="Version: 2017-11-08_13.19.48:" ID="ID_1435161528" CREATED="1510139986312" MODIFIED="1510139989944">
-<node TEXT="Added breadcrumb documentation." ID="ID_209983193" CREATED="1510139990727" MODIFIED="1510139998493"/>
+<node TEXT="Added breadcrumb (clickable paths) documentation." ID="ID_209983193" CREATED="1510139990727" MODIFIED="1510140252815"/>
 </node>
 </node>
 </node>
