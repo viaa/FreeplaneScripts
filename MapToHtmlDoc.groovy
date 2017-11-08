@@ -3,6 +3,8 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version 2017-11-09_00.48.00 
+            // I added the previous << and next >> links to the breadcrumbs to jump to the next section of the same level.
         // Version 2017-11-08_20.35.37
             // Fixed/Improved the connectors: Now if the source and target nodes are in a IGNORE section/path, then their links will not be created.
         // Version 2017-11-08_20.10.56
@@ -464,6 +466,19 @@
                     else
                         indentNbsp = ''
 
+                // ----------------------------------------------------------------------------------------------------
+                // - Get nodes around (current position, previous, next)
+                // ---------------------------------------------------------------------------------------------------- 
+                    def previousNode = null
+                    def nextNode = null
+                    if (n.parent != null) { 
+                        nodePosition = n.parent.getChildPosition(n) // Gets the node position among the children nodes of its parent
+                        if (nodePosition - 1 >= 0)
+                            previousNode = n.parent.children[nodePosition - 1]
+                        if (nodePosition + 1 < n.parent.children.size())
+                            nextNode = n.parent.children[nodePosition + 1]
+                    }
+
                 iText = rText
                 cptNode += 1 
 
@@ -539,11 +554,20 @@
                             tocIndent = indentSp
                         }
                         if (rText != '') {
-                            // Add breadcrumbs
+                            // ····································································································
+                            // · Add breadcrumbs
+                            // ···································································································· 
                                 breadcrumbs = ''
                                 if (ADD_H2_BREADCRUMBS) {
                                     breadcrumbs = '<i><small>'
                                     n.pathToRoot.each { it -> breadcrumbs += ' / ' + '<a href="#' + it.id + '">' + truncateField(it.plainText, SHORT_TEXT_MAX_SIZE) + '</a>' }
+                                    // ····································································································
+                                    // · Add previous and next links before and after the breadcrumbs
+                                    // ···································································································· 
+                                        if (previousNode != null)
+                                            breadcrumbs = '<a href="#' + previousNode.id + '"><<</a> ' + breadcrumbs
+                                        if (nextNode != null)
+                                            breadcrumbs += ' <a href="#' + nextNode.id + '">>></a>'
                                     breadcrumbs += '</small></i><br>'
                                 }
                             if (cptNode == 2) // If it is the second node don't add the '<br>' because it put too many space after the table of content
@@ -560,11 +584,20 @@
                 // ---------------------------------------------------------------------------------------------------- 
                     else if (depth == 3) {
                         if (rText != '') {
-                            // Add breadcrumbs
+                            // ····································································································
+                            // · Add breadcrumbs
+                            // ···································································································· 
                                 breadcrumbs = ''
                                 if (ADD_H3_BREADCRUMBS) {
                                     breadcrumbs = '<i><small>'
                                     n.pathToRoot.each { it -> breadcrumbs += ' / ' + '<a href="#' + it.id + '">' + truncateField(it.plainText, SHORT_TEXT_MAX_SIZE) + '</a>' }
+                                    // ····································································································
+                                    // · Add previous and next links before and after the breadcrumbs
+                                    // ···································································································· 
+                                        if (previousNode != null)
+                                            breadcrumbs = '<a href="#' + previousNode.id + '"><<</a> ' + breadcrumbs
+                                        if (nextNode != null)
+                                            breadcrumbs += ' <a href="#' + nextNode.id + '">>></a>'
                                     breadcrumbs += '</small></i><br>'
                                 }
                             sTag = EOL + indentSp + SEP3 + '<h3 style="' + STYLE_H3 + '">' + aName
@@ -578,11 +611,20 @@
                 // ---------------------------------------------------------------------------------------------------- 
                     else if (depth == 4) {
                         if (rText != '') {
-                            // Add breadcrumbs
+                            // ····································································································
+                            // · Add breadcrumbs
+                            // ···································································································· 
                                 breadcrumbs = ''
                                 if (ADD_H4_BREADCRUMBS) {
                                     breadcrumbs = '<i><small>'
                                     n.pathToRoot.each { it -> breadcrumbs += ' / ' + '<a href="#' + it.id + '">' + truncateField(it.plainText, SHORT_TEXT_MAX_SIZE) + '</a>' }
+                                    // ····································································································
+                                    // · Add previous and next links before and after the breadcrumbs
+                                    // ···································································································· 
+                                        if (previousNode != null)
+                                            breadcrumbs = '<a href="#' + previousNode.id + '"><<</a> ' + breadcrumbs
+                                        if (nextNode != null)
+                                            breadcrumbs += ' <a href="#' + nextNode.id + '">>></a>'
                                     breadcrumbs += '</small></i><br>'
                                 }
                             sTag = EOL + indentSp + SEP4 + '<h4 style="' + STYLE_H4 + '" style="' + STYLE_H4 + '">' + aName
