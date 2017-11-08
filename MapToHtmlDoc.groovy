@@ -3,6 +3,8 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version 2017-11-08_20.10.56
+            // I fixed the rawNote() function, it now keeps the indentation of files and remove empty lines and spaces. 
         // Version 2017-11-08_13.20.22
             // Added the breadcrumb feature (clickable fullpath parts in sections H2, H3 and optionaly H4 to jump back to previous sections).
         // Version 2017-11-08_11.59.59
@@ -168,7 +170,7 @@
             // ···································································································· 
                 def STYLE_BOX_PRE_WRAP = 'white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;'
                 def STYLE_BOX_PRE = 'font-family: \'Lucida Console\', Monaco, monospace; font-size: 9px; background-color: #F0F0F0; padding: 10px;' + STYLE_BOX_PRE_WRAP
-                def S_BOX = '<pre style="' + STYLE_BOX_PRE + '">' + EOL
+                def S_BOX = '<pre style="' + STYLE_BOX_PRE + '">'
                 def E_BOX = '</pre>' + EOL
 
         // ----------------------------------------------------------------------------------------------------
@@ -252,14 +254,19 @@
             }
 
         // ====================================================================================================
-        def rawNote(note) { // = To get only the some html tags from notes
+        def rawNote(node) { // = To get only the some html tags from notes
         // ==================================================================================================== 
             // Remove html tags
-                def rawNote = note.replaceAll('<(html|head|body|p|span|pre).*?>', '')
-                rawNote = rawNote.replaceAll('</(html|head|body|p|span|pre)>', '')
-                rawNote = rawNote.replaceAll('&#160;', '')
-                rawNote = rawNote.replaceAll('(^|\n)\\s*', '$1')
-            return rawNote.trim()
+                def rawNote = node.noteText
+                // Remote html tags and entities
+                    rawNote = rawNote.replaceAll('<(html|head|body|p|span|pre).*?>', '')
+                    rawNote = rawNote.replaceAll('</(html|head|body|p|span|pre)>', '')
+                    rawNote = rawNote.replaceAll('&#160;', '')
+                // Remove empty lines and spaces
+                    rawNote = rawNote.replaceAll('\\n\\s*\\n\\s*\\n', '\n') // Remove multiple empty lines
+                    rawNote = rawNote.replaceAll('\\n\\s*?$', '') // Remove last end of line
+                    rawNote = rawNote.replaceAll('^\\s*?(\\S)', '$1') // Spaces at the beginning left-over by remoteHtmlTagsFromString()
+            return rawNote
             }
 
         // ====================================================================================================
@@ -395,13 +402,12 @@
                     // ----------------------------------------------------------------------------------------------------
                     // - Note
                     // ---------------------------------------------------------------------------------------------------- 
-                        note = ''
+                        //note = ''
                         hasNote = false
                         if (n.note != null) {
                             if (n.note.text != null) {
                                 hasNote = true
-                                note = n.note.html
-                                rNote = rawNote(n.note.html)
+                                rNote = rawNote(n)
                             }
                         }
 
@@ -656,7 +662,7 @@
                     // - Nodes that are notes (Notes node have to have core text, just put something that describe the node but it will not be displayed).
                     // ---------------------------------------------------------------------------------------------------- 
                         else if (hasNote && !hasLink) {
-                            sTag = indentSp + S_BOX + aName
+                            sTag = aName + S_BOX
                             eTag = E_BOX
                             iText = rNote
                         }
