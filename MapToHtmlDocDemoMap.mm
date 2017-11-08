@@ -1,6 +1,6 @@
 <map version="freeplane 1.6.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1510095672117"><richcontent TYPE="DETAILS">
+<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1510134537222"><richcontent TYPE="DETAILS">
 
 <html>
   <head>
@@ -8,7 +8,7 @@
   </head>
   <body>
     <p>
-      Version: 2017-11-08_01.00.26
+      Version: 2017-11-08_11.48.25
     </p>
   </body>
 </html>
@@ -41,7 +41,7 @@
             <node_compare_condition user_name="IGNORE (BAK)" VALUE="BAK" MATCH_CASE="true" MATCH_APPROXIMATELY="false" COMPARATION_RESULT="0" SUCCEED="true" ITEM="filter_node"/>
         </conditional_style>
     </conditional_styles>
-    <properties fit_to_viewport="false;" show_icon_for_attributes="true" show_note_icons="true" edgeColorConfiguration="#808080ff,#808080ff,#808080ff,#808080ff,#808080ff"/>
+    <properties show_icon_for_attributes="true" fit_to_viewport="false;" show_note_icons="true" edgeColorConfiguration="#808080ff,#808080ff,#808080ff,#808080ff,#808080ff"/>
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node" STYLE="oval" UNIFORM_SHAPE="true" VGAP_QUANTITY="24.0 pt">
@@ -169,8 +169,9 @@
 <node TEXT="Also someone may want to keep the structure of maps like this map for example so that it can be converted to html later if needed." ID="ID_950856550" CREATED="1497111652250" MODIFIED="1497111699946"/>
 </node>
 </node>
-<node TEXT="Other usages" ID="ID_1066963525" CREATED="1497119788023" MODIFIED="1508246343186">
+<node TEXT="Other usages" ID="ID_1066963525" CREATED="1497119788023" MODIFIED="1510134281239">
 <icon BUILTIN="PalmIcons/dFileMan/Command/User-form"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_832412206" TARGET_LABEL="IGNORE" STARTINCLINATION="66;15;" ENDINCLINATION="-632;30;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <node TEXT="Outlook Emails" ID="ID_805180690" CREATED="1497119797548" MODIFIED="1508246417390">
 <icon BUILTIN="Mail"/>
 <node TEXT="The html created can also for example copy pasted from Chrome (for example) into an outlook email, and the links and images will be preserved. So it allows to compose complex emails in Freeplane with a lot of hyperlinking, sections and content." ID="ID_446817172" CREATED="1497119609464" MODIFIED="1497119680548"/>
@@ -554,13 +555,16 @@
 </node>
 </node>
 </node>
-<node TEXT="Connectors" ID="ID_1041428222" CREATED="1510090519356" MODIFIED="1510094385464">
+<node TEXT="Connectors" ID="ID_1041428222" CREATED="1510090519356" MODIFIED="1510133500810">
 <icon BUILTIN="PalmIcons/bHome/Chores/Elec-outlet"/>
-<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_962226392" SOURCE_LABEL="Connector label" TARGET_LABEL="Bullet list label" MIDDLE_LABEL="Middle label" STARTINCLINATION="-897;110;" ENDINCLINATION="-96;44;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_962226392" SOURCE_LABEL="Connector label (IGNORE)" TARGET_LABEL="Bullet list label" MIDDLE_LABEL="Middle label" STARTINCLINATION="-897;110;" ENDINCLINATION="-96;44;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <node TEXT="" ID="ID_1269235487" CREATED="1510093979553" MODIFIED="1510093979553">
 <node TEXT="Connectors are an easy way to create links from one section to another, back and forth." ID="ID_173422651" CREATED="1510096503333" MODIFIED="1510096527017">
 <node TEXT="They will simply be created a links to the section they are linked to. There will also be a link created in the target section to the source link. The labels are also shown as part of the text besided the link that forms some kind of textual arrow." ID="ID_1543602251" CREATED="1510093982280" MODIFIED="1510096555513"/>
 </node>
+</node>
+<node TEXT="Ignore sections/nodes in connectors" ID="ID_611331884" CREATED="1510134350714" MODIFIED="1510134390300">
+<node TEXT="If the word &apos;IGNORE&apos; is contained in a connector label, the link will not be created at the node where that label is located. And &apos;IGNORE&apos; is found in the label in the middle, no link will be created at all (this can be useful if connectors are needed in the map but they are not needed in the html output)." ID="ID_1955046585" CREATED="1510134391554" MODIFIED="1510134493324"/>
 </node>
 <node TEXT="SHOW_CONNECTOR_DETAILS" ID="ID_257161057" CREATED="1510095380029" MODIFIED="1510095387456">
 <node TEXT="There is a constant called &apos;SHOW_CONNECTOR_DETAILS&apos;. When it is set to &apos;true&apos; (by default) the details of the connector is shown, so a textual arrow is displayed besided the link and it shows the source section and target section, all 3 labels if any is defined, and also the path to the source or target node." ID="ID_497556981" CREATED="1510095389500" MODIFIED="1510095516844"/>
@@ -789,8 +793,9 @@
 </node>
 </node>
 </node>
-<node TEXT="Configuration" POSITION="right" ID="ID_662083576" CREATED="1507667102285" MODIFIED="1508246664610">
+<node TEXT="Configuration" POSITION="right" ID="ID_662083576" CREATED="1507667102285" MODIFIED="1510134229444">
 <icon BUILTIN="PalmIcons/cSeries/Blue1/Blue-pc"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1784484328" MIDDLE_LABEL="IGNORE" STARTINCLINATION="-286;8;" ENDINCLINATION="-286;8;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <edge COLOR="#808080"/>
 <node TEXT="Freeplane preferences" ID="ID_1037169726" CREATED="1507667110409" MODIFIED="1507716393207">
 <node TEXT="Allow script execution" ID="ID_1600618141" CREATED="1507667121107" MODIFIED="1507667203462">
@@ -924,6 +929,9 @@
 </node>
 <node TEXT="Version: 2017-11-08_01.00.26" ID="ID_268697995" CREATED="1510095621922" MODIFIED="1510095627711">
 <node TEXT="Added section about connectors and I added connector samples in the map." ID="ID_1642950171" CREATED="1510095629676" MODIFIED="1510095662710"/>
+</node>
+<node TEXT="Version: 2017-11-08_11.48.25" ID="ID_1919903400" CREATED="1510134501459" MODIFIED="1510134505492">
+<node TEXT="Added connectors &apos;IGNORE&apos; documentation." ID="ID_647739081" CREATED="1510134506443" MODIFIED="1510134530132"/>
 </node>
 </node>
 </node>
