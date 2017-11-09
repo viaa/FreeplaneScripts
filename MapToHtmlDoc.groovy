@@ -3,6 +3,8 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version 2017-11-09_11.27.13 
+            // I modified the link formats for the connector and the breadcrumbs previous and next.
         // Version 2017-11-09_00.48.00 
             // I added the previous << and next >> links to the breadcrumbs to jump to the next section of the same level.
         // Version 2017-11-08_20.35.37
@@ -565,9 +567,9 @@
                                     // · Add previous and next links before and after the breadcrumbs
                                     // ···································································································· 
                                         if (previousNode != null)
-                                            breadcrumbs = '<a href="#' + previousNode.id + '"><<</a> ' + breadcrumbs
+                                            breadcrumbs = '<a href="#' + previousNode.id + '"><</a> ' + breadcrumbs
                                         if (nextNode != null)
-                                            breadcrumbs += ' <a href="#' + nextNode.id + '">>></a>'
+                                            breadcrumbs += ' <a href="#' + nextNode.id + '">></a>'
                                     breadcrumbs += '</small></i><br>'
                                 }
                             if (cptNode == 2) // If it is the second node don't add the '<br>' because it put too many space after the table of content
@@ -595,9 +597,9 @@
                                     // · Add previous and next links before and after the breadcrumbs
                                     // ···································································································· 
                                         if (previousNode != null)
-                                            breadcrumbs = '<a href="#' + previousNode.id + '"><<</a> ' + breadcrumbs
+                                            breadcrumbs = '<a href="#' + previousNode.id + '"><</a> ' + breadcrumbs
                                         if (nextNode != null)
-                                            breadcrumbs += ' <a href="#' + nextNode.id + '">>></a>'
+                                            breadcrumbs += ' <a href="#' + nextNode.id + '">></a>'
                                     breadcrumbs += '</small></i><br>'
                                 }
                             sTag = EOL + indentSp + SEP3 + '<h3 style="' + STYLE_H3 + '">' + aName
@@ -622,9 +624,9 @@
                                     // · Add previous and next links before and after the breadcrumbs
                                     // ···································································································· 
                                         if (previousNode != null)
-                                            breadcrumbs = '<a href="#' + previousNode.id + '"><<</a> ' + breadcrumbs
+                                            breadcrumbs = '<a href="#' + previousNode.id + '"><</a> ' + breadcrumbs
                                         if (nextNode != null)
-                                            breadcrumbs += ' <a href="#' + nextNode.id + '">>></a>'
+                                            breadcrumbs += ' <a href="#' + nextNode.id + '">></a>'
                                     breadcrumbs += '</small></i><br>'
                                 }
                             sTag = EOL + indentSp + SEP4 + '<h4 style="' + STYLE_H4 + '" style="' + STYLE_H4 + '">' + aName
@@ -777,7 +779,7 @@
                                     pathToNode = ''
                                     it.source.pathToRoot.each { it2 -> pathToNode += '/' + truncateField(it2.plainText, SHORT_TEXT_MAX_SIZE) }
                                 // Add the connector to the text list
-                                    connectorsInList += indentSp + indentNbsp + '<small>< <a href="#' + it.source.id + '">' + it.source.plainText + '</a></small>'
+                                    connectorsInList += indentSp + indentNbsp + '<small><a href="#' + it.source.id + '">< ' + it.source.plainText + '</a></small>'
                                     if (SHOW_CONNECTOR_DETAILS)
                                         connectorsInList += ' <i><small>This section' + tLabel + '<---' + mLabel + sLabel + it.source.plainText + '{' + pathToNode + '}</small></i><br>' + EOL
                                     else
@@ -812,7 +814,7 @@
                                     pathToNode = ''
                                     it.target.pathToRoot.each { it2 -> pathToNode += '/' + truncateField(it2.plainText, SHORT_TEXT_MAX_SIZE) }
                                 // Add the connector to the text list
-                                    connectorsOutList += indentSp + indentNbsp + '<small>> <a href="#' + it.target.id + '">' + it.target.plainText + '</a></small>'
+                                    connectorsOutList += indentSp + indentNbsp + '<small><a href="#' + it.target.id + '">> ' + it.target.plainText + '</a></small>'
                                     if (SHOW_CONNECTOR_DETAILS)
                                          connectorsOutList += ' <i><small>This section' + sLabel + mLabel+ '--->'  + tLabel + it.target.plainText + '{' + pathToNode + '}</small></i><br>' + EOL
                                     else
