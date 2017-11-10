@@ -3,6 +3,8 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version 2017-11-10_11.54.25
+            // Bug fix: it.value.toLOwerCase()=='NOEXPORT' to it.value.toLowerCase()=='NOEXPORT'
         // Version 2017-11-09_11.27.13 
             // I modified the link formats for the connector and the breadcrumbs previous and next.
         // Version 2017-11-09_00.48.00 
@@ -285,7 +287,7 @@
                         //it.icons.collect{it.toString()}.join(';') =~ '(^|;)(button_cancel|closed)' || 
                         it.icons.collect{it.toString()}.join(';') =~ '(^|;)(closed)' || 
                     // or an attribute with the name 'Type' with the value 'Private' (For Quinbus' exclusion of nodes using an attribute name (https://sourceforge.net/p/freeplane/discussion/758437/thread/67f8576c/))
-                        it.attributes.findAll{it.key.toLowerCase()=='type' && (it.value.toLowerCase()=='private' || it.value.toLOwerCase()=='NOEXPORT')}.size() > 0 // For Quinbus' exclusion of nodes using an attribute name 'Type' with the value 'Private' (https://sourceforge.net/p/freeplane/discussion/758437/thread/67f8576c/) 
+                        it.attributes.findAll{it.key.toLowerCase()=='type' && (it.value.toLowerCase()=='private' || it.value.toLowerCase()=='NOEXPORT')}.size() > 0 // For Quinbus' exclusion of nodes using an attribute name 'Type' with the value 'Private' (https://sourceforge.net/p/freeplane/discussion/758437/thread/67f8576c/) 
                 } 
             }
 
