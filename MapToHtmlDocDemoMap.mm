@@ -1,6 +1,6 @@
 <map version="freeplane 1.6.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1510140010604"><richcontent TYPE="DETAILS">
+<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1510662333208"><richcontent TYPE="DETAILS">
 
 <html>
   <head>
@@ -8,7 +8,7 @@
   </head>
   <body>
     <p>
-      Version: 2017-11-08_13.19.48
+      Version: 2017-11-14_14.24.57:
     </p>
   </body>
 </html>
@@ -185,7 +185,7 @@
 </node>
 </node>
 </node>
-<node TEXT="Features" POSITION="right" ID="ID_998844426" CREATED="1497029381635" MODIFIED="1510138860023">
+<node TEXT="Features" POSITION="right" ID="ID_998844426" CREATED="1497029381635" MODIFIED="1510178698099">
 <icon BUILTIN="idea"/>
 <arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_106028219" STARTINCLINATION="608;0;" ENDINCLINATION="-924;-174;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <edge COLOR="#808080"/>
@@ -371,6 +371,7 @@
 </richcontent>
 </node>
 </node>
+<node TEXT="If you want to display code in a note, it is better to put directly the &lt;pre&gt; tag in the HTML Code view of the note editor. Because each lines pasted to the note editor&apos;s layout view becomes a paragraph and is all indented the same, so the indentation will appear wrongly once the html document is rendered." ID="ID_808262811" CREATED="1510662578762" MODIFIED="1510662753492"/>
 </node>
 </node>
 <node TEXT="Formating" ID="ID_1559534251" CREATED="1497108253313" MODIFIED="1508245958215">
@@ -463,10 +464,10 @@
 <node TEXT="" ID="ID_1504309059" CREATED="1510139783501" MODIFIED="1510139783501">
 <node TEXT="The breadcrumb feature will add the paths to each sections with each individual parts of the path as a link to be click to jump to that particular section. This is a little bit like the clickable paths feature in window managers." ID="ID_1420347834" CREATED="1510139786212" MODIFIED="1510139864653"/>
 <node TEXT="By defaul the breadcrumbs are added to H2 and H3 sections, but there is also the possibility to add them to H4 section as well by changing the constant ADD_H4_BREADCRUMBS = false." ID="ID_1413092494" CREATED="1510139865035" MODIFIED="1510139924931"/>
-<node TEXT="Each H2, H3, H4 have their contstant to add and remove the breadcrumbs." ID="ID_1607441233" CREATED="1510139925323" MODIFIED="1510139946040">
-<node TEXT="def ADD_H2_BREADCRUMBS = true" ID="ID_541280068" CREATED="1510139953199" MODIFIED="1510139953199"/>
-<node TEXT="def ADD_H3_BREADCRUMBS = true" ID="ID_1053244924" CREATED="1510139953199" MODIFIED="1510139953199"/>
-<node TEXT="def ADD_H4_BREADCRUMBS = false" ID="ID_1633021379" CREATED="1510139953199" MODIFIED="1510139953199"/>
+<node TEXT="Each H2, H3, H4 have their contstant to add and remove the breadcrumbs and are defined like this by default:" ID="ID_1607441233" CREATED="1510139925323" MODIFIED="1510166946911">
+<node TEXT="* def ADD_H2_BREADCRUMBS = true" ID="ID_541280068" CREATED="1510139953199" MODIFIED="1510166888910"/>
+<node TEXT="* def ADD_H3_BREADCRUMBS = true" ID="ID_1053244924" CREATED="1510139953199" MODIFIED="1510166893878"/>
+<node TEXT="* def ADD_H4_BREADCRUMBS = false" ID="ID_1633021379" CREATED="1510139953199" MODIFIED="1510166896677"/>
 </node>
 </node>
 </node>
@@ -754,51 +755,29 @@
 <node TEXT="Image minimize" ID="ID_1766577308" CREATED="1507030156891" MODIFIED="1507030169883">
 <node TEXT="ImageEmbedLinkSwitcher.groovy" ID="ID_1765991671" CREATED="1507030171387" MODIFIED="1507030495278">
 <node TEXT="This script is useful if you want to get the images out of the screen, to minimize them. Then embedded images will appear as links." ID="ID_782805686" CREATED="1507030243138" MODIFIED="1507030495278"/>
-<node TEXT="Code" ID="ID_560719244" CREATED="1507030288244" MODIFIED="1507030318046"><richcontent TYPE="NOTE">
+<node TEXT="Code" ID="ID_560719244" CREATED="1507030288244" MODIFIED="1510662250605"><richcontent TYPE="NOTE">
 
 <html>
   <head>
     
   </head>
   <body>
-    <p>
-      // This script simply do a switch between an image that is embedded and a image as a link.
-    </p>
-    <p>
-      // If the image is a link, it will become an image embedded in the map with no link.
-    </p>
-    <p>
-      // If the image is embedded, it will become a link to an image.
-    </p>
-    <p>
-      
-    </p>
-    <p>
-      if (link.text == null &amp;&amp; externalObject.uri != null) {
-    </p>
-    <p>
-      &#160;&#160;&#160;&#160;link.text = externalObject.uri
-    </p>
-    <p>
-      &#160;&#160;&#160;&#160;externalObject.uri = null
-    </p>
-    <p>
-      }
-    </p>
-    <p>
-      else if (externalObject.uri == null &amp;&amp; link != null) {
-    </p>
-    <p>
-      &#160;&#160;&#160;&#160;externalObject.uri = link.text
-    </p>
-    <p>
-      &#160;&#160;&#160;&#160;link.text = null
-    </p>
-    <p>
-      }
-    </p>
+    <pre>// This script simply do a switch between an image that is embedded and a image as a link.
+// If the image is a link, it will become an image embedded in the map with no link.
+// If the image is embedded, it will become a link to an image.
+
+if (link.text == null &amp;&amp; externalObject.uri != null) {
+    link.text = externalObject.uri
+    externalObject.uri = null
+}
+else if (externalObject.uri == null &amp;&amp; link != null) {
+    externalObject.uri = link.text
+    link.text = null
+}
+    </pre>
   </body>
 </html>
+
 </richcontent>
 </node>
 </node>
@@ -947,6 +926,10 @@
 <node TEXT="Version: 2017-11-08_13.19.48:" ID="ID_1435161528" CREATED="1510139986312" MODIFIED="1510139989944">
 <node TEXT="Added breadcrumb (clickable paths) documentation." ID="ID_209983193" CREATED="1510139990727" MODIFIED="1510140252815"/>
 </node>
+<node TEXT="Version: 2017-11-14_14.24.57:" ID="ID_1115437469" CREATED="1510662294682" MODIFIED="1510662297708">
+<node TEXT="I changed the note for the ImageEmbedLinkSwitcher.groovy, I put a &lt;pre&gt; tag in the note." ID="ID_576044513" CREATED="1510662298306" MODIFIED="1510662320620"/>
+<node TEXT="Added a comment in the section about notes." ID="ID_888196649" CREATED="1510662763218" MODIFIED="1510662775252"/>
+</node>
 </node>
 </node>
 <node TEXT="I hope you&apos;ll find it useful too" POSITION="right" ID="ID_495374163" CREATED="1497112090702" MODIFIED="1508142077622">
@@ -991,6 +974,17 @@
 </html>
 </richcontent>
 <cloud COLOR="#ffffcc" SHAPE="ARC"/>
+<node TEXT="s0 The notes have an indenting issue with the slashes, so if at the top of a note there are // then the text under will be all indented... The problem is this line:" ID="ID_622917513" CREATED="1510566344295" MODIFIED="1510566821651">
+<node TEXT="rawNote = rawNote.replaceAll(&apos;\\n\\s*?\\n\\s*?\\n&apos;, &apos;\n&apos;) // Remove multiple empty lines" ID="ID_1611950920" CREATED="1510566822194" MODIFIED="1510566822194"/>
+</node>
+<node TEXT="s0 Export as markdown also maybe don&apos;t mix the code and put it at the end?..." ID="ID_117007128" CREATED="1510650345440" MODIFIED="1510650382004"/>
+<node TEXT="s0 Maybe fix the formatting so that it takes style formatting and format using the format panel?" ID="ID_1141923887" CREATED="1510306437120" MODIFIED="1510306463643"/>
+<node TEXT="s0 Add a new feature: Content identification. So this will add for example an image icon near the menu links in the toc where images are found in the document and also a number (3) for example near to tell that they are 3 images. And do that also with notes or files included, connectors (with the plug icon). This should be enabled and disabled using a constant." ID="ID_1514853016" CREATED="1510306464157" MODIFIED="1510306613550">
+<node TEXT="s0 Maybe it could show the number of nodes in the section and the total length of the sections nodes." ID="ID_460071353" CREATED="1510306695266" MODIFIED="1510306730547"/>
+</node>
+<node TEXT="s0 Modify the connectors so that if there is both arrows then add both links, and basically just add the link where there is arrow (at the opposite)" ID="ID_691943370" CREATED="1510177668364" MODIFIED="1510177718980"/>
+<node TEXT="s0 Check why there is no indentation in the notes if I put some in the map. In the map note there is but not in the html gray box." ID="ID_498865818" CREATED="1510155275081" MODIFIED="1510155299667"/>
+<node TEXT="s0 If the node level is change with the feature to change the node level, it is still the old path that is shown in the breadcrumb, maybe change that...?" ID="ID_590180315" CREATED="1510140552358" MODIFIED="1510140582056"/>
 <node ID="ID_724005350" CREATED="1510136345466" MODIFIED="1510139768685"><richcontent TYPE="NODE">
 
 <html>
@@ -1003,7 +997,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="s0 Add the export to markdown (optional using a constant) .md file" ID="ID_1158030717" CREATED="1509629454575" MODIFIED="1509629496048"/>
