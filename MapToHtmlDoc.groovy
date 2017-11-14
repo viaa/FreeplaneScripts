@@ -3,6 +3,8 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version 2017-11-14_14.26.00
+            // Replace multiple empty lines in the notes by 1 empty line.
         // Version 2017-11-10_11.54.25
             // Bug fix: it.value.toLOwerCase()=='NOEXPORT' to it.value.toLowerCase()=='NOEXPORT'
         // Version 2017-11-09_11.27.13 
@@ -271,7 +273,7 @@
                     rawNote = rawNote.replaceAll('</(html|head|body|p|span|pre)>', '')
                     rawNote = rawNote.replaceAll('&#160;', '')
                 // Remove empty lines and spaces
-                    rawNote = rawNote.replaceAll('\\n\\s*\\n\\s*\\n', '\n') // Remove multiple empty lines
+                    rawNote = rawNote.replaceAll('\\n\\s*?\\n\\s*?\\n', '\n\n') // Remove multiple empty lines
                     rawNote = rawNote.replaceAll('\\n\\s*?$', '') // Remove last end of line
                     rawNote = rawNote.replaceAll('^\\s*?(\\S)', '$1') // Spaces at the beginning left-over by remoteHtmlTagsFromString()
             return rawNote
