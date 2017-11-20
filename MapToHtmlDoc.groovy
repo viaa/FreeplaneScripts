@@ -3,6 +3,8 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version 2017-11-20_13.18.08
+            // Fixed small bug with connectors after markdown.
         // Version 2017-11-20_12.48.50
             // Add the copying of files linked to the OUT_DIR, so now both images and files are copied.
         // Version 2017-11-17_19.56.28 
@@ -1019,7 +1021,6 @@
                                 // Add the connector to the text list
                                     connectorsInList += indentSp + indentNbsp + '<small><a href="#' + it.source.id + '">< ' + it.source.plainText + '</a></small>'
                                     if (MARKDOWN)
-                                        connectorsInList += '<a href="#' + it.source.id + '">< ' + it.source.plainText + '</a>'
                                         mdConnectorsInList += "[$it.source.plainText](#$it.source.id)"
                                     if (SHOW_CONNECTOR_DETAILS) {
                                         connectorsInList += ' <i><small>This section' + tLabel + '<---' + mLabel + sLabel + it.source.plainText + '{' + pathToNode + '}</small></i><br>' + EOL
