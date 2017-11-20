@@ -3,6 +3,11 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Verstion 2017-11-20_12.48.50
+            // Add the copying of files linked to the OUT_DIR, so now both images and files are copied.
+        // Version 2017-11-17_19.56.28 
+            // Starting to add export to Markdown files also along with html files (not complete yet).
+            // For html document, I added optional copying of images (for embedded image and linked images) to the out_dir for portability, and to upload to websites. For markdown export the images files will always be copied locally because local paths (not http URL) didn't seem to work on windows + the firefox plugin to view Markdown files, so I only put the filename as paths for them. 
         // Version 2017-11-14_14.26.00
             // Replace multiple empty lines in the notes by 1 empty line.
         // Version 2017-11-10_11.54.25
@@ -94,6 +99,8 @@
 
     // For file copy
         import org.apache.commons.io.FileUtils
+	// To get parts of paths
+		import org.apache.commons.io.FilenameUtils
 
 // ####################################################################################################
 // # Constants and variables
@@ -125,13 +132,17 @@
         def CHANGE_DEPTH_ICON = 'Dark-'
 
         // Html doc paths
-            def OUT_DIR = 'c:/Temp/'
+            @Field def OUT_DIR = 'c:/Temp/'
             def OUT_FILENAME = 'out.html'
             def OUT_TMP_FILENAME = 'outtmp.html'
+            // Markdown
+                def MD_OUT_FILENAME = 'out.md'
+                def MD_OUT_TMP_FILENAME = 'outtmp.md'
 
-        def USER_PATH = 'C:/Users/' + System.getenv("USERNAME") + '/AppData/Roaming/Freeplane/1.6.x/'
-        def ICONS_PATH = USER_PATH + 'icons/'
-        def LIB_PATH = USER_PATH + 'lib/' 
+		// Freeplane paths
+			def USER_PATH = 'C:/Users/' + System.getenv("USERNAME") + '/AppData/Roaming/Freeplane/1.6.x/'
+			def ICONS_PATH = USER_PATH + 'icons/'
+			def LIB_PATH = USER_PATH + 'lib/' 
 
         // For connectors
             def SHORT_TEXT_MAX_SIZE = 25 // Number of chars to display in the ShortText field
@@ -141,6 +152,15 @@
             def ADD_H2_BREADCRUMBS = true
             def ADD_H3_BREADCRUMBS = true
             def ADD_H4_BREADCRUMBS = false
+    
+        // For Markdown (enable export to Markdown, .md files will be also create with the .html files)
+            def MARKDOWN = true
+            def NOTE_IS_HTML = '<b>|<a href|<i>|<small>|<font' // To identify that a note contains html (to select the display method for the markdown notes: bloquote or code)
+
+		// To copy files or images to the output directory
+			def COPY_FILES_TO_OUT_DIR = false
+			def COPY_IMAGES_TO_OUT_DIR = false // The images that are link from anywhere on disks will be copied in the output directory and linked in the html and markdown files from there.
+            @Field def OVERWRITE_IF_EXISTS = false // If the images or files exists already they will be overwritten if set to true, so copied again everytime.
 
         // ----------------------------------------------------------------------------------------------------
         // - Styles
@@ -207,6 +227,9 @@
         // Details
             def STYLE_DET = 'color: black'
 
+        // Markdown
+            def mdToc = ''
+
     // ====================================================================================================
     // = Variables
     // ==================================================================================================== 
@@ -214,8 +237,12 @@
         def rText = ''
         def htmlStr = '<html><meta charset="UTF-8"><body style="' + STYLE_BODY + '">' + EOL
         def htmlFileTmp = null
-        if (LARGE_MAP_USE_FILE)
+        def mdFileTmp = null // Markdown
+        if (LARGE_MAP_USE_FILE) {
             htmlFileTmp = new File(OUT_DIR + OUT_TMP_FILENAME)
+            if (MARKDOWN)
+                mdFileTmp = new File(OUT_DIR + MD_OUT_TMP_FILENAME)
+        }
         def depth = 0
         def initialDepth = getNodeLevel(false) + 1 // Get the level of the current node, this allows to generate the html document from anywhere, not only the root node
         @Field def SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-yy hh:mm:ss") // Used in the debug function 
@@ -223,7 +250,11 @@
         // Icons
             def iconsText = ''
             def iconsHtml = ''
+            def iconsMd = ''
             def iconsMap = [:] // Key/value pair of icons with Name/FullDirectory
+
+        // Markdown
+            def mdStr = ''
 
 // ####################################################################################################
 // # Functions
@@ -283,13 +314,13 @@
         def ignoreNode(pNode) { // = Add the ability to ignore the nodes that are found under a node with
         // ==================================================================================================== 
             pNode.pathToRoot.any { 
-                    // the core text 'OLD', 'IGNORE', 'BAK'
-                        it.text == 'IGNORE' || it.text == 'OLD' || it.text == 'BAK' || 
-                    // or under nodes that have the icons 'button_cancel' or 'closed' 
-                        //it.icons.collect{it.toString()}.join(';') =~ '(^|;)(button_cancel|closed)' || 
-                        it.icons.collect{it.toString()}.join(';') =~ '(^|;)(closed)' || 
-                    // or an attribute with the name 'Type' with the value 'Private' (For Quinbus' exclusion of nodes using an attribute name (https://sourceforge.net/p/freeplane/discussion/758437/thread/67f8576c/))
-                        it.attributes.findAll{it.key.toLowerCase()=='type' && (it.value.toLowerCase()=='private' || it.value.toLowerCase()=='NOEXPORT')}.size() > 0 // For Quinbus' exclusion of nodes using an attribute name 'Type' with the value 'Private' (https://sourceforge.net/p/freeplane/discussion/758437/thread/67f8576c/) 
+                // the core text 'OLD', 'IGNORE', 'BAK'
+                    it.text == 'IGNORE' || it.text == 'OLD' || it.text == 'BAK' || 
+                // or under nodes that have the icons 'button_cancel' or 'closed' 
+                    //it.icons.collect{it.toString()}.join(';') =~ '(^|;)(button_cancel|closed)' || 
+                    it.icons.collect{it.toString()}.join(';') =~ '(^|;)(closed)' || 
+                // or an attribute with the name 'Type' with the value 'Private' (For Quinbus' exclusion of nodes using an attribute name (https://sourceforge.net/p/freeplane/discussion/758437/thread/67f8576c/))
+                    it.attributes.findAll{it.key.toLowerCase()=='type' && (it.value.toLowerCase()=='private' || it.value.toLowerCase()=='NOEXPORT')}.size() > 0 // For Quinbus' exclusion of nodes using an attribute name 'Type' with the value 'Private' (https://sourceforge.net/p/freeplane/discussion/758437/thread/67f8576c/) 
                 } 
             }
 
@@ -305,11 +336,52 @@
             return text.replaceAll("'", "''") // Double the apostrophes so there is no issue inserting the strings in the database
         }
 
+        // ====================================================================================================
+        def getFileFromPath(path) { // = This function was created because there is an issue using for example FileUtils with spaces in paths 
+        // ==================================================================================================== 
+			path = path.replace('file:/', ' ')
+            def driveLetter = path.substring(0, 2) // For some reason uri.getPath() returns no drive letter so it is kept here
+                URI uri = new URI(path.trim().replaceAll("\\u0020", '%20'))
+                File file = new File(driveLetter + uri.getPath())
+			return file
+            }
+
+        // ====================================================================================================
+        def copyFileToOutDir(srcPath) { // = Copy the file in $OUT_DIR and rename it as the mapName + node.id
+        // ==================================================================================================== 
+            // Markdown: With Markdown we have to copy to the out_dir, this is because (under Windows?) the local paths are not working in Markdown (with Firefox plugin)
+            // File object to destination (in OUT_DIR)
+                srcPath = srcPath.toString().replace('file:/', '')
+                def destFilename = FilenameUtils.getBaseName(srcPath) // Get file name of source file
+                def destExt = FilenameUtils.getExtension(srcPath) // Get extension of source file
+                    if (destExt != '')
+                        destExt = '.' + destExt
+                destFilename = map.name + '_' + destFilename + '_' + id + destExt
+                def destPath = OUT_DIR + destFilename
+                def destFile = getFileFromPath(destPath)
+            // Only do the copy if the file doesn't exist yet, if it exists re-use the file. So if a user wants to have the file updated they will need to manually delete the images before to run the script. 
+                if (!destFile.exists() || OVERWRITE_IF_EXISTS) {
+                    // File object from link (source)
+                        def srcFile = getFileFromPath(srcPath)
+                    // Copy the image to OUT_DIR
+                        try {
+                            FileUtils.copyFile(srcFile, destFile)
+                        }
+                        catch (all) { 
+                            m('Error copying: ' + srcFile.toString() + ' -> ' + destFile.toString())
+                        }
+                }
+            return destFilename
+            }
+
 // ####################################################################################################
 // # Initialization
 // #################################################################################################### 
-    if (LARGE_MAP_USE_FILE)
+    if (LARGE_MAP_USE_FILE) {
         htmlFileTmp.delete() // Because we append we need to delete the file first.
+        if (MARKDOWN)
+            mdFileTmp.delete() // Because we append we need to delete the file first.
+    }
 
     // ====================================================================================================
     // = Create folders
@@ -319,7 +391,7 @@
                 if(!folder.exists())
                   folder.mkdirs()
 
-        // Html doc folder
+        // Output folder
             folder = new File(OUT_DIR)
                 if(!folder.exists())
                   folder.mkdirs()
@@ -332,11 +404,10 @@
         // - Put all icons in a map (Key/value pair of icons with Name/FullDirectory)
         // ---------------------------------------------------------------------------------------------------- 
             new File(ICONS_PATH).eachFileRecurse() { file ->
-                String fileWithoutExt = file.name.take(file.name.lastIndexOf('.')) // Get icons name without directory and extension.
+				String fileWithoutExt = FilenameUtils.getBaseName(file.name)
                 if (fileWithoutExt != '') {
                     // Store the file name without extension and directory as the key, and the full path as the value.
                         iconsMap[fileWithoutExt] = file.getAbsolutePath().toString().replace("\\", "/")
-                        //d(iconsMap[fileWithoutExt])
                 }
             }
 
@@ -394,9 +465,21 @@
                     // ---------------------------------------------------------------------------------------------------- 
                         link = ''
                         hasLink = false
-                        if (n.link.text != null) {
+                            hasUrlLink = false
+                            hasFileLink = false
+                            hasFolderLink = false
+                        if (n.link.text != null) { // There is a link
                             hasLink = true
                             link = n.link.text
+                            if (link =~ /http|ftp/) // Is URL
+                                hasUrlLink = true
+                            else { // Is file or folder
+                                File fileTypeCheck = new File(link.replace('file:/', ''))
+                                if (fileTypeCheck.isFile()) // File
+                                    hasFileLink = true
+                                else
+                                    hasFolderLink = true
+                            }
                         }
 
                     // ----------------------------------------------------------------------------------------------------
@@ -448,7 +531,7 @@
             // = Initialize stuff like counters, depth 
             // ==================================================================================================== 
                 id = n.id // Used to reference the nodes one to another, and also for the toc
-                aName = '<a name="' + id + '">'
+                aName = '<a name="' + id + '"></a>'
 
                 // Set depth according to the nodes locations
                     depth = ((n.getNodeLevel(false) + 1) - initialDepth) + 1
@@ -496,16 +579,29 @@
                 // Put them all side by side in this iconsHtml string
                 // ---------------------------------------------------------------------------------------------------- 
                     iconsHtml = ''
+                    if (MARKDOWN)
+                        iconsMd = ''
                     def iconPath = ''
                     def iconName = ''
                     n.icons.each {
                         iconName = it.toString().tokenize('/').last() // Get the last part of the icon name because it may contain some of the path.
                         if (!iconName.contains(CHANGE_DEPTH_ICON)) { // Ignore the icons that are the icons used to change the depth.
                             iconPath = iconsMap.get(iconName)?.value
-                            if (iconPath != null) // If the path is null, it means that one of the icons in the current node doesn't have a path (file) in the iconsMap collected earlier from scanning the icons folder and subfolders. So that icon would be somewhere else not in these folders.
-                                iconsHtml += ('<img src="file://' + iconPath + '" width="12" height="12" />')
+                            if (iconPath != null) { // If the path is null, it means that one of the icons in the current node doesn't have a path (file) in the iconsMap collected earlier from scanning the icons folder and subfolders. So that icon would be somewhere else not in these folders.
+                                // Copy file (image) to OUT_DIR
+                                    if (COPY_IMAGES_TO_OUT_DIR || MARKDOWN) // If we copy images to out dir or we use markdown, get the link filename only as the path (so in the same path as the output file)
+                                        iconPath = copyFileToOutDir(iconPath) // Will return only filename of copied dest path  
+                                iconsHtml += ('<img src="' + iconPath + '" width="12" height="12" />')
+                                if (MARKDOWN)
+                                    iconsMd += ('![](' + iconPath + ')')
+                            }
                         }
                     }
+                    // Add a space to separate the icon with the text where it will be 
+                        if (MARKDOWN) {
+                            if (iconsMd != '')
+                                iconsMd = iconsMd + ' '
+                        }
 
             // ====================================================================================================
             // = Create the latex image files 
@@ -549,6 +645,8 @@
                             return
                         sTag = EOL + indentSp + '<h1>' + aName
                         eTag = '</h1>' + EOL
+                        if (MARKDOWN)
+                            mdStr += "# $aName$rText$EOL"
                     }
 
                 // ----------------------------------------------------------------------------------------------------
@@ -558,22 +656,39 @@
                         if (cptNode == 2) { // If it is the 2nd node, add the table of content placeholder before. It is not added after the first node because there may be detail added after the node 1.
                             sTag = indentSp + '@@TOC@@'
                             tocIndent = indentSp
+                            if (MARKDOWN)
+                                mdStr += '@@TOC@@' + EOL
                         }
                         if (rText != '') {
                             // ····································································································
                             // · Add breadcrumbs
                             // ···································································································· 
                                 breadcrumbs = ''
+                                if (MARKDOWN)
+                                    mdBreadcrumbs = ''
                                 if (ADD_H2_BREADCRUMBS) {
                                     breadcrumbs = '<i><small>'
-                                    n.pathToRoot.each { it -> breadcrumbs += ' / ' + '<a href="#' + it.id + '">' + truncateField(it.plainText, SHORT_TEXT_MAX_SIZE) + '</a>' }
+                                    n.pathToRoot.each { it -> 
+                                        def truncatedField = truncateField(it.plainText, SHORT_TEXT_MAX_SIZE)
+                                        breadcrumbs += ' / ' + '<a href="#' + it.id + '">' + truncatedField + '</a>' 
+                                        if (MARKDOWN)
+                                            mdBreadcrumbs += " / [$truncatedField](#$it.id)" 
+                                    }
+                                    if (MARKDOWN)
+                                        mdBreadcrumbs = mdBreadcrumbs.drop(1)
                                     // ····································································································
                                     // · Add previous and next links before and after the breadcrumbs
                                     // ···································································································· 
-                                        if (previousNode != null)
+                                        if (previousNode != null) {
                                             breadcrumbs = '<a href="#' + previousNode.id + '"><</a> ' + breadcrumbs
-                                        if (nextNode != null)
+                                            if (MARKDOWN)
+                                                mdBreadcrumbs = "[<](#$previousNode.id)$mdBreadcrumbs"
+                                        }
+                                        if (nextNode != null) {
                                             breadcrumbs += ' <a href="#' + nextNode.id + '">></a>'
+                                            if (MARKDOWN)
+                                                mdBreadcrumbs += "[>](#$nextNode.id)"
+                                        }
                                     breadcrumbs += '</small></i><br>'
                                 }
                             if (cptNode == 2) // If it is the second node don't add the '<br>' because it put too many space after the table of content
@@ -582,6 +697,15 @@
                                 sTag += EOL + '<br>' + indentSp + SEP2 + '<h2 style="' + STYLE_H2 + '">' + aName
                             eTag = '</h2>' + breadcrumbs // + TOC_BACK_LINK
                             toc += indentSp + '&#8226; ' + ' <big><a style="' + STYLE_H2 + '" href="#' + id + '">' + rText + '</a></big> ' + iconsHtml + EOL
+
+                            if (MARKDOWN) {
+                                mdStr += "***$EOL"
+                                mdStr += "## $aName$iconsMd$rText$EOL"
+                                mdStr += "***$EOL"
+                                if (ADD_H2_BREADCRUMBS)
+                                    mdStr += "*$mdBreadcrumbs*$EOL$EOL"
+                                mdToc += "* **[$rText](#$id)** $iconsMd$EOL" // TOC: List element
+                            }
                         }
                     }
 
@@ -594,21 +718,44 @@
                             // · Add breadcrumbs
                             // ···································································································· 
                                 breadcrumbs = ''
+                                if (MARKDOWN)
+                                    mdBreadcrumbs = ''
                                 if (ADD_H3_BREADCRUMBS) {
                                     breadcrumbs = '<i><small>'
-                                    n.pathToRoot.each { it -> breadcrumbs += ' / ' + '<a href="#' + it.id + '">' + truncateField(it.plainText, SHORT_TEXT_MAX_SIZE) + '</a>' }
+                                    n.pathToRoot.each { it -> 
+                                        def truncatedField = truncateField(it.plainText, SHORT_TEXT_MAX_SIZE)
+                                        breadcrumbs += ' / ' + '<a href="#' + it.id + '">' + truncatedField + '</a>' 
+                                        if (MARKDOWN)
+                                            mdBreadcrumbs += " / [$truncatedField](#$it.id)" 
+                                    }
+                                    if (MARKDOWN)
+                                        mdBreadcrumbs = mdBreadcrumbs.drop(1)
                                     // ····································································································
                                     // · Add previous and next links before and after the breadcrumbs
                                     // ···································································································· 
-                                        if (previousNode != null)
+                                        if (previousNode != null) {
                                             breadcrumbs = '<a href="#' + previousNode.id + '"><</a> ' + breadcrumbs
-                                        if (nextNode != null)
+                                            if (MARKDOWN)
+                                                mdBreadcrumbs = "[<](#$previousNode.id)$mdBreadcrumbs"
+                                        }
+                                        if (nextNode != null) {
                                             breadcrumbs += ' <a href="#' + nextNode.id + '">></a>'
+                                            if (MARKDOWN)
+                                                mdBreadcrumbs += "[>](#$nextNode.id)"
+                                        }
                                     breadcrumbs += '</small></i><br>'
                                 }
                             sTag = EOL + indentSp + SEP3 + '<h3 style="' + STYLE_H3 + '">' + aName
                             eTag = '</h3>' + breadcrumbs + EOL
                             toc += indentSp + '&#9675; ' + ' <a style="' + STYLE_H3 + '" href="#' + id + '">' + rText + '</a> ' + iconsHtml + EOL
+
+                            if (MARKDOWN) {
+                                mdStr += "### $aName$iconsMd$rText$EOL"
+                                mdStr += "---$EOL"
+                                if (ADD_H3_BREADCRUMBS)
+                                    mdStr += "*$mdBreadcrumbs*$EOL$EOL"
+                                mdToc += '  * ' + "[$rText](#$id) $iconsMd$EOL" // TOC: List element
+                            }
                         }
                     }
 
@@ -621,22 +768,44 @@
                             // · Add breadcrumbs
                             // ···································································································· 
                                 breadcrumbs = ''
+                                if (MARKDOWN)
+                                    mdBreadcrumbs = ''
                                 if (ADD_H4_BREADCRUMBS) {
                                     breadcrumbs = '<i><small>'
-                                    n.pathToRoot.each { it -> breadcrumbs += ' / ' + '<a href="#' + it.id + '">' + truncateField(it.plainText, SHORT_TEXT_MAX_SIZE) + '</a>' }
+                                    n.pathToRoot.each { it -> 
+                                        def truncatedField = truncateField(it.plainText, SHORT_TEXT_MAX_SIZE)
+                                        breadcrumbs += ' / ' + '<a href="#' + it.id + '">' + truncatedField + '</a>' 
+                                        if (MARKDOWN)
+                                            mdBreadcrumbs += " / [$truncatedField](#$it.id)" 
+                                    }
+                                    // Markdown
+                                        mdBreadcrumbs = mdBreadcrumbs.drop(1)
                                     // ····································································································
                                     // · Add previous and next links before and after the breadcrumbs
                                     // ···································································································· 
-                                        if (previousNode != null)
+                                        if (previousNode != null) {
                                             breadcrumbs = '<a href="#' + previousNode.id + '"><</a> ' + breadcrumbs
-                                        if (nextNode != null)
+                                            if (MARKDOWN)
+                                                mdBreadcrumbs = "[<](#$previousNode.id)$mdBreadcrumbs"
+                                        }
+                                        if (nextNode != null) {
                                             breadcrumbs += ' <a href="#' + nextNode.id + '">></a>'
+                                            if (MARKDOWN)
+                                                mdBreadcrumbs += "[>](#$nextNode.id)"
+                                        }
                                     breadcrumbs += '</small></i><br>'
                                 }
                             sTag = EOL + indentSp + SEP4 + '<h4 style="' + STYLE_H4 + '" style="' + STYLE_H4 + '">' + aName
                             eTag = '</h4>' + breadcrumbs + EOL
                             //toc += indentSp + '&#183; <i><small><a style="' + STYLE_H4 + '" href="#' + id + '">' + rText + '</a></small></i>' + EOL
                             toc += indentSp + '&#183; ' + ' <i><small><a style="' + STYLE_H4 + '" href="#' + id + '">' + rText + '</a></small></i> ' + iconsHtml + EOL
+
+                            if (MARKDOWN) {
+                                mdStr += "#### $aName$iconsMd$rText$EOL"
+                                if (ADD_H4_BREADCRUMBS)
+                                    mdStr += "*$mdBreadcrumbs*$EOL$EOL"
+                                mdToc += "      * *[$rText](#$id)* $iconsMd$EOL" // TOC: List element
+                            }
                         }
                     }
 
@@ -649,13 +818,22 @@
                     // - Image inserted (displayed in the map)
                     // ---------------------------------------------------------------------------------------------------- 
                         if (hasXUri) {
-                            p = ''
-                            if (rText != '')
-                                p = '<p>' + indentNbsp + text + '</p>' + EOL
-                            sTag = indentSp + p + indentNbsp + '<img src="' + xUri + '" alt="' + rText + '" style="' + STYLE_IMG + '"/>' + aName
-                            eTag = '<br>' + EOL
-                            iText = ''
-                            }
+                            def linkPath = xUri.toString() // Set link path to embedded image path
+                            // Copy file (image) to OUT_DIR
+                                if (COPY_IMAGES_TO_OUT_DIR || MARKDOWN) { // If we copy images to out dir or we use markdown, get the link filename only as the path (so in the same path as the output file)
+                                    def outDirFilename = copyFileToOutDir(linkPath) // Will return only filename of copied dest path  
+                                    linkPath = outDirFilename // If we copy the images to the OUT_DIR then the path becomes only the filename because it is the same directory as the output file.
+                                    }
+                            // Html
+                                p = ''
+                                if (rText != '')
+                                    p = '<p>' + indentNbsp + text + '</p>' + EOL
+                                sTag = indentSp + p + indentNbsp + '<img src="' + linkPath + '" alt="' + rText + '" style="' + STYLE_IMG + '"/>' + aName
+                                eTag = '<br>' + EOL
+                                iText = ''
+                            if (MARKDOWN)
+                                mdStr += "![$rText]($linkPath)$EOL" // Markdown image
+                        }
 
                     // ----------------------------------------------------------------------------------------------------
                     // - Nodes that have no links and no notes
@@ -666,11 +844,17 @@
                                     sTag = indentSp + '<li>' + aName
                                     eTag = '</li>' + EOL
                                     iText = rText.substring(2) // Remove 2 first chars '* ' 
+
+                                    if (MARKDOWN)
+                                        mdStr += "$rText$EOL"
                                 }
                             // Paragraph
                                 else {
                                     sTag = indentSp + '<p>' + aName + indentNbsp
                                     eTag = '</p>' + EOL
+
+                                    if (MARKDOWN)
+                                        mdStr += "$iconsMd$rText$EOL$EOL"
                                 }
                         }
 
@@ -689,23 +873,54 @@
                                         iText = "File '" + link + "' doesn't exist."
                                     sTag = indentSp + S_BOX + aName
                                     eTag = EOL + indentSp + E_BOX
+                                    if (MARKDOWN) {
+                                        // If the note has some html tags (except pre) then it will become a blockquote 
+                                            if (iText =~ /$NOTE_IS_HTML/)
+                                                mdStr += '> ' + iText.replaceAll('\n', '\n> ') + EOL
+                                        // Other it will be code
+                                            else
+                                                mdStr += "```$EOL" + iText + "$EOL```$EOL$EOL"
+                                    }
                                 }
                             // Show as image
                                 else if (link =~ /(png|jpg)$/) {
-                                    sTag = indentSp + indentNbsp + '<img src="' + link + '" alt="' + rText + '" style="' + STYLE_IMG + '"/>' + aName
-                                    eTag = '<br>' + EOL
-                                    iText = ''
+                                    def linkPath = link // Set link path to embedded image path
+                                    // Copy file (image) to OUT_DIR
+                                        if (COPY_IMAGES_TO_OUT_DIR || MARKDOWN) { // If we copy images to out dir or we use markdown, get the link filename only as the path (so in the same path as the output file)
+                                            def outDirFilename = copyFileToOutDir(linkPath) // Will return only filename of copied dest path  
+                                            linkPath = outDirFilename // If we copy the images to the OUT_DIR then the path becomes only the filename because it is the same directory as the output file.
+                                            }
+                                    // Html
+                                        sTag = indentSp + indentNbsp + '<img src="' + linkPath + '" alt="' + rText + '" style="' + STYLE_IMG + '"/>' + aName
+                                        eTag = '<br>' + EOL
+                                        iText = ''
+                                    if (MARKDOWN)
+                                        mdStr += "![$rText]($linkPath)$EOL" // Markdown image
                                 }
                             // Freeplane link
                                 else if (link =~ /mm#ID_/) {
                                     linkId = (link =~ /#(ID_.*)/)[0][1] // Extract ID_<NUMBER> part from the link
                                     sTag = indentSp + aName + indentNbsp + '<a href="#' + linkId + '">'
                                     eTag = '</a><br>' + EOL
+                                    if (MARKDOWN)
+                                        mdStr += "[$iconsMd$rText](#$linkId)$EOL$EOL"
                                 }
                             // Just add the link to the file
                                 else { 
-                                    sTag = indentSp + aName + indentNbsp + '<a href="' + link + '">'
+                                    def linkPath = link // Set link path to file path
+                                    if (hasFileLink) {
+                                        // Copy file to OUT_DIR
+                                            if (COPY_FILES_TO_OUT_DIR || MARKDOWN) { // If we copy files to out dir or we use markdown, get the link filename only as the path (so in the same path as the output file)
+                                                def outDirFilename = copyFileToOutDir(linkPath) // Will return only filename of copied dest path  
+                                                linkPath = outDirFilename // If we copy the images to the OUT_DIR then the path becomes only the filename because it is the same directory as the output file.
+                                                }
+                                        }
+                                    sTag = indentSp + aName + indentNbsp + '<a href="' + linkPath + '">'
                                     eTag = '</a><br>' + EOL
+                                    if (MARKDOWN) {
+                                        if (!hasFolderLink) // Ignore links to folder because they don't work in Markdown (at least in Windows with the Firefox plugin)
+                                            mdStr += "[$rText]($linkPath)$EOL$EOL"
+                                    }
                                 }
                             }
                     // ----------------------------------------------------------------------------------------------------
@@ -715,6 +930,14 @@
                             sTag = aName + S_BOX
                             eTag = E_BOX
                             iText = rNote
+                            if (MARKDOWN) {
+                                // If the note has some html tags (except pre) then it will become a blockquote 
+                                    if (iText =~ /$NOTE_IS_HTML/)
+                                        mdStr += '> ' + iText.replaceAll('\n', '\n> ') + EOL
+                                // Other it will be code
+                                    else
+                                        mdStr += "```$EOL" + iText + "$EOL```$EOL$EOL"
+                            }
                         }
                 } // End - else { // Determine the type of node it is
 
@@ -728,9 +951,13 @@
                 // ====================================================================================================
                 // = Details 
                 // ==================================================================================================== 
-                    if (hasDetails)
-                        //htmlStr += indentSp + '<p style="' + STYLE_DET + '">' + aName + indentNbsp + '<small><i>(' + details + ')</i></small></p>' + EOL
-                        htmlStr += indentSp + indentNbsp + aName + '<small style="' + STYLE_DET + '"><i>(' + details + ')</i></small><br>' + EOL
+                    if (hasDetails) {
+                        //htmlStr += indentSp + indentNbsp + aName + '<small style="' + STYLE_DET + '"><i>(' + details + ')</i></small><br>' + EOL
+                        htmlStr += indentSp + indentNbsp + '<small style="' + STYLE_DET + '"><i>(' + details + ')</i></small><br>' + EOL
+
+                        if (MARKDOWN)
+                            mdStr += "*($details)*$EOL$EOL"
+                    }
 
                 // ====================================================================================================
                 // = Attributes: Add as a table if any
@@ -738,6 +965,8 @@
                     // s0 Try to add spaces before the tables... it doesn't work if I just add indentNbsp http://stackoverflow.com/questions/29046021/apply-space-character-before-table-in-html
                     if (n.attributes.size() > 0) {
                         def tableStr = indentSp + '<table style="' + STYLE_ATTR_TAB + '">' + EOL
+                        def mdTableStr = "| | |$EOL"
+                        mdTableStr += "|---|---|$EOL"
                         // Loop the attributes and create a row with 2 cells for each
                             n.attributes.names.each { attributeName ->
                                 //attributeValue = n.attributes.get(attributeIndex)
@@ -746,9 +975,13 @@
                                 tableStr += indentSp + '<td style="' + STYLE_ATTR_CELL + '">' + attributeName + '</td>' + EOL
                                 tableStr += indentSp + '<td style="' + STYLE_ATTR_CELL + '">' + attributeValue + '</td>' + EOL
                                 tableStr += indentSp + '</tr>' + EOL
+                                if (MARKDOWN)
+                                    mdTableStr += "| $attributeName | $attributeValue |$EOL"  
                             }
                         tableStr += indentSp + '</table><br>' + EOL
                         htmlStr += tableStr
+                        if (MARKDOWN)
+                            mdStr += mdTableStr
                     }
 
                 // ====================================================================================================
@@ -757,6 +990,7 @@
                     // · Connectors
                         // · In
                             def connectorsInList = ''
+                            def mdConnectorsInList = ''
                             def nbConnectorsIn = 0
                             n.connectorsIn.each {
                                 if (ignoreNode(it.source)) // If the source node is in a IGNORE section then we exclude it.
@@ -784,14 +1018,26 @@
                                     it.source.pathToRoot.each { it2 -> pathToNode += '/' + truncateField(it2.plainText, SHORT_TEXT_MAX_SIZE) }
                                 // Add the connector to the text list
                                     connectorsInList += indentSp + indentNbsp + '<small><a href="#' + it.source.id + '">< ' + it.source.plainText + '</a></small>'
-                                    if (SHOW_CONNECTOR_DETAILS)
+                                    if (MARKDOWN)
+                                        connectorsInList += '<a href="#' + it.source.id + '">< ' + it.source.plainText + '</a>'
+                                        mdConnectorsInList += "[$it.source.plainText](#$it.source.id)"
+                                    if (SHOW_CONNECTOR_DETAILS) {
                                         connectorsInList += ' <i><small>This section' + tLabel + '<---' + mLabel + sLabel + it.source.plainText + '{' + pathToNode + '}</small></i><br>' + EOL
-                                    else
+                                        if (MARKDOWN)
+                                            mdConnectorsInList += ' *This section' + tLabel + '<---' + mLabel + sLabel + it.source.plainText + '{' + pathToNode + "}*$EOL$EOL"
+                                    }
+                                    else {
                                         connectorsInList += '<br>' + EOL
+                                        if (MARKDOWN)
+                                            mdConnectorsInList += "$EOL$EOL"
+                                    }
                             }
                             htmlStr += connectorsInList
+                            if (MARKDOWN)
+                                mdStr += mdConnectorsInList
                         // · Out
                             def connectorsOutList = ''
+                            def mdConnectorsOutList = ''
                             def nbConnectorsOut = 0
                             n.connectorsOut.each {
                                 if (ignoreNode(it.target)) // If the target node is in a IGNORE section then we exclude it.
@@ -819,56 +1065,109 @@
                                     it.target.pathToRoot.each { it2 -> pathToNode += '/' + truncateField(it2.plainText, SHORT_TEXT_MAX_SIZE) }
                                 // Add the connector to the text list
                                     connectorsOutList += indentSp + indentNbsp + '<small><a href="#' + it.target.id + '">> ' + it.target.plainText + '</a></small>'
-                                    if (SHOW_CONNECTOR_DETAILS)
+                                    if (MARKDOWN)
+                                        mdConnectorsOutList += "[$it.target.plainText](#$it.target.id)"
+                                    if (SHOW_CONNECTOR_DETAILS) {
                                          connectorsOutList += ' <i><small>This section' + sLabel + mLabel+ '--->'  + tLabel + it.target.plainText + '{' + pathToNode + '}</small></i><br>' + EOL
-                                    else
+                                        if (MARKDOWN)
+                                            mdConnectorsOutList += ' *This section' + sLabel + mLabel+ '--->'  + tLabel + it.target.plainText + '{' + pathToNode + "}*$EOL$EOL"
+                                    }
+                                    else {
                                         connectorsOutList += '<br>' + EOL
+                                        if (MARKDOWN)
+                                            mdConnectorsOutList += "$EOL$EOL"
+                                    }
                             }
                             htmlStr += connectorsOutList
+                            if (MARKDOWN)
+                                mdStr += mdConnectorsOutList
 
             if (LARGE_MAP_USE_FILE) {
                 htmlFileTmp.append(htmlStr, 'utf-8') // Append the chunck to the temp file.
                 htmlStr = '' // Reset the string for the next chunk appended.
+                if (MARKDOWN) {
+                    mdFileTmp.append(mdStr, 'utf-8') // Append the chunck to the temp file.
+                    mdStr = '' // Reset the string for the next chunk appended.
+                }
             }
         } // End - c.findAll().each...
 
     // ====================================================================================================
-    // = Create/update the html file
+    // = Create/update the html/markdown file
     // ==================================================================================================== 
         // Append the closing tags
             htmlStr += '</body></html>'
         // Open the final output file
             def htmlFile = new File(OUT_DIR + OUT_FILENAME)
+            // Markdown
+                def mdFile = null
+                if (MARKDOWN)
+                    mdFile = new File(OUT_DIR + MD_OUT_FILENAME)
         // Put the content of the temp file to the final html doc file by looping line by line and replace the TOC 
             if (LARGE_MAP_USE_FILE) {
                     htmlFileTmp.append(htmlStr, 'utf-8')
                     htmlFile.delete() // Make sure it is deleted because we append to it.
+                    if (MARKDOWN) {
+                        mdFileTmp.append(mdStr, 'utf-8')
+                        mdFile.delete() // Make sure it is deleted because we append to it.
+                    }
                 // Loop the lines in the temp files and for each, try to replace for the table of content.
-                    def replaced = false
-                    htmlFileTmp.each { String line ->
-                        if (!replaced) { // Check if the TOC is replaced already, if not then...
-                            if (line.contains('@@TOC@@')) { // Check if the TOC is on the current line...
-                                if (SHOW_TOC) // If we want to show the TOC then add it by a replacement
-                                    line = line.replace('@@TOC@@', S_TOC + toc + tocIndent + E_TOC) 
-                                else
-                                    line = line.replace('@@TOC@@', '') // No TOC
-                                replaced = true // Set the flag to tell it is replaced and no need to check for the TOC anymore. 
+                    // ····································································································
+                    // · HTML
+                    // ···································································································· 
+                        def replaced = false
+                        htmlFileTmp.each { String line ->
+                            if (!replaced) { // Check if the TOC is replaced already, if not then...
+                                if (line.contains('@@TOC@@')) { // Check if the TOC is on the current line...
+                                    if (SHOW_TOC) // If we want to show the TOC then add it by a replacement
+                                        line = line.replace('@@TOC@@', S_TOC + toc + tocIndent + E_TOC) 
+                                    else
+                                        line = line.replace('@@TOC@@', '') // No TOC
+                                    replaced = true // Set the flag to tell it is replaced and no need to check for the TOC anymore. 
+                                }
+                            }
+                            htmlFile.append(line + EOL)
+                        }
+                        // Delete the temp file
+                            htmlFileTmp.delete()
+                    // ····································································································
+                    // · Markdown
+                    // ···································································································· 
+                        if (MARKDOWN) {
+                            replace = false
+                            mdFileTmp.each { String line ->
+                                if (!replaced) { // Check if the TOC is replaced already, if not then...
+                                    // s0 This contains dosen't see the @@TOC@@ at the moment for some reason, fix that
+                                    if (line.contains('@@TOC@@')) { // Check if the TOC is on the current line...
+                                        if (SHOW_TOC) // If we want to show the TOC then add it by a replacement
+                                            line = line.replace('@@TOC@@', mdToc) 
+                                        else
+                                            line = line.replace('@@TOC@@', '') // No TOC
+                                        replaced = true // Set the flag to tell it is replaced and no need to check for the TOC anymore. 
+                                    }
+                                }
+                                mdFile.append(line + EOL)
                             }
                         }
-                        htmlFile.append(line + EOL)
-                    }
-                // Delete the temp file
-                    htmlFileTmp.delete()
-
+                        // Delete the temp file
+                            mdFileTmp.delete()
             }
         // If memory (string) was used to keep the document
             else { 
                 // Add the table of contents
-                if (SHOW_TOC)
+                if (SHOW_TOC) {
                     htmlStr = htmlStr.replace('@@TOC@@', S_TOC + toc + tocIndent + E_TOC) 
-                else
+                    if (MARKDOWN)
+                        mdStr = mdStr.replace('@@TOC@@', mdToc) 
+                }
+                else {
                     htmlStr = htmlStr.replace('@@TOC@@', '') 
+                    if (MARKDOWN)
+                        mdStr = mdStr.replace('@@TOC@@', '') 
+                }
                 htmlFile.write(htmlStr, 'utf-8')
+                if (MARKDOWN)
+                    mdFile.write(mdStr, 'utf-8')
             }
 			
 		// Copy the file to a file with the name of the map. This will allow to export multiple files and have them linked together.
@@ -876,9 +1175,16 @@
                 File outFile = new File(OUT_DIR + OUT_FILENAME);
                 File mapFile = new File(OUT_DIR + map.name + '.html');
                 FileUtils.copyFile(outFile, mapFile);
+                if (MARKDOWN) {
+                    File mdOutFile = new File(OUT_DIR + MD_OUT_FILENAME);
+                    File mdMapFile = new File(OUT_DIR + map.name + '.md');
+                    FileUtils.copyFile(mdOutFile, mdMapFile);
+                }
             } catch(Exception e) {}
 
         m("HTML document saved as '" + OUT_DIR + OUT_FILENAME + "' and to '" + OUT_DIR + map.name + '.html' + "'.")
+        if (MARKDOWN)
+            m("Markdown document saved as '" + OUT_DIR + MD_OUT_FILENAME + "' and to '" + OUT_DIR + map.name + '.md' + "'.")
 
     // ====================================================================================================
     // = Create the PDF file (close the pdf file prior to running this)
