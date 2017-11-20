@@ -1,6 +1,6 @@
 <map version="freeplane 1.6.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1510662333208"><richcontent TYPE="DETAILS">
+<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1511109664766" LINK="file:/C:/Temp"><richcontent TYPE="DETAILS">
 
 <html>
   <head>
@@ -8,13 +8,13 @@
   </head>
   <body>
     <p>
-      Version: 2017-11-14_14.24.57:
+      Version: 2017-11-19_13.18.17
     </p>
   </body>
 </html>
 
 </richcontent>
-<hook NAME="MapStyle" background="#ffffff" zoom="0.674">
+<hook NAME="MapStyle" background="#ffffff" zoom="0.741">
     <conditional_styles>
         <conditional_style ACTIVE="true" STYLE_REF="s-1: Abandonned" LAST="false">
             <node_contains_condition VALUE="s-1" ITEM="filter_node" MATCH_APPROXIMATELY="false"/>
@@ -41,7 +41,7 @@
             <node_compare_condition user_name="IGNORE (BAK)" VALUE="BAK" MATCH_CASE="true" MATCH_APPROXIMATELY="false" COMPARATION_RESULT="0" SUCCEED="true" ITEM="filter_node"/>
         </conditional_style>
     </conditional_styles>
-    <properties show_icon_for_attributes="true" fit_to_viewport="false;" show_note_icons="true" edgeColorConfiguration="#808080ff,#808080ff,#808080ff,#808080ff,#808080ff"/>
+    <properties fit_to_viewport="false;" show_icon_for_attributes="true" show_note_icons="true" edgeColorConfiguration="#808080ff,#808080ff,#808080ff,#808080ff,#808080ff"/>
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node" STYLE="oval" UNIFORM_SHAPE="true" VGAP_QUANTITY="24.0 pt">
@@ -124,7 +124,7 @@
 </stylenode>
 </map_styles>
 </hook>
-<hook NAME="AutomaticEdgeColor" COUNTER="163" RULE="ON_BRANCH_CREATION"/>
+<hook NAME="AutomaticEdgeColor" COUNTER="174" RULE="ON_BRANCH_CREATION"/>
 <hook NAME="accessories/plugins/AutomaticLayout.properties" VALUE="ALL"/>
 <node TEXT="Introduction" POSITION="right" ID="ID_566377176" CREATED="1497111225374" MODIFIED="1499439933595">
 <edge COLOR="#808080"/>
@@ -185,7 +185,7 @@
 </node>
 </node>
 </node>
-<node TEXT="Features" POSITION="right" ID="ID_998844426" CREATED="1497029381635" MODIFIED="1510178698099">
+<node TEXT="Features" POSITION="right" ID="ID_998844426" CREATED="1497029381635" MODIFIED="1511123111987">
 <icon BUILTIN="idea"/>
 <arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_106028219" STARTINCLINATION="608;0;" ENDINCLINATION="-924;-174;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <edge COLOR="#808080"/>
@@ -303,6 +303,53 @@
 </richcontent>
 <node TEXT="Windows" ID="ID_756047969" CREATED="1497106587701" MODIFIED="1497106587701" LINK="file:/C:/Windows/"/>
 </node>
+<node ID="ID_1366768445" CREATED="1511089650460" MODIFIED="1511090192195"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      <b>Link to files</b>
+    </p>
+  </body>
+</html>
+
+</richcontent>
+<font BOLD="true"/>
+<node ID="ID_745100889" CREATED="1511089690003" MODIFIED="1511090819726"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      If the constant <font color="#ff0000">COPY_FILES_TO_OUT_DIR</font>&#160;is set to true, the files that are linked to the map (any formats including images but except files inserted in notes, like ini files) will be copied to the directory where the html and markdown files are created (defined by the OUT_DIR constant). The file will be renamed with the name of the map + the name of the file + the id of the node and its extension. The html and markdown files will be relinked to link to those copied files.
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node ID="ID_186590597" CREATED="1511089921155" MODIFIED="1511090822566"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Note that for if markdown is enabled (using the <font color="#ff0000">MARKDOWN</font>&#160;= true contstant), the files will be copied to the OUT_DIR always, because there is an issue with local files for markdown, maybe this issue is related to windows paths or the Firefox plugin I use to view markdown, but it works only if files are in the same directory as the markdown file.
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="Note that link to folders are not working in Markdown, paths are not working in Windows and the Firefox plugin I am using, so these links will not be displayed." ID="ID_663802084" CREATED="1511090833727" MODIFIED="1511090888918"/>
+</node>
 </node>
 <node TEXT="Node details" ID="ID_233445031" CREATED="1497107024512" MODIFIED="1508140309302">
 <node TEXT="This node has details" ID="ID_382894597" CREATED="1497107030112" MODIFIED="1497107043134"><richcontent TYPE="DETAILS">
@@ -338,7 +385,7 @@
 <node TEXT="If a node as (only) a note, the node will appear in a gray box." ID="ID_231008527" CREATED="1497109913812" MODIFIED="1508225044439">
 <font NAME="Segoe WP Semibold"/>
 </node>
-<node TEXT="If a map as a note, the node will be displayed in a gray box." ID="ID_1406551923" CREATED="1497109632894" MODIFIED="1497109891113"><richcontent TYPE="NOTE">
+<node TEXT="If a map as a note, the node will be displayed in a gray box." ID="ID_1406551923" CREATED="1497109632894" MODIFIED="1511093456364"><richcontent TYPE="NOTE">
 
 <html>
   <head>
@@ -346,13 +393,14 @@
   </head>
   <body>
     <p>
-      This is the node. It should appear in a gray box.
+      This is the note. It should appear in a gray box.
     </p>
     <p>
-      <b><font size="3" color="#3333ff" face="Nyala">Also with</font></b><font size="3" color="#3333ff" face="Nyala">&#160;</font><font size="6" color="#ff00cc" face="Palatino Linotype">color</font>&#160;and <font size="6" color="#ffcc00" face="Rage Italic">size</font>&#160;and <font size="6" color="#cccc00" face="Aharoni">font</font>
+      <b><font color="#3333ff" face="Nyala" size="3">Also with</font></b><font color="#3333ff" face="Nyala" size="3">&#160;</font><font color="#ff00cc" face="Palatino Linotype" size="6">color</font>&#160;and <font color="#ffcc00" face="Rage Italic" size="6">size</font>&#160;and <font color="#cccc00" face="Aharoni" size="6">font</font>
     </p>
   </body>
 </html>
+
 </richcontent>
 </node>
 <node TEXT="If a node is a link for example and has a note, the note content will not be inserted." ID="ID_905083844" CREATED="1497110582938" MODIFIED="1508138055872">
@@ -472,14 +520,15 @@
 </node>
 </node>
 </node>
-<node TEXT="More features" POSITION="right" ID="ID_106028219" CREATED="1497029381635" MODIFIED="1510093806563">
+<node TEXT="More features" POSITION="right" ID="ID_106028219" CREATED="1497029381635" MODIFIED="1511089605427">
 <icon BUILTIN="idea"/>
 <icon BUILTIN="PalmIcons/dFileMan/Misc/Spark"/>
-<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_797831984" STARTINCLINATION="-402;125;" ENDINCLINATION="497;41;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_797831984" STARTINCLINATION="-510;-97;" ENDINCLINATION="421;-112;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <edge COLOR="#808080"/>
 <node TEXT="Images" ID="ID_34785326" CREATED="1497029381635" MODIFIED="1508142040129">
 <icon BUILTIN="PalmIcons/dFileMan/Image/Image-file"/>
-<node TEXT="2 types of image insertion" ID="ID_336707127" CREATED="1497029381635" MODIFIED="1497108411475">
+<node TEXT="2 types of image insertion" ID="ID_336707127" CREATED="1497029381635" MODIFIED="1511090139014">
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1366768445" STARTINCLINATION="1165;0;" ENDINCLINATION="1165;0;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <node ID="ID_1071338087" CREATED="1497029825254" MODIFIED="1497108576998"><richcontent TYPE="NODE">
 
 <html>
@@ -777,7 +826,6 @@ else if (externalObject.uri == null &amp;&amp; link != null) {
     </pre>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -930,6 +978,9 @@ else if (externalObject.uri == null &amp;&amp; link != null) {
 <node TEXT="I changed the note for the ImageEmbedLinkSwitcher.groovy, I put a &lt;pre&gt; tag in the note." ID="ID_576044513" CREATED="1510662298306" MODIFIED="1510662320620"/>
 <node TEXT="Added a comment in the section about notes." ID="ID_888196649" CREATED="1510662763218" MODIFIED="1510662775252"/>
 </node>
+<node TEXT="Version: 2017-11-19_13.18.17:" ID="ID_282017866" CREATED="1511090292518" MODIFIED="1511090299106">
+<node TEXT="Added &apos;Link to files&apos; section." ID="ID_1088282623" CREATED="1511090300326" MODIFIED="1511090318050"/>
+</node>
 </node>
 </node>
 <node TEXT="I hope you&apos;ll find it useful too" POSITION="right" ID="ID_495374163" CREATED="1497112090702" MODIFIED="1508142077622">
@@ -974,6 +1025,364 @@ else if (externalObject.uri == null &amp;&amp; link != null) {
 </html>
 </richcontent>
 <cloud COLOR="#ffffcc" SHAPE="ARC"/>
+<node TEXT="Markdown (todo)" ID="ID_1177086229" CREATED="1511114975256" MODIFIED="1511114985419">
+<node TEXT="Errors" ID="ID_1437027431" CREATED="1511086485302" MODIFIED="1511086487116">
+<node ID="ID_739265342" CREATED="1511086455109" MODIFIED="1511087767872"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s2 After section OUtlook emails there are **
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="The colors used in the html files.... this is in a gray box" ID="ID_1600025099" CREATED="1511086543612" MODIFIED="1511086556191"/>
+</node>
+<node TEXT="Features" ID="ID_1021586373" CREATED="1511086493299" MODIFIED="1511086495126">
+<node ID="ID_1184428449" CREATED="1511086764234" MODIFIED="1511089285787"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s2 images details
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node ID="ID_776986987" CREATED="1511086654349" MODIFIED="1511089287587"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s2 Node details in italic
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node ID="ID_347693283" CREATED="1511086673525" MODIFIED="1511090702719"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s2 Link to url
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node ID="ID_1918459113" CREATED="1511086666934" MODIFIED="1511090703689"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s2 Link to folder
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node ID="ID_468244839" CREATED="1511086398033" MODIFIED="1511092574636"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s2 - links in page (pdf creation)
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node ID="ID_780285100" CREATED="1511086698370" MODIFIED="1511104134949"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s1 Node notes
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="s0 I should fix the &lt; and &gt; and other chars... then encoding and decoding function don&apos;t do it, I should do a function." ID="ID_570967045" CREATED="1511104143579" MODIFIED="1511104147193"/>
+</node>
+<node ID="ID_696265762" CREATED="1511086613940" MODIFIED="1511107490283"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s2 Insert file linked (hosts file)
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node ID="ID_758349647" CREATED="1511086398032" MODIFIED="1511114888953"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s2 - Icons
+    </p>
+  </body>
+</html>
+</richcontent>
+<node ID="ID_74025538" CREATED="1511108943291" MODIFIED="1511109572657"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s2 Copy locally
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node ID="ID_1230449261" CREATED="1511086795230" MODIFIED="1511119614115"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s2 Attributes
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node ID="ID_619770883" CREATED="1511086433987" MODIFIED="1511120732623"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s2 Connectors
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node ID="ID_1605099662" CREATED="1511086601982" MODIFIED="1511120970914"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s-1 Indenting of nodes
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node ID="ID_1275692537" CREATED="1511089074689" MODIFIED="1511126226966"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s1 markdown large file
+    </p>
+  </body>
+</html>
+
+</richcontent>
+<node TEXT="s0 The TOC doesn&apos;t show in large file mode for some reason, fix that...." ID="ID_1516577292" CREATED="1511126229230" MODIFIED="1511126252428"/>
+</node>
+</node>
+<node TEXT="To Add" ID="ID_1899804574" CREATED="1511086816419" MODIFIED="1511086818332">
+<node TEXT="This is indented and in a gray box:" ID="ID_1081663146" CREATED="1511106577431" MODIFIED="1511106583943">
+<node ID="ID_769746535" CREATED="1511106575461" MODIFIED="1511115024213"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s0 The colors used in the html files are the same as used in this map
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+</node>
+<node ID="ID_1357313760" CREATED="1511087821487" MODIFIED="1511115711450"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s2 Constant (implement) if MARKDOWN
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node ID="ID_1573666877" CREATED="1511087847011" MODIFIED="1511119005346"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s-1 Constant (if HTML)
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node ID="ID_1983617963" CREATED="1511086819104" MODIFIED="1511115024203"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s0 Add section to demo that any files are copied locally if linked
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node ID="ID_78404471" CREATED="1511086902810" MODIFIED="1511115024203"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s0 a name links with markdown synxtax (optional change to aname)
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node ID="ID_1622306324" CREATED="1511092636049" MODIFIED="1511115024203"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s0 Say that auto-indentation works only in html not in markdown
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="s0 Add youtube video support" ID="ID_892945841" CREATED="1511174852987" MODIFIED="1511174858493">
+<node TEXT="[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](http://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)" ID="ID_109838976" CREATED="1511093106659" MODIFIED="1511093106659"/>
+</node>
+<node TEXT="s0 Add web images support" ID="ID_840236089" CREATED="1511174860251" MODIFIED="1511174873692"/>
+</node>
+<node TEXT="To fix/Bugs" ID="ID_23184298" CREATED="1511174842259" MODIFIED="1511174901020">
+<node TEXT="The TOC for large markdown file is not being inserted for some reason... to fix later" ID="ID_428391015" CREATED="1511174845059" MODIFIED="1511174896244"/>
+</node>
+</node>
+<node TEXT="s0 Icons for markdown are not yet for all type of nodes, like they are not for links yet... not added... because it should be added for each..as for html it is added with the html text is added..." ID="ID_459667577" CREATED="1511114905344" MODIFIED="1511114946844"/>
+<node ID="ID_553514326" CREATED="1511092392220" MODIFIED="1511092430111"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s0 I have removed aname to details, and i see it is for links also.... see if this is useful
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="s0 Continue the test.groovy script to include nodes from another map, and add the precision that a map should be included at a certain node id only." ID="ID_128473865" CREATED="1509643961119" MODIFIED="1509643997161"/>
+<node ID="ID_188031429" CREATED="1510742580779" MODIFIED="1511119065479"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s2 For markdown I will need to copy the files locally and put no path so that I see them. So I think the best is to avec some code to copy all images to the same directory as the out.html file and rename those in the moving process to the mapname + ID of the node so there will not be issues with images already existing.
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node ID="ID_1519953105" CREATED="1510673251618" MODIFIED="1511119074334"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s2 There is an issue when the page is copied to blogger, all the text has mouseover hyperlink in red.... and this is when I copy/paste directly the html, if I copy the webpage directly (not the source) then the links point to c:/temp/out.html....
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="s0 Maybe the connectors should be added according to the arrows" ID="ID_1343916894" CREATED="1510672445794" MODIFIED="1510672467932"/>
 <node TEXT="s0 The notes have an indenting issue with the slashes, so if at the top of a note there are // then the text under will be all indented... The problem is this line:" ID="ID_622917513" CREATED="1510566344295" MODIFIED="1510566821651">
 <node TEXT="rawNote = rawNote.replaceAll(&apos;\\n\\s*?\\n\\s*?\\n&apos;, &apos;\n&apos;) // Remove multiple empty lines" ID="ID_1611950920" CREATED="1510566822194" MODIFIED="1510566822194"/>
 </node>
@@ -1867,45 +2276,6 @@ else if (externalObject.uri == null &amp;&amp; link != null) {
 <node TEXT="When the map is fully folded, all subnodes will have a + sign to be able to expand them" ID="ID_260595462" CREATED="1491379142227" MODIFIED="1491379168980"/>
 <node TEXT="There are 2 ways to compose html documents now, with the MapToHtmlDoc file using the automatic formatting, and the MapToHtmlDoc.groovy script to create structures and links etc automatically, this is the quickest way but less flexible, and the freeplane html template (i created) that use map conditional formatting." ID="ID_70981266" CREATED="1491741872190" MODIFIED="1491742012875"/>
 <node TEXT="Use also templates to read code files like workflows etc (add automatic formats...)" ID="ID_788498621" CREATED="1491742057344" MODIFIED="1491742082450"/>
-</node>
-<node TEXT="D:\Work\MindMaps\Doc" ID="ID_1524916627" CREATED="1491379829590" MODIFIED="1491379832766" LINK="file:/D:/Work/MindMaps/Doc">
-<node TEXT="Workflow Error Statistics" ID="ID_1247898034" CREATED="1493370689662" MODIFIED="1493371222393" LINK="file:/D:/Work/MindMaps/Doc/MAMWfMonStatsDoc.mm#ID_1723255651">
-<font SIZE="24"/>
-<node TEXT="Interplay MAM&#xa;Workflow Error Statistics" ID="ID_1998137565" CREATED="1491376850326" MODIFIED="1491376850330" LINK="file:/D:/Work/MindMaps/Doc/MAMWfMonStatsDoc.mm#ID_1723255651">
-<node ID="ID_1568153345" CREATED="1491379740492" MODIFIED="1493310834492"><richcontent TYPE="NODE">
-
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      s-1 Convert to PDF
-    </p>
-  </body>
-</html>
-</richcontent>
-<node ID="ID_1050915848" CREATED="1491379797655" MODIFIED="1493310837288"><richcontent TYPE="NODE">
-
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      s-1 C:\Tools\princeXml\bin\prince.exe D:\Work\MindMaps\Doc\MAMWfMonStatsDoc.html D:\Work\MindMaps\Doc\MAMWfMonStatsDoc.pdf
-    </p>
-  </body>
-</html>
-</richcontent>
-</node>
-</node>
-<node TEXT="D:\Work\MindMaps\Doc\MAMWfMonStatsDoc" ID="ID_1655532089" CREATED="1491808184753" MODIFIED="1491808188332" LINK="file:/D:/Work/MindMaps/Doc/MAMWfMonStatsDoc"/>
-</node>
-</node>
-<node TEXT="Log Error Statistics" ID="ID_698538903" CREATED="1493370695646" MODIFIED="1493371220349" LINK="file:/D:/Work/MindMaps/Doc/MAMLogStatsDoc.mm#ID_1723255651">
-<font SIZE="24"/>
-</node>
 </node>
 </node>
 </node>
