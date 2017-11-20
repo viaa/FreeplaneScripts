@@ -3,7 +3,7 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
-        // Verstion 2017-11-20_12.48.50
+        // Version 2017-11-20_12.48.50
             // Add the copying of files linked to the OUT_DIR, so now both images and files are copied.
         // Version 2017-11-17_19.56.28 
             // Starting to add export to Markdown files also along with html files (not complete yet).
