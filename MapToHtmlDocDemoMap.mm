@@ -124,7 +124,7 @@
 </stylenode>
 </map_styles>
 </hook>
-<hook NAME="AutomaticEdgeColor" COUNTER="174" RULE="ON_BRANCH_CREATION"/>
+<hook NAME="AutomaticEdgeColor" COUNTER="175" RULE="ON_BRANCH_CREATION"/>
 <hook NAME="accessories/plugins/AutomaticLayout.properties" VALUE="ALL"/>
 <node TEXT="Introduction" POSITION="right" ID="ID_566377176" CREATED="1497111225374" MODIFIED="1499439933595">
 <edge COLOR="#808080"/>
@@ -629,6 +629,30 @@
 </node>
 </node>
 </node>
+<node TEXT="Videos" ID="ID_620410827" CREATED="1511304604341" MODIFIED="1511304607442">
+<node TEXT="Youtube" ID="ID_634047388" CREATED="1511304608900" MODIFIED="1511304610842">
+<node TEXT="Youtube videos are supported:" ID="ID_1358081176" CREATED="1511304613582" MODIFIED="1511305475433">
+<node TEXT="https://www.youtube.com/watch?v=yUsaWHyvxOY&amp;t=12s" ID="ID_1513305822" CREATED="1511304626659" MODIFIED="1511305588042" LINK="https://www.youtube.com/watch?v=yUsaWHyvxOY&amp;t=12s"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      How to create a mindmap using Freeplane
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+</node>
+</node>
+<node TEXT="" ID="ID_200773584" CREATED="1511304691510" MODIFIED="1511304691510">
+<node TEXT="I will try to integrate other video sites like dailymotions, vimeo etc later. I didn&apos;t try them yet." ID="ID_331318454" CREATED="1511304635966" MODIFIED="1511304684211"/>
+</node>
+</node>
 <node TEXT="Icons" ID="ID_1373311502" CREATED="1508139904515" MODIFIED="1508141639275">
 <icon BUILTIN="group"/>
 <node TEXT="Icons are partially supported" ID="ID_933116811" CREATED="1508139907780" MODIFIED="1508141985414">
@@ -929,85 +953,37 @@ else if (externalObject.uri == null &amp;&amp; link != null) {
 <edge COLOR="#808080"/>
 <node TEXT="Documentation" ID="ID_273653473" CREATED="1507667511885" MODIFIED="1510137656096">
 <arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1478027423" MIDDLE_LABEL="The End" STARTINCLINATION="980;-495;" ENDINCLINATION="1540;0;" STARTARROW="NONE" ENDARROW="DEFAULT"/>
-<node TEXT="Version: 2017-10-10_23.31.35" ID="ID_725781849" CREATED="1507667517993" MODIFIED="1507667543085">
+<node TEXT="Version: 2017-10-10_23.31.35:" ID="ID_725781849" CREATED="1507667517993" MODIFIED="1511306899077">
 <node TEXT="Added the &apos;Freeplane Configuration&apos; section." ID="ID_1275234350" CREATED="1507667554585" MODIFIED="1507667585045"/>
 </node>
-<node ID="ID_329209147" CREATED="1507716915674" MODIFIED="1507716915674"><richcontent TYPE="NODE">
-
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      Version: 2017-10-11_13.15.02
-    </p>
-  </body>
-</html>
-</richcontent>
+<node TEXT="Version: 2017-10-11_13.15.02:" ID="ID_329209147" CREATED="1507716915674" MODIFIED="1511306896026">
 <node TEXT="Modified the configuration section, added info about large map support." ID="ID_834344458" CREATED="1507716917201" MODIFIED="1507716943475"/>
 </node>
-<node TEXT="Version: 2017-10-11_23.08.07" ID="ID_377706493" CREATED="1507752484955" MODIFIED="1507752489792">
+<node TEXT="Version: 2017-10-11_23.08.07:" ID="ID_377706493" CREATED="1507752484955" MODIFIED="1511306893911">
 <node TEXT="Added HTML document path section to the configuration section." ID="ID_666494889" CREATED="1507752491057" MODIFIED="1507752507777"/>
 </node>
-<node ID="ID_1182643409" CREATED="1508074260652" MODIFIED="1508074260652"><richcontent TYPE="NODE">
-
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      Version: 2017-10-15_16.30.52
-    </p>
-  </body>
-</html>
-</richcontent>
+<node TEXT="Version: 2017-10-15_16.30.52:" ID="ID_1182643409" CREATED="1508074260652" MODIFIED="1511306890787">
 <node TEXT="Added the possibility of changing node levels by adding a specific icon with a number to the node." ID="ID_616869992" CREATED="1508074279089" MODIFIED="1508074325409"/>
 </node>
-<node TEXT="Version: 2017-10-16_11.24.52" ID="ID_278235010" CREATED="1508142289596" MODIFIED="1508142293486">
+<node TEXT="Version: 2017-10-16_11.24.52:" ID="ID_278235010" CREATED="1508142289596" MODIFIED="1511306887517">
 <node TEXT="Added partial icons support." ID="ID_192754019" CREATED="1508142295376" MODIFIED="1508142310818"/>
 </node>
-<node TEXT="Version: 2017-10-17_10.30.17" ID="ID_727345545" CREATED="1508225456210" MODIFIED="1508225457563">
+<node TEXT="Version: 2017-10-17_10.30.17:" ID="ID_727345545" CREATED="1508225456210" MODIFIED="1511306883533">
 <node TEXT="Added comments about formatting limitations." ID="ID_123343227" CREATED="1508225458084" MODIFIED="1508225467059"/>
 </node>
 <node TEXT="Version: 2017-10-17_20.57.07:" ID="ID_930280637" CREATED="1508263024297" MODIFIED="1508263030343">
 <node TEXT="Added section for formulas in core text." ID="ID_693191358" CREATED="1508263034245" MODIFIED="1508778513834"/>
 </node>
-<node ID="ID_727607978" CREATED="1508778463909" MODIFIED="1508778463909"><richcontent TYPE="NODE">
-
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      Version: 2017-10-23_20.07.39
-    </p>
-  </body>
-</html>
-</richcontent>
+<node TEXT="Version: 2017-10-23_20.07.39:" ID="ID_727607978" CREATED="1508778463909" MODIFIED="1511306876199">
 <node TEXT="Added section for formulas in attributes." ID="ID_1389419881" CREATED="1508778471113" MODIFIED="1508778518675"/>
 </node>
-<node ID="ID_1956412856" CREATED="1508885742688" MODIFIED="1508885742688"><richcontent TYPE="NODE">
-
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      Version: 2017-10-25_01.55.36
-    </p>
-  </body>
-</html>
-</richcontent>
+<node TEXT="Version: 2017-10-25_01.55.36:" ID="ID_1956412856" CREATED="1508885742688" MODIFIED="1511306870951">
 <node TEXT="Added section about latex support." ID="ID_130037155" CREATED="1508885746528" MODIFIED="1508885756522"/>
 </node>
-<node TEXT="Version: 2017-11-08_01.00.26" ID="ID_268697995" CREATED="1510095621922" MODIFIED="1510095627711">
+<node TEXT="Version: 2017-11-08_01.00.26:" ID="ID_268697995" CREATED="1510095621922" MODIFIED="1511306866897">
 <node TEXT="Added section about connectors and I added connector samples in the map." ID="ID_1642950171" CREATED="1510095629676" MODIFIED="1510095662710"/>
 </node>
-<node TEXT="Version: 2017-11-08_11.48.25" ID="ID_1919903400" CREATED="1510134501459" MODIFIED="1510134505492">
+<node TEXT="Version: 2017-11-08_11.48.25:" ID="ID_1919903400" CREATED="1510134501459" MODIFIED="1511306862016">
 <node TEXT="Added connectors &apos;IGNORE&apos; documentation." ID="ID_647739081" CREATED="1510134506443" MODIFIED="1510134530132"/>
 </node>
 <node TEXT="Version: 2017-11-08_13.19.48:" ID="ID_1435161528" CREATED="1510139986312" MODIFIED="1510139989944">
@@ -1022,6 +998,10 @@ else if (externalObject.uri == null &amp;&amp; link != null) {
 </node>
 <node TEXT="Version: 2017-11-21_10.16.19:" ID="ID_1120880242" CREATED="1511252178542" MODIFIED="1511252185071">
 <node TEXT="Changed the default values documentation for markdown and file and image copy." ID="ID_1341947276" CREATED="1511252185645" MODIFIED="1511252205697"/>
+<node TEXT="Added Github Pages node in IGNORE node to upload to Github pages." ID="ID_94399188" CREATED="1511254049096" MODIFIED="1511254049096"/>
+</node>
+<node TEXT="Version: 2017-11-22_01.27.07:" ID="ID_1412103965" CREATED="1511306823933" MODIFIED="1511306831948">
+<node TEXT="Added support for youtube videos." ID="ID_28288391" CREATED="1511306833057" MODIFIED="1511306838424"/>
 </node>
 </node>
 </node>
@@ -1036,7 +1016,8 @@ else if (externalObject.uri == null &amp;&amp; link != null) {
 </node>
 <node TEXT="IGNORE" POSITION="left" ID="ID_1580845514" CREATED="1502874538458" MODIFIED="1502874539764">
 <edge COLOR="#808080"/>
-<node TEXT="Github pages" ID="ID_327047891" CREATED="1511252223302" MODIFIED="1511252245512">
+<node TEXT="Github pages" ID="ID_327047891" CREATED="1511252223302" MODIFIED="1511257938143">
+<cloud COLOR="#ccffff" SHAPE="ARC"/>
 <node TEXT="Links" ID="ID_359900307" CREATED="1511252906173" MODIFIED="1511252907870">
 <node TEXT="https://viaa.github.io/MapToHtmlDocDemoMap.html" ID="ID_1149562625" CREATED="1511212611461" MODIFIED="1511253247208" LINK="https://viaa.github.io/MapToHtmlDocDemoMap.html#ID_1723255651" BACKGROUND_COLOR="#ffff00"/>
 <node TEXT="HowTo" ID="ID_1745155518" CREATED="1511203156496" MODIFIED="1511203158184">
@@ -1049,41 +1030,15 @@ else if (externalObject.uri == null &amp;&amp; link != null) {
 <node TEXT="viaa" ID="ID_197871103" CREATED="1511253005381" MODIFIED="1511253005381" LINK="file:/D:/GitHubWebsites/viaa/"/>
 </node>
 <node TEXT="Git" ID="ID_1351456244" CREATED="1511180959192" MODIFIED="1511253028935">
-<node TEXT="# Initialize" ID="ID_1539407671" CREATED="1511203602754" MODIFIED="1511252958424">
-<node TEXT="git init" ID="ID_1089657004" CREATED="1511203646592" MODIFIED="1511203648681"/>
-<node ID="ID_1831096075" CREATED="1511203605776" MODIFIED="1511211384454"><richcontent TYPE="NODE">
-
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <pre class="f5 js-zeroclipboard-target" style="font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace; font-size: 14px; margin-top: 0px; margin-bottom: 0px; color: rgb(36, 41, 46); font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; word-spacing: 0px"><span class="user-select-contain">git remote add <font color="#ff0000">viaa</font> </span><span class="js-git-clone-help-text">https://github.com/<font color="#ff0000">viaa</font>/<font color="#ff0000">viaa</font>.github.io.git</span></pre>
-  </body>
-</html>
-</richcontent>
+<node TEXT="# Copy" ID="ID_1151322858" CREATED="1511271127649" MODIFIED="1511271129939">
+<node TEXT="cp /c/Temp/MapToHtmlDocDemoMap* /d/GitHubWebsites/viaa" ID="ID_1181496580" CREATED="1511203610727" MODIFIED="1511253133474"/>
 </node>
-<node TEXT="touch index.md" ID="ID_1725175445" CREATED="1511211563385" MODIFIED="1511211568468"/>
-<node TEXT="git add index.md" ID="ID_461300748" CREATED="1511211568716" MODIFIED="1511211576725"/>
-<node TEXT="git commit -m &apos;Initial commit&apos;" ID="ID_1062686359" CREATED="1511211359512" MODIFIED="1511211558787"/>
-<node ID="ID_429798801" CREATED="1511203632260" MODIFIED="1511211586562"><richcontent TYPE="NODE">
-
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <pre class="f5 js-zeroclipboard-target" style="font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace; font-size: 14px; margin-top: 0px; margin-bottom: 0px; color: rgb(36, 41, 46); font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; word-spacing: 0px"><span class="user-select-contain">git push -u <font color="#ff0000">viaa</font> master --force</span></pre>
-  </body>
-</html>
-</richcontent>
-</node>
-</node>
-<node TEXT="# Upload" ID="ID_524196982" CREATED="1511212350625" MODIFIED="1511253228048" BACKGROUND_COLOR="#ffff00">
+<node TEXT="# Upload" ID="ID_524196982" CREATED="1511212350625" MODIFIED="1511257999996" BACKGROUND_COLOR="#ffff00">
+<cloud COLOR="#99ffff" SHAPE="ARC"/>
 <node TEXT="cp /c/Temp/MapToHtmlDocDemoMap* /d/GitHubWebsites/viaa" ID="ID_257428937" CREATED="1511203610727" MODIFIED="1511253133474"/>
 <node TEXT="cd /d/GitHubWebsites/viaa" ID="ID_612073317" CREATED="1511253151917" MODIFIED="1511253153399"/>
 <node TEXT="git add MapToHtmlDocDemoMap*" ID="ID_125348823" CREATED="1511211568716" MODIFIED="1511212654463"/>
-<node TEXT="git commit -m &apos;Initial commit&apos;" ID="ID_537452778" CREATED="1511211359512" MODIFIED="1511211558787"/>
+<node TEXT="git commit - &apos;Page update&apos;" ID="ID_537452778" CREATED="1511211359512" MODIFIED="1511307107722"/>
 <node ID="ID_1824069495" CREATED="1511203632260" MODIFIED="1511212430244"><richcontent TYPE="NODE">
 
 <html>
@@ -1097,7 +1052,7 @@ else if (externalObject.uri == null &amp;&amp; link != null) {
 </richcontent>
 </node>
 </node>
-<node TEXT="OLD" FOLDED="true" ID="ID_1713268961" CREATED="1511252274629" MODIFIED="1511252275462">
+<node TEXT="OLD" ID="ID_1713268961" CREATED="1511252274629" MODIFIED="1511252275462">
 <node ID="ID_1545516430" CREATED="1511212497050" MODIFIED="1511212497050" LINK="https://viaa.github.io/test.html"><richcontent TYPE="NODE">
 
 <html>
@@ -1128,10 +1083,40 @@ else if (externalObject.uri == null &amp;&amp; link != null) {
 </node>
 </node>
 </node>
+<node TEXT="# Initialize" ID="ID_1539407671" CREATED="1511203602754" MODIFIED="1511252958424">
+<node TEXT="git init" ID="ID_1089657004" CREATED="1511203646592" MODIFIED="1511203648681"/>
+<node ID="ID_1831096075" CREATED="1511203605776" MODIFIED="1511211384454"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <pre class="f5 js-zeroclipboard-target" style="font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace; font-size: 14px; margin-top: 0px; margin-bottom: 0px; color: rgb(36, 41, 46); font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; word-spacing: 0px"><span class="user-select-contain">git remote add <font color="#ff0000">viaa</font> </span><span class="js-git-clone-help-text">https://github.com/<font color="#ff0000">viaa</font>/<font color="#ff0000">viaa</font>.github.io.git</span></pre>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="touch index.md" ID="ID_1725175445" CREATED="1511211563385" MODIFIED="1511211568468"/>
+<node TEXT="git add index.md" ID="ID_461300748" CREATED="1511211568716" MODIFIED="1511211576725"/>
+<node TEXT="git commit -m &apos;Initial commit&apos;" ID="ID_1062686359" CREATED="1511211359512" MODIFIED="1511211558787"/>
+<node ID="ID_429798801" CREATED="1511203632260" MODIFIED="1511211586562"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <pre class="f5 js-zeroclipboard-target" style="font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace; font-size: 14px; margin-top: 0px; margin-bottom: 0px; color: rgb(36, 41, 46); font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; word-spacing: 0px"><span class="user-select-contain">git push -u <font color="#ff0000">viaa</font> master --force</span></pre>
+  </body>
+</html>
+</richcontent>
 </node>
 </node>
 </node>
-<node TEXT="MyDocumentation" FOLDED="true" ID="ID_35550841" CREATED="1491376844393" MODIFIED="1502874578021" LINK="file:/D:/Work/MyDocumentation"><richcontent TYPE="DETAILS">
+</node>
+</node>
+<node TEXT="MyDocumentation" ID="ID_35550841" CREATED="1491376844393" MODIFIED="1502874578021" LINK="file:/D:/Work/MyDocumentation"><richcontent TYPE="DETAILS">
 
 <html>
   <head>
@@ -1165,6 +1150,7 @@ else if (externalObject.uri == null &amp;&amp; link != null) {
 <node TEXT="Markdown (todo)" ID="ID_1177086229" CREATED="1511114975256" MODIFIED="1511176216670">
 <font BOLD="true"/>
 <node TEXT="To fix/Bugs" ID="ID_23184298" CREATED="1511174842259" MODIFIED="1511174901020">
+<node TEXT="s0 Add documentation about git in this map" ID="ID_798208830" CREATED="1511262509545" MODIFIED="1511262521277"/>
 <node ID="ID_428391015" CREATED="1511174845059" MODIFIED="1511177411415"><richcontent TYPE="NODE">
 
 <html>
@@ -1488,6 +1474,37 @@ else if (externalObject.uri == null &amp;&amp; link != null) {
 <node TEXT="s0 Add web images support" ID="ID_840236089" CREATED="1511174860251" MODIFIED="1511174873692"/>
 </node>
 </node>
+<node ID="ID_1364566399" CREATED="1511304635966" MODIFIED="1511305814122"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s0 I will try to integrate other video sites like dailymotions, vimeo etc later. I didn't try them yet.
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node ID="ID_1964492864" CREATED="1511280856102" MODIFIED="1511282554128"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s-1 When adding icons to links it adds a space to the text at the beginning and it do the link more long.
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="s0 When displayed as link the text does not show, we should see it." ID="ID_1105469977" CREATED="1511218488599" MODIFIED="1511218514547"/>
 <node TEXT="s0 Icons for markdown are not yet for all type of nodes, like they are not for links yet... not added... because it should be added for each..as for html it is added with the html text is added..." ID="ID_459667577" CREATED="1511114905344" MODIFIED="1511114946844"/>
 <node ID="ID_553514326" CREATED="1511092392220" MODIFIED="1511092430111"><richcontent TYPE="NODE">
 
