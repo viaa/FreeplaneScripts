@@ -1,6 +1,6 @@
 <map version="freeplane 1.6.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
-<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1511109664766" LINK="file:/C:/Temp"><richcontent TYPE="DETAILS">
+<node TEXT="MapToHtmlDoc - Demo Map" FOLDED="false" ID="ID_1723255651" CREATED="1283093380553" MODIFIED="1511252174598" LINK="file:/C:/Temp"><richcontent TYPE="DETAILS">
 
 <html>
   <head>
@@ -8,13 +8,13 @@
   </head>
   <body>
     <p>
-      Version: 2017-11-19_13.18.17
+      Version: 2017-11-21_10.16.13
     </p>
   </body>
 </html>
 
 </richcontent>
-<hook NAME="MapStyle" background="#ffffff" zoom="0.741">
+<hook NAME="MapStyle" background="#ffffff" zoom="0.897">
     <conditional_styles>
         <conditional_style ACTIVE="true" STYLE_REF="s-1: Abandonned" LAST="false">
             <node_contains_condition VALUE="s-1" ITEM="filter_node" MATCH_APPROXIMATELY="false"/>
@@ -318,7 +318,7 @@
 
 </richcontent>
 <font BOLD="true"/>
-<node ID="ID_745100889" CREATED="1511089690003" MODIFIED="1511090819726"><richcontent TYPE="NODE">
+<node ID="ID_1615324998" CREATED="1511176315387" MODIFIED="1511252127655"><richcontent TYPE="NODE">
 
 <html>
   <head>
@@ -326,7 +326,45 @@
   </head>
   <body>
     <p>
-      If the constant <font color="#ff0000">COPY_FILES_TO_OUT_DIR</font>&#160;is set to true, the files that are linked to the map (any formats including images but except files inserted in notes, like ini files) will be copied to the directory where the html and markdown files are created (defined by the OUT_DIR constant). The file will be renamed with the name of the map + the name of the file + the id of the node and its extension. The html and markdown files will be relinked to link to those copied files.
+      The copying of linked files and images to the output directory was required for markdown as links to the file system paths didn't work (on windows+firefox markdown plugin) so the files needed to be in the same directory as the markdown file.
+    </p>
+    <p>
+      I have added the possibility to enable this for html also. This can be useful because it is now possible to have a html document with all its linked files in the same place and it makes it easy to copy the files for example to a web server.
+    </p>
+    <p>
+      The files and images when copied are renamed to the name of the map + the name of the file + the id of the node + its extension.
+    </p>
+    <p>
+      By default the files will be copied. If <font color="#ff0000">MARKDOWN</font>&#160;= false then the files will not be copied unless
+    </p>
+    <p>
+      <font color="#ff0000">COPY_FILES_TO_OUT_DIR</font>&#160;= true
+    </p>
+    <p>
+      <font color="#ff0000">COPY_IMAGES_TO_OUT_DIR</font>&#160;= true
+    </p>
+    <p>
+      Also it is possible to reuse the files (not to copy them again) the next time the map is exported by setting:
+    </p>
+    <p>
+      @Field def <font color="#ff0000">OVERWRITE_IF_EXISTS</font>&#160;= false
+    </p>
+    <p>
+      If set to true the files will be copied everytime the document is exported.
+    </p>
+  </body>
+</html>
+
+</richcontent>
+<node ID="ID_745100889" CREATED="1511089690003" MODIFIED="1511176402624"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      So if the constant <font color="#ff0000">COPY_FILES_TO_OUT_DIR</font>&#160;is set to true, the files that are linked to the map (any formats including images but except files inserted in notes, like ini files) will be copied to the directory where the html and markdown files are created (defined by the OUT_DIR constant). The file will be renamed with the name of the map + the name of the file + the id of the node and its extension. The html and markdown files will be relinked to link to those copied files.
     </p>
   </body>
 </html>
@@ -347,6 +385,7 @@
 </html>
 
 </richcontent>
+</node>
 </node>
 <node TEXT="Note that link to folders are not working in Markdown, paths are not working in Windows and the Firefox plugin I am using, so these links will not be displayed." ID="ID_663802084" CREATED="1511090833727" MODIFIED="1511090888918"/>
 </node>
@@ -981,6 +1020,9 @@ else if (externalObject.uri == null &amp;&amp; link != null) {
 <node TEXT="Version: 2017-11-19_13.18.17:" ID="ID_282017866" CREATED="1511090292518" MODIFIED="1511090299106">
 <node TEXT="Added &apos;Link to files&apos; section." ID="ID_1088282623" CREATED="1511090300326" MODIFIED="1511090318050"/>
 </node>
+<node TEXT="Version: 2017-11-21_10.16.19:" ID="ID_1120880242" CREATED="1511252178542" MODIFIED="1511252185071">
+<node TEXT="Changed the default values documentation for markdown and file and image copy." ID="ID_1341947276" CREATED="1511252185645" MODIFIED="1511252205697"/>
+</node>
 </node>
 </node>
 <node TEXT="I hope you&apos;ll find it useful too" POSITION="right" ID="ID_495374163" CREATED="1497112090702" MODIFIED="1508142077622">
@@ -994,7 +1036,101 @@ else if (externalObject.uri == null &amp;&amp; link != null) {
 </node>
 <node TEXT="IGNORE" POSITION="left" ID="ID_1580845514" CREATED="1502874538458" MODIFIED="1502874539764">
 <edge COLOR="#808080"/>
-<node TEXT="MyDocumentation" ID="ID_35550841" CREATED="1491376844393" MODIFIED="1502874578021" LINK="file:/D:/Work/MyDocumentation"><richcontent TYPE="DETAILS">
+<node TEXT="Github pages" ID="ID_327047891" CREATED="1511252223302" MODIFIED="1511252245512">
+<node TEXT="WebSite" ID="ID_1351456244" CREATED="1511180959192" MODIFIED="1511180961057">
+<node TEXT="HowTo" ID="ID_1745155518" CREATED="1511203156496" MODIFIED="1511203158184">
+<node TEXT="https://www.youtube.com/watch?v=3jt-J4Rc__M" ID="ID_1558523785" CREATED="1511203154232" MODIFIED="1511203154232" LINK="https://www.youtube.com/watch?v=3jt-J4Rc__M"/>
+<node TEXT="https://guides.github.com/features/pages/" ID="ID_815736451" CREATED="1511212254450" MODIFIED="1511212254450" LINK="https://guides.github.com/features/pages/"/>
+</node>
+<node TEXT="Locations" ID="ID_1588870827" CREATED="1459638271089" MODIFIED="1459638309499">
+<cloud COLOR="#f0f0f0" SHAPE="ARC"/>
+<node TEXT="cd /d/GitHubWebsites/viaa" ID="ID_257428937" CREATED="1511203610727" MODIFIED="1511203622754"/>
+</node>
+<node TEXT="Initialize" ID="ID_1539407671" CREATED="1511203602754" MODIFIED="1511203605385">
+<node TEXT="git init" ID="ID_1089657004" CREATED="1511203646592" MODIFIED="1511203648681"/>
+<node ID="ID_1831096075" CREATED="1511203605776" MODIFIED="1511211384454"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <pre class="f5 js-zeroclipboard-target" style="font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace; font-size: 14px; margin-top: 0px; margin-bottom: 0px; color: rgb(36, 41, 46); font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; word-spacing: 0px"><span class="user-select-contain">git remote add <font color="#ff0000">viaa</font> </span><span class="js-git-clone-help-text">https://github.com/<font color="#ff0000">viaa</font>/<font color="#ff0000">viaa</font>.github.io.git</span></pre>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="touch index.md" ID="ID_1725175445" CREATED="1511211563385" MODIFIED="1511211568468"/>
+<node TEXT="git add index.md" ID="ID_461300748" CREATED="1511211568716" MODIFIED="1511211576725"/>
+<node TEXT="git commit -m &apos;Initial commit&apos;" ID="ID_1062686359" CREATED="1511211359512" MODIFIED="1511211558787"/>
+<node ID="ID_429798801" CREATED="1511203632260" MODIFIED="1511211586562"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <pre class="f5 js-zeroclipboard-target" style="font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace; font-size: 14px; margin-top: 0px; margin-bottom: 0px; color: rgb(36, 41, 46); font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; word-spacing: 0px"><span class="user-select-contain">git push -u <font color="#ff0000">viaa</font> master --force</span></pre>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="Test" ID="ID_524196982" CREATED="1511212350625" MODIFIED="1511212351702">
+<node TEXT="https://viaa.github.io/MapToHtmlDocDemoMap.html" ID="ID_1149562625" CREATED="1511212611461" MODIFIED="1511212731945" LINK="https://viaa.github.io/MapToHtmlDocDemoMap.html#ID_1723255651">
+<node TEXT="# 2" ID="ID_1934791797" CREATED="1511212612932" MODIFIED="1511212614327">
+<node TEXT="git add MapToHtmlDocDemoMap*" ID="ID_125348823" CREATED="1511211568716" MODIFIED="1511212654463"/>
+<node TEXT="git commit -m &apos;Initial commit&apos;" ID="ID_537452778" CREATED="1511211359512" MODIFIED="1511211558787"/>
+<node ID="ID_1824069495" CREATED="1511203632260" MODIFIED="1511212430244"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <pre class="f5 js-zeroclipboard-target" style="font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace; font-size: 14px; margin-top: 0px; margin-bottom: 0px; color: rgb(36, 41, 46); font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; word-spacing: 0px"><span class="user-select-contain">git push -u <font color="#ff0000">viaa</font> master --force</span></pre>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+</node>
+</node>
+<node TEXT="OLD" FOLDED="true" ID="ID_1713268961" CREATED="1511252274629" MODIFIED="1511252275462">
+<node ID="ID_1545516430" CREATED="1511212497050" MODIFIED="1511212497050" LINK="https://viaa.github.io/test.html"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      https://viaa.github.io/test.html
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="# 1" ID="ID_1650458533" CREATED="1511212360128" MODIFIED="1511212434210">
+<node TEXT="git add test.html" ID="ID_75332215" CREATED="1511211568716" MODIFIED="1511212389244"/>
+<node TEXT="git commit -m &apos;Initial commit&apos;" ID="ID_1840902893" CREATED="1511211359512" MODIFIED="1511211558787"/>
+<node ID="ID_499592519" CREATED="1511203632260" MODIFIED="1511212430244"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <pre class="f5 js-zeroclipboard-target" style="font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace; font-size: 14px; margin-top: 0px; margin-bottom: 0px; color: rgb(36, 41, 46); font-style: normal; font-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; word-spacing: 0px"><span class="user-select-contain">git push -u <font color="#ff0000">viaa</font> master --force</span></pre>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+</node>
+</node>
+</node>
+</node>
+<node TEXT="MyDocumentation" FOLDED="true" ID="ID_35550841" CREATED="1491376844393" MODIFIED="1502874578021" LINK="file:/D:/Work/MyDocumentation"><richcontent TYPE="DETAILS">
 
 <html>
   <head>
@@ -1025,7 +1161,26 @@ else if (externalObject.uri == null &amp;&amp; link != null) {
 </html>
 </richcontent>
 <cloud COLOR="#ffffcc" SHAPE="ARC"/>
-<node TEXT="Markdown (todo)" ID="ID_1177086229" CREATED="1511114975256" MODIFIED="1511114985419">
+<node TEXT="Markdown (todo)" ID="ID_1177086229" CREATED="1511114975256" MODIFIED="1511176216670">
+<font BOLD="true"/>
+<node TEXT="To fix/Bugs" ID="ID_23184298" CREATED="1511174842259" MODIFIED="1511174901020">
+<node ID="ID_428391015" CREATED="1511174845059" MODIFIED="1511177411415"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      s0 The TOC for large markdown file is not being inserted for some reason... to fix later
+    </p>
+  </body>
+</html>
+
+</richcontent>
+<node TEXT="s0 Also the outtmp.md file is not deleted once the export is completed, I think this is linked to the TOC not being replaced" ID="ID_28626167" CREATED="1511177412471" MODIFIED="1511177436201"/>
+</node>
+</node>
 <node TEXT="Errors" ID="ID_1437027431" CREATED="1511086485302" MODIFIED="1511086487116">
 <node ID="ID_739265342" CREATED="1511086455109" MODIFIED="1511087767872"><richcontent TYPE="NODE">
 
@@ -1330,9 +1485,6 @@ else if (externalObject.uri == null &amp;&amp; link != null) {
 <node TEXT="[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](http://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)" ID="ID_109838976" CREATED="1511093106659" MODIFIED="1511093106659"/>
 </node>
 <node TEXT="s0 Add web images support" ID="ID_840236089" CREATED="1511174860251" MODIFIED="1511174873692"/>
-</node>
-<node TEXT="To fix/Bugs" ID="ID_23184298" CREATED="1511174842259" MODIFIED="1511174901020">
-<node TEXT="The TOC for large markdown file is not being inserted for some reason... to fix later" ID="ID_428391015" CREATED="1511174845059" MODIFIED="1511174896244"/>
 </node>
 </node>
 <node TEXT="s0 Icons for markdown are not yet for all type of nodes, like they are not for links yet... not added... because it should be added for each..as for html it is added with the html text is added..." ID="ID_459667577" CREATED="1511114905344" MODIFIED="1511114946844"/>
