@@ -4,6 +4,8 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version 2017-11-22_01.24.55
+            // Added support for youtube videos.
         // Version 2017-11-21_20.49.20
             // Added the possibility to add link to image on the web (http).
         // Version 2017-11-21_17.15.22
@@ -479,11 +481,15 @@
                             hasUrlLink = false
                             hasFileLink = false
                             hasFolderLink = false
+                            hasVideoLink = false
                         if (n.link.text != null) { // There is a link
                             hasLink = true
                             link = n.link.text
-                            if (link =~ /http|ftp/) // Is URL
+                            if (link =~ /http|ftp/) { // Is URL
                                 hasUrlLink = true
+                                if (link =~ /youtube/) // Is a video
+                                    hasVideoLink = true
+                            }
                             else { // Is file or folder
                                 File fileTypeCheck = new File(link.replace('file:/', ''))
                                 if (fileTypeCheck.isFile()) // File
@@ -938,15 +944,26 @@
                             // Just add the link to the file
                                 else { 
                                     def linkPath = link // Set link path to file path
-                                    if (hasFileLink) {
+                                    if (hasFileLink) { // Has to be a file to be copied
                                         // Copy file to OUT_DIR
                                             if (COPY_FILES_TO_OUT_DIR || MARKDOWN) { // If we copy files to out dir or we use markdown, get the link filename only as the path (so in the same path as the output file)
                                                 def outDirFilename = copyFileToOutDir(linkPath) // Will return only filename of copied dest path  
                                                 linkPath = outDirFilename // If we copy the images to the OUT_DIR then the path becomes only the filename because it is the same directory as the output file.
                                                 }
                                         }
-                                    sTag = indentSp + indentNbsp + aName + '<a href="' + linkPath + '">'
-                                    eTag = '</a><br>' + EOL
+                                    if (hasVideoLink) {
+                                        // Adapt the Youtube URL to an embedded Youtube URL 
+                                            if (linkPath =~ /youtube/) {
+                                                linkPath = linkPath.replace('watch?v=', 'embed/')
+                                                linkPath = linkPath.replaceAll('&t=\\d+s', '') // Remove the seconds that could be appended
+                                            }
+                                        sTag = indentSp + indentNbsp + aName + '<iframe src="' + linkPath + '" width="560" height="315" allowfullscreen="allowfullscreen">'
+                                        eTag = '</iframe><br>' + EOL
+                                    }
+                                    else {
+                                        sTag = indentSp + indentNbsp + aName + '<a href="' + linkPath + '">'
+                                        eTag = '</a><br>' + EOL
+                                    }
                                     if (MARKDOWN) {
                                         if (!hasFolderLink) // Ignore links to folder because they don't work in Markdown (at least in Windows with the Firefox plugin)
                                             mdStr += "[$rText]($linkPath)$EOL$EOL"
