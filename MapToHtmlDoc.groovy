@@ -1,8 +1,11 @@
 // @ExecutionModes({ON_SELECTED_NODE})
+// c:/temp/20171120132041.txt 
 
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version 2017-11-21_04.28.35
+            // Fixed line spacing issue after h2, h3, h4 when their nodes were empty there was no empty line added. Now if 1 or more is empty 1 empty line will be added (only).
         // Version 2017-11-20_13.18.08
             // Fixed small bug with connectors after markdown.
         // Version 2017-11-20_12.48.50
@@ -709,6 +712,9 @@
                                 mdToc += "* **[$rText](#$id)** $iconsMd$EOL" // TOC: List element
                             }
                         }
+                        // If H2's rText is empty then add an empty line
+                            else
+                                sTag += '<br>' + EOL
                     }
 
                 // ----------------------------------------------------------------------------------------------------
@@ -759,6 +765,11 @@
                                 mdToc += '  * ' + "[$rText](#$id) $iconsMd$EOL" // TOC: List element
                             }
                         }
+                        // If H3's rText is empty then maybe add an empty line
+                            else
+                                // If parent was not empty but this node is empty, then add empty line
+                                    if (rawText(n.parent.text, false) != '')
+                                        sTag += '<br>' + EOL
                     }
 
                 // ----------------------------------------------------------------------------------------------------
@@ -809,6 +820,13 @@
                                 mdToc += "      * *[$rText](#$id)* $iconsMd$EOL" // TOC: List element
                             }
                         }
+                        // If H4's rText is empty then add an empty line
+                            else
+                                // If grand-parent was not empty but this node is empty
+                                    if (rawText(n.parent.parent.text, false) != '')
+                                    // If parent was not empty but this node is empty
+                                        if (rawText(n.parent.text, false) != '')
+                                            sTag += '<br>' + EOL
                     }
 
             // ====================================================================================================
