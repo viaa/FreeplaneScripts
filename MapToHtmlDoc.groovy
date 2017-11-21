@@ -4,6 +4,11 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version 2017-11-21_10.05.04
+            // I have changed the default values, now markdown is disabled by default and the files and images will be copied to the temp dir:
+                // MARKDOWN = false
+                // COPY_FILES_TO_OUT_DIR = true
+                // COPY_IMAGES_TO_OUT_DIR = true
         // Version 2017-11-21_04.28.35
             // Fixed line spacing issue after h2, h3, h4 when their nodes were empty there was no empty line added. Now if 1 or more is empty 1 empty line will be added (only).
         // Version 2017-11-20_13.18.08
@@ -74,23 +79,20 @@
         // Version: 2017-06-15_19.23.56
             // Exclusion of nodes under a node with an attribute with the name 'Type' with the value 'Private' (For Quinbus' exclusion of nodes using an attribute name (https://sourceforge.net/p/freeplane/discussion/758437/thread/67f8576c/))
         // Version: 2017-06-13_09.48.21
-            // Changes:
-                // I removed 1 <br> after the images, there was too many spacing.
-                // Added the exclusion of nodes under nodes with some specific icons
+            // I removed 1 <br> after the images, there was too many spacing.
+            // Added the exclusion of nodes under nodes with some specific icons
         // Version: 2017-06-12_14.38.23
-            // Changes:
-                // I added 1 <br> after the attributes so that there is the same spacing as with paragraph before the sections.
-                // I added a check if a file exists before to insert it to the gray box, so that if it is moved it will not cause a script error and have the script to stop. It will tell in the gray box that the file xyz doesn't exist. 
+            // I added 1 <br> after the attributes so that there is the same spacing as with paragraph before the sections.
+            // I added a check if a file exists before to insert it to the gray box, so that if it is moved it will not cause a script error and have the script to stop. It will tell in the gray box that the file xyz doesn't exist. 
 
-        // To use global Constants (the other option is just to remove '@Field def', not defining the variable will make it "global".
 
 // ####################################################################################################
 // # Imports 
 // ####################################################################################################
-    // Used only for the debug function 
+    // To use global Constants (the other option is just to remove '@Field def', not defining the variable will make it "global".
         import groovy.transform.Field
-        // SimpleDateFormat
-            import java.text.*
+    // SimpleDateFormat
+        import java.text.*
     // Imports for latex
         // BEGIN - LATEX (Comment out this section if jlatexmath-1.0.6.jar is not in C:\Users\%USERNAME%\AppData\Roaming\Freeplane\1.6.x\lib. See the demo map documentation for Latex usage)
             /* import java.awt.image.BufferedImage */ 
@@ -101,7 +103,6 @@
             /* import org.scilab.forge.jlatexmath.TeXIcon */ 
             /* import org.scilab.forge.jlatexmath.TeXConstants */
         // END - LATEX
-
     // For file copy
         import org.apache.commons.io.FileUtils
 	// To get parts of paths
@@ -159,12 +160,12 @@
             def ADD_H4_BREADCRUMBS = false
     
         // For Markdown (enable export to Markdown, .md files will be also create with the .html files)
-            def MARKDOWN = true
+            def MARKDOWN = false
             def NOTE_IS_HTML = '<b>|<a href|<i>|<small>|<font' // To identify that a note contains html (to select the display method for the markdown notes: bloquote or code)
 
 		// To copy files or images to the output directory
-			def COPY_FILES_TO_OUT_DIR = false
-			def COPY_IMAGES_TO_OUT_DIR = false // The images that are link from anywhere on disks will be copied in the output directory and linked in the html and markdown files from there.
+			def COPY_FILES_TO_OUT_DIR = true
+			def COPY_IMAGES_TO_OUT_DIR = true // The images that are link from anywhere on disks will be copied in the output directory and linked in the html and markdown files from there.
             @Field def OVERWRITE_IF_EXISTS = false // If the images or files exists already they will be overwritten if set to true, so copied again everytime.
 
         // ----------------------------------------------------------------------------------------------------
