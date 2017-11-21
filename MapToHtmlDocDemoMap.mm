@@ -14,7 +14,7 @@
 </html>
 
 </richcontent>
-<hook NAME="MapStyle" background="#ffffff" zoom="0.897">
+<hook NAME="MapStyle" background="#ffffff" zoom="0.741">
     <conditional_styles>
         <conditional_style ACTIVE="true" STYLE_REF="s-1: Abandonned" LAST="false">
             <node_contains_condition VALUE="s-1" ITEM="filter_node" MATCH_APPROXIMATELY="false"/>
@@ -1038,16 +1038,17 @@ else if (externalObject.uri == null &amp;&amp; link != null) {
 <edge COLOR="#808080"/>
 <node TEXT="Github pages" ID="ID_327047891" CREATED="1511252223302" MODIFIED="1511252245512">
 <node TEXT="Links" ID="ID_359900307" CREATED="1511252906173" MODIFIED="1511252907870">
-<node TEXT="https://viaa.github.io/MapToHtmlDocDemoMap.html" ID="ID_1149562625" CREATED="1511212611461" MODIFIED="1511212731945" LINK="https://viaa.github.io/MapToHtmlDocDemoMap.html#ID_1723255651"/>
+<node TEXT="https://viaa.github.io/MapToHtmlDocDemoMap.html" ID="ID_1149562625" CREATED="1511212611461" MODIFIED="1511253247208" LINK="https://viaa.github.io/MapToHtmlDocDemoMap.html#ID_1723255651" BACKGROUND_COLOR="#ffff00"/>
 <node TEXT="HowTo" ID="ID_1745155518" CREATED="1511203156496" MODIFIED="1511203158184">
 <node TEXT="https://www.youtube.com/watch?v=3jt-J4Rc__M" ID="ID_1558523785" CREATED="1511203154232" MODIFIED="1511203154232" LINK="https://www.youtube.com/watch?v=3jt-J4Rc__M"/>
 <node TEXT="https://guides.github.com/features/pages/" ID="ID_815736451" CREATED="1511212254450" MODIFIED="1511212254450" LINK="https://guides.github.com/features/pages/"/>
 </node>
 </node>
-<node TEXT="Folder" ID="ID_1277631006" CREATED="1511252926293" MODIFIED="1511252927535">
-<node TEXT="cd /d/GitHubWebsites/viaa" ID="ID_257428937" CREATED="1511203610727" MODIFIED="1511203622754"/>
+<node TEXT="Folders" ID="ID_1277631006" CREATED="1511252926293" MODIFIED="1511253023049">
+<node TEXT="Temp" ID="ID_1346148829" CREATED="1511253019789" MODIFIED="1511253019790" LINK="file:/C:/Temp/"/>
+<node TEXT="viaa" ID="ID_197871103" CREATED="1511253005381" MODIFIED="1511253005381" LINK="file:/D:/GitHubWebsites/viaa/"/>
 </node>
-<node TEXT="WebSite" ID="ID_1351456244" CREATED="1511180959192" MODIFIED="1511180961057">
+<node TEXT="Git" ID="ID_1351456244" CREATED="1511180959192" MODIFIED="1511253028935">
 <node TEXT="# Initialize" ID="ID_1539407671" CREATED="1511203602754" MODIFIED="1511252958424">
 <node TEXT="git init" ID="ID_1089657004" CREATED="1511203646592" MODIFIED="1511203648681"/>
 <node ID="ID_1831096075" CREATED="1511203605776" MODIFIED="1511211384454"><richcontent TYPE="NODE">
@@ -1078,7 +1079,9 @@ else if (externalObject.uri == null &amp;&amp; link != null) {
 </richcontent>
 </node>
 </node>
-<node TEXT="# Upload" ID="ID_524196982" CREATED="1511212350625" MODIFIED="1511252947351">
+<node TEXT="# Upload" ID="ID_524196982" CREATED="1511212350625" MODIFIED="1511253228048" BACKGROUND_COLOR="#ffff00">
+<node TEXT="cp /c/Temp/MapToHtmlDocDemoMap* /d/GitHubWebsites/viaa" ID="ID_257428937" CREATED="1511203610727" MODIFIED="1511253133474"/>
+<node TEXT="cd /d/GitHubWebsites/viaa" ID="ID_612073317" CREATED="1511253151917" MODIFIED="1511253153399"/>
 <node TEXT="git add MapToHtmlDocDemoMap*" ID="ID_125348823" CREATED="1511211568716" MODIFIED="1511212654463"/>
 <node TEXT="git commit -m &apos;Initial commit&apos;" ID="ID_537452778" CREATED="1511211359512" MODIFIED="1511211558787"/>
 <node ID="ID_1824069495" CREATED="1511203632260" MODIFIED="1511212430244"><richcontent TYPE="NODE">
