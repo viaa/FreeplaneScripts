@@ -4,6 +4,11 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version 2017-11-21_20.49.20
+            // Added the possibility to add link to image on the web (http).
+        // Version 2017-11-21_17.15.22
+            // Added the text of the images when the images are only links, the image will be displayed but with its text now.
+            // Added jpeg for images as links 
         // Version 2017-11-21_10.05.04
             // I have changed the default values, now markdown is disabled by default and the files and images will be copied to the temp dir:
                 // MARKDOWN = false
@@ -904,15 +909,19 @@
                                     }
                                 }
                             // Show as image
-                                else if (link =~ /(png|jpg)$/) {
+                                else if (link =~ /(png|jpeg|jpg|gif)$/) {
                                     def linkPath = link // Set link path to embedded image path
                                     // Copy file (image) to OUT_DIR
-                                        if (COPY_IMAGES_TO_OUT_DIR || MARKDOWN) { // If we copy images to out dir or we use markdown, get the link filename only as the path (so in the same path as the output file)
-                                            def outDirFilename = copyFileToOutDir(linkPath) // Will return only filename of copied dest path  
-                                            linkPath = outDirFilename // If we copy the images to the OUT_DIR then the path becomes only the filename because it is the same directory as the output file.
-                                            }
+                                        if (hasFileLink) // Copy only if the image is a file that is linked (because it could be a url and this should not be copied)
+                                            if (COPY_IMAGES_TO_OUT_DIR || MARKDOWN) { // If we copy images to out dir or we use markdown, get the link filename only as the path (so in the same path as the output file)
+                                                def outDirFilename = copyFileToOutDir(linkPath) // Will return only filename of copied dest path  
+                                                linkPath = outDirFilename // If we copy the images to the OUT_DIR then the path becomes only the filename because it is the same directory as the output file.
+                                                }
                                     // Html
-                                        sTag = indentSp + indentNbsp + '<img src="' + linkPath + '" alt="' + rText + '" style="' + STYLE_IMG + '"/>' + aName
+                                         p = ''
+                                        if (rText != '')
+                                            p = '<p>' + indentNbsp + text + '</p>' + EOL
+                                        sTag = indentSp + p + indentNbsp + '<img src="' + linkPath + '" alt="' + rText + '" style="' + STYLE_IMG + '"/>' + aName
                                         eTag = '<br>' + EOL
                                         iText = ''
                                     if (MARKDOWN)
@@ -936,7 +945,7 @@
                                                 linkPath = outDirFilename // If we copy the images to the OUT_DIR then the path becomes only the filename because it is the same directory as the output file.
                                                 }
                                         }
-                                    sTag = indentSp + aName + indentNbsp + '<a href="' + linkPath + '">'
+                                    sTag = indentSp + indentNbsp + aName + '<a href="' + linkPath + '">'
                                     eTag = '</a><br>' + EOL
                                     if (MARKDOWN) {
                                         if (!hasFolderLink) // Ignore links to folder because they don't work in Markdown (at least in Windows with the Firefox plugin)
