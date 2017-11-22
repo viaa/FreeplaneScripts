@@ -4,6 +4,8 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version 2017-11-22_10.42.43
+            // Fixed and issue with verification of the type of file (file or folder)
         // Version 2017-11-22_01.24.55
             // Added support for youtube videos.
         // Version 2017-11-21_20.49.20
@@ -352,6 +354,7 @@
         // ====================================================================================================
         def getFileFromPath(path) { // = This function was created because there is an issue using for example FileUtils with spaces in paths 
         // ==================================================================================================== 
+            // s0 Check if this function could simply be replaced by this because it works for fileTypeCheck: File f = new File(link.replace('file:/', '').replace('%20', ' '))
 			path = path.replace('file:/', ' ')
             def driveLetter = path.substring(0, 2) // For some reason uri.getPath() returns no drive letter so it is kept here
                 URI uri = new URI(path.trim().replaceAll("\\u0020", '%20'))
@@ -481,23 +484,44 @@
                             hasUrlLink = false
                             hasFileLink = false
                             hasFolderLink = false
-                            hasVideoLink = false
                         if (n.link.text != null) { // There is a link
                             hasLink = true
                             link = n.link.text
-                            if (link =~ /http|ftp/) { // Is URL
+                            if (link =~ /http|ftp/) // Is URL
                                 hasUrlLink = true
-                                if (link =~ /youtube/) // Is a video
-                                    hasVideoLink = true
-                            }
                             else { // Is file or folder
-                                File fileTypeCheck = new File(link.replace('file:/', ''))
+                                File fileTypeCheck = new File(link.replace('file:/', '').replace('%20', ' '))
                                 if (fileTypeCheck.isFile()) // File
                                     hasFileLink = true
                                 else
                                     hasFolderLink = true
                             }
                         }
+
+                        /* link = '' */
+                        /* hasLink = false */
+                        /*     hasUrlLink = false */
+                        /*     hasFileLink = false */
+                        /*     hasFolderLink = false */
+                        /*     hasVideoLink = false */
+                        /* if (n.link.text != null) { // There is a link */
+                        /*     hasLink = true */
+                        /*     link = n.link.text */
+                        /*     if (link =~ /http/) { // Is URL */
+                        /*         hasUrlLink = true */
+                        /*         if (link =~ /youtube/) // Is a video */
+                        /*             hasVideoLink = true */
+                        /*     } */
+                        /*     else { // Is file or folder */
+                        /*         File fileTypeCheck = getFileFromPath(link) */
+                        /*         if (fileTypeCheck.exists()) { */
+                        /*             if (fileTypeCheck.listFiles() != null) */
+                        /*                 hasFolderLink = true */
+                        /*             else */
+                        /*                 hasFileLink = true */
+                        /*         } */
+                        /*     } */
+                        /* } */
 
                     // ----------------------------------------------------------------------------------------------------
                     // - Details
@@ -951,15 +975,15 @@
                                                 linkPath = outDirFilename // If we copy the images to the OUT_DIR then the path becomes only the filename because it is the same directory as the output file.
                                                 }
                                         }
-                                    if (hasVideoLink) {
-                                        // Adapt the Youtube URL to an embedded Youtube URL 
-                                            if (linkPath =~ /youtube/) {
-                                                linkPath = linkPath.replace('watch?v=', 'embed/')
-                                                linkPath = linkPath.replaceAll('&t=\\d+s', '') // Remove the seconds that could be appended
-                                            }
-                                        sTag = indentSp + indentNbsp + aName + '<iframe src="' + linkPath + '" width="560" height="315" allowfullscreen="allowfullscreen">'
-                                        eTag = '</iframe><br>' + EOL
-                                    }
+                                    /* if (hasVideoLink) { */
+                                    /*     // Adapt the Youtube URL to an embedded Youtube URL */ 
+                                    /*         if (linkPath =~ /youtube/) { */
+                                    /*             linkPath = linkPath.replace('watch?v=', 'embed/') */
+                                    /*             linkPath = linkPath.replaceAll('&t=\\d+s', '') // Remove the seconds that could be appended */
+                                    /*         } */
+                                    /*     sTag = indentSp + indentNbsp + aName + '<iframe src="' + linkPath + '" width="560" height="315" allowfullscreen="allowfullscreen">' */
+                                    /*     eTag = '</iframe><br>' + EOL */
+                                    /* } */
                                     else {
                                         sTag = indentSp + indentNbsp + aName + '<a href="' + linkPath + '">'
                                         eTag = '</a><br>' + EOL
