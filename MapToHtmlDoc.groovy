@@ -1,9 +1,10 @@
 // @ExecutionModes({ON_SELECTED_NODE})
-// c:/temp/20171120132041.txt 
 
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version 2017-11-23_18.13.39
+            // Changed System.getenv("USERNAME") by System.getProperty("user.name"), because System.getenv("USERNAME") seems not to work on Windows XP. 
         // Version 2017-11-22_10.42.43
             // Fixed and issue with verification of the type of file (file or folder).
         // Version 2017-11-22_01.24.55
@@ -155,7 +156,8 @@
                 def MD_OUT_TMP_FILENAME = 'outtmp.md'
 
 		// Freeplane paths
-			def USER_PATH = 'C:/Users/' + System.getenv("USERNAME") + '/AppData/Roaming/Freeplane/1.6.x/'
+			// def USER_PATH = 'C:/Users/' + System.getenv("USERNAME") + '/AppData/Roaming/Freeplane/1.6.x/'
+			def USER_PATH = 'C:/Users/' + System.getProperty("user.name") + '/AppData/Roaming/Freeplane/1.6.x/'
 			def ICONS_PATH = USER_PATH + 'icons/'
 			def LIB_PATH = USER_PATH + 'lib/' 
 
@@ -604,18 +606,20 @@
                     def iconPath = ''
                     def iconName = ''
                     n.icons.each {
-                        iconName = it.toString().tokenize('/').last() // Get the last part of the icon name because it may contain some of the path.
-                        if (!iconName.contains(CHANGE_DEPTH_ICON)) { // Ignore the icons that are the icons used to change the depth.
-                            iconPath = iconsMap.get(iconName)?.value
-                            if (iconPath != null) { // If the path is null, it means that one of the icons in the current node doesn't have a path (file) in the iconsMap collected earlier from scanning the icons folder and subfolders. So that icon would be somewhere else not in these folders.
-                                // Copy file (image) to OUT_DIR
-                                    if (COPY_IMAGES_TO_OUT_DIR || MARKDOWN) // If we copy images to out dir or we use markdown, get the link filename only as the path (so in the same path as the output file)
-                                        iconPath = copyFileToOutDir(iconPath) // Will return only filename of copied dest path  
-                                iconsHtml += ('<img src="' + iconPath + '" width="12" height="12" />')
-                                if (MARKDOWN)
-                                    iconsMd += ('![](' + iconPath + ')')
+                        try { // This empty try-catch is to avoid an error in case there are specific icons added by users. The icons will not display simply if there is an issue.
+                            iconName = it.toString().tokenize('/').last() // Get the last part of the icon name because it may contain some of the path.
+                            if (!iconName.contains(CHANGE_DEPTH_ICON)) { // Ignore the icons that are the icons used to change the depth.
+                                iconPath = iconsMap.get(iconName)?.value
+                                if (iconPath != null) { // If the path is null, it means that one of the icons in the current node doesn't have a path (file) in the iconsMap collected earlier from scanning the icons folder and subfolders. So that icon would be somewhere else not in these folders.
+                                    // Copy file (image) to OUT_DIR
+                                        if (COPY_IMAGES_TO_OUT_DIR || MARKDOWN) // If we copy images to out dir or we use markdown, get the link filename only as the path (so in the same path as the output file)
+                                            iconPath = copyFileToOutDir(iconPath) // Will return only filename of copied dest path  
+                                    iconsHtml += ('<img src="' + iconPath + '" width="12" height="12" />')
+                                    if (MARKDOWN)
+                                        iconsMd += ('![](' + iconPath + ')')
+                                }
                             }
-                        }
+                        } catch (all) {}
                     }
                     // Add a space to separate the icon with the text where it will be 
                         if (MARKDOWN) {
