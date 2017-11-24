@@ -3,6 +3,8 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version 2017-11-24_11.21.46
+            // Fixed small bug in the breadcrumbs
         // Version 2017-11-24_11.05.47
             // I did some changes in the breadcrumbs, the first link is Table of contents, and the last is not hyperlinked. 
             // I put thecode in a function not to have it duplicated 3 times.
@@ -815,7 +817,7 @@
                             // Get breadcrumbs
                                 def breadcrumbs = ''
                                 def mdBreadcrumbs = ''
-                                if (ADD_H2_BREADCRUMBS) {
+                                if (ADD_H4_BREADCRUMBS) {
                                     def breadcrumbsArr = addBreadcrumbs(n, previousNode, nextNode)
                                     if (breadcrumbsArr.size() > 0) {
                                         breadcrumbs = breadcrumbsArr[0]
