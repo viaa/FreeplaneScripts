@@ -3,8 +3,12 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version 2017-11-24_11.05.47
+            // I did some changes in the breadcrumbs, the first link is Table of contents, and the last is not hyperlinked. 
+            // I put thecode in a function not to have it duplicated 3 times.
         // Version 2017-11-23_18.13.39
             // Changed System.getenv("USERNAME") by System.getProperty("user.name"), because System.getenv("USERNAME") seems not to work on Windows XP. 
+            // Added a try-catch to avoid icons errors on some nodes.
         // Version 2017-11-22_10.42.43
             // Fixed and issue with verification of the type of file (file or folder).
         // Version 2017-11-22_01.24.55
@@ -162,7 +166,7 @@
 			def LIB_PATH = USER_PATH + 'lib/' 
 
         // For connectors
-            def SHORT_TEXT_MAX_SIZE = 25 // Number of chars to display in the ShortText field
+            @Field def SHORT_TEXT_MAX_SIZE = 25 // Number of chars to display in the ShortText field
             def SHOW_CONNECTOR_DETAILS = true
 
         // For breadcrumbs
@@ -171,7 +175,7 @@
             def ADD_H4_BREADCRUMBS = false
     
         // For Markdown (enable export to Markdown, .md files will be also create with the .html files)
-            def MARKDOWN = false
+            @Field def MARKDOWN = false
             def NOTE_IS_HTML = '<b>|<a href|<i>|<small>|<font' // To identify that a note contains html (to select the display method for the markdown notes: bloquote or code)
 
 		// To copy files or images to the output directory
@@ -391,6 +395,60 @@
                 }
             return destFilename
             }
+
+        // ====================================================================================================
+        def addBreadcrumbs(currentNode, previousNode, nextNode) { // = Adds navigation links as a path of links to sections
+        // ==================================================================================================== 
+            def breadcrumbsArr = []
+            def breadcrumbs = ''
+            def mdBreadcrumbs = ''
+            breadcrumbs = '<i><small>'
+            currentNode.pathToRoot.eachWithIndex { it, idx -> 
+                def breadcrumbName = ''
+                // Get the name of the breadcrumb
+                    // First one
+                        if (idx == 0) {
+                            breadcrumbName = 'Table of contents'
+                            if (MARKDOWN)
+                                mdBreadcrumbs += " / [$breadcrumbName](#$it.id)" 
+                        }
+                    // Others
+                        else
+                            breadcrumbName = truncateField(it.plainText, SHORT_TEXT_MAX_SIZE)
+                // Add the breadcrumbs
+                    // If it is the last breadcrumb then don't add a link
+                        if (idx == currentNode.pathToRoot.size() - 1) {
+                            breadcrumbs += ' / ' + breadcrumbName
+                            if (MARKDOWN)
+                                mdBreadcrumbs += " / $breadcrumbName" 
+                        }
+                    // For other breadcrumbs (not the last) add a link
+                        else {
+                            breadcrumbs += ' / ' + '<a href="#' + it.id + '">' + breadcrumbName + '</a>' 
+                            if (MARKDOWN)
+                                mdBreadcrumbs += " / [$breadcrumbName](#$it.id)" 
+                        }
+            }
+            if (MARKDOWN)
+                mdBreadcrumbs = mdBreadcrumbs.drop(1)
+            // ----------------------------------------------------------------------------------------------------
+            // - Add previous and next links before and after the breadcrumbs
+            // ---------------------------------------------------------------------------------------------------- 
+                if (previousNode != null) {
+                    breadcrumbs = '<a href="#' + previousNode.id + '"><</a> ' + breadcrumbs
+                    if (MARKDOWN)
+                        mdBreadcrumbs = "[<](#$previousNode.id)$mdBreadcrumbs"
+                }
+                if (nextNode != null) {
+                    breadcrumbs += ' <a href="#' + nextNode.id + '">></a>'
+                    if (MARKDOWN)
+                        mdBreadcrumbs += "[>](#$nextNode.id)"
+                }
+            breadcrumbs += '</small></i><br>'
+            d(breadcrumbs)
+            breadcrumbsArr = [breadcrumbs, mdBreadcrumbs] // Return both breadcrumbs strings as an array because java/groovy don't have out parameters
+            return breadcrumbsArr
+        }
 
 // ####################################################################################################
 // # Initialization
@@ -683,37 +741,16 @@
                             if (MARKDOWN)
                                 mdStr += '@@TOC@@' + EOL
                         }
-                        if (rText != '') {
-                            // ····································································································
-                            // · Add breadcrumbs
-                            // ···································································································· 
-                                breadcrumbs = ''
-                                if (MARKDOWN)
-                                    mdBreadcrumbs = ''
+                        if (rText != '' ) {
+                            // Get breadcrumbs
+                                def breadcrumbs = ''
+                                def mdBreadcrumbs = ''
                                 if (ADD_H2_BREADCRUMBS) {
-                                    breadcrumbs = '<i><small>'
-                                    n.pathToRoot.each { it -> 
-                                        def truncatedField = truncateField(it.plainText, SHORT_TEXT_MAX_SIZE)
-                                        breadcrumbs += ' / ' + '<a href="#' + it.id + '">' + truncatedField + '</a>' 
-                                        if (MARKDOWN)
-                                            mdBreadcrumbs += " / [$truncatedField](#$it.id)" 
+                                    def breadcrumbsArr = addBreadcrumbs(n, previousNode, nextNode)
+                                    if (breadcrumbsArr.size() > 0) {
+                                        breadcrumbs = breadcrumbsArr[0]
+                                        mdBreadcrumbs = breadcrumbsArr[1]
                                     }
-                                    if (MARKDOWN)
-                                        mdBreadcrumbs = mdBreadcrumbs.drop(1)
-                                    // ····································································································
-                                    // · Add previous and next links before and after the breadcrumbs
-                                    // ···································································································· 
-                                        if (previousNode != null) {
-                                            breadcrumbs = '<a href="#' + previousNode.id + '"><</a> ' + breadcrumbs
-                                            if (MARKDOWN)
-                                                mdBreadcrumbs = "[<](#$previousNode.id)$mdBreadcrumbs"
-                                        }
-                                        if (nextNode != null) {
-                                            breadcrumbs += ' <a href="#' + nextNode.id + '">></a>'
-                                            if (MARKDOWN)
-                                                mdBreadcrumbs += "[>](#$nextNode.id)"
-                                        }
-                                    breadcrumbs += '</small></i><br>'
                                 }
                             if (cptNode == 2) // If it is the second node don't add the '<br>' because it put too many space after the table of content
                                 sTag += EOL + indentSp + SEP2 + '<h2 style="' + STYLE_H2 + '">' + aName
@@ -727,7 +764,7 @@
                                 mdStr += "## $aName$iconsMd$rText$EOL"
                                 mdStr += "***$EOL"
                                 if (ADD_H2_BREADCRUMBS)
-                                    mdStr += "*$mdBreadcrumbs*$EOL$EOL"
+                                    mdStr += "*$breadcrumbs*$EOL$EOL"
                                 mdToc += "* **[$rText](#$id)** $iconsMd$EOL" // TOC: List element
                             }
                         }
@@ -741,36 +778,15 @@
                 // ---------------------------------------------------------------------------------------------------- 
                     else if (depth == 3) {
                         if (rText != '') {
-                            // ····································································································
-                            // · Add breadcrumbs
-                            // ···································································································· 
-                                breadcrumbs = ''
-                                if (MARKDOWN)
-                                    mdBreadcrumbs = ''
+                            // Get breadcrumbs
+                                def breadcrumbs = ''
+                                def mdBreadcrumbs = ''
                                 if (ADD_H3_BREADCRUMBS) {
-                                    breadcrumbs = '<i><small>'
-                                    n.pathToRoot.each { it -> 
-                                        def truncatedField = truncateField(it.plainText, SHORT_TEXT_MAX_SIZE)
-                                        breadcrumbs += ' / ' + '<a href="#' + it.id + '">' + truncatedField + '</a>' 
-                                        if (MARKDOWN)
-                                            mdBreadcrumbs += " / [$truncatedField](#$it.id)" 
+                                    def breadcrumbsArr = addBreadcrumbs(n, previousNode, nextNode)
+                                    if (breadcrumbsArr.size() > 0) {
+                                        breadcrumbs = breadcrumbsArr[0]
+                                        mdBreadcrumbs = breadcrumbsArr[1]
                                     }
-                                    if (MARKDOWN)
-                                        mdBreadcrumbs = mdBreadcrumbs.drop(1)
-                                    // ····································································································
-                                    // · Add previous and next links before and after the breadcrumbs
-                                    // ···································································································· 
-                                        if (previousNode != null) {
-                                            breadcrumbs = '<a href="#' + previousNode.id + '"><</a> ' + breadcrumbs
-                                            if (MARKDOWN)
-                                                mdBreadcrumbs = "[<](#$previousNode.id)$mdBreadcrumbs"
-                                        }
-                                        if (nextNode != null) {
-                                            breadcrumbs += ' <a href="#' + nextNode.id + '">></a>'
-                                            if (MARKDOWN)
-                                                mdBreadcrumbs += "[>](#$nextNode.id)"
-                                        }
-                                    breadcrumbs += '</small></i><br>'
                                 }
                             sTag = EOL + indentSp + SEP3 + '<h3 style="' + STYLE_H3 + '">' + aName
                             eTag = '</h3>' + breadcrumbs + EOL
@@ -796,36 +812,15 @@
                 // ---------------------------------------------------------------------------------------------------- 
                     else if (depth == 4) {
                         if (rText != '') {
-                            // ····································································································
-                            // · Add breadcrumbs
-                            // ···································································································· 
-                                breadcrumbs = ''
-                                if (MARKDOWN)
-                                    mdBreadcrumbs = ''
-                                if (ADD_H4_BREADCRUMBS) {
-                                    breadcrumbs = '<i><small>'
-                                    n.pathToRoot.each { it -> 
-                                        def truncatedField = truncateField(it.plainText, SHORT_TEXT_MAX_SIZE)
-                                        breadcrumbs += ' / ' + '<a href="#' + it.id + '">' + truncatedField + '</a>' 
-                                        if (MARKDOWN)
-                                            mdBreadcrumbs += " / [$truncatedField](#$it.id)" 
+                            // Get breadcrumbs
+                                def breadcrumbs = ''
+                                def mdBreadcrumbs = ''
+                                if (ADD_H2_BREADCRUMBS) {
+                                    def breadcrumbsArr = addBreadcrumbs(n, previousNode, nextNode)
+                                    if (breadcrumbsArr.size() > 0) {
+                                        breadcrumbs = breadcrumbsArr[0]
+                                        mdBreadcrumbs = breadcrumbsArr[1]
                                     }
-                                    // Markdown
-                                        mdBreadcrumbs = mdBreadcrumbs.drop(1)
-                                    // ····································································································
-                                    // · Add previous and next links before and after the breadcrumbs
-                                    // ···································································································· 
-                                        if (previousNode != null) {
-                                            breadcrumbs = '<a href="#' + previousNode.id + '"><</a> ' + breadcrumbs
-                                            if (MARKDOWN)
-                                                mdBreadcrumbs = "[<](#$previousNode.id)$mdBreadcrumbs"
-                                        }
-                                        if (nextNode != null) {
-                                            breadcrumbs += ' <a href="#' + nextNode.id + '">></a>'
-                                            if (MARKDOWN)
-                                                mdBreadcrumbs += "[>](#$nextNode.id)"
-                                        }
-                                    breadcrumbs += '</small></i><br>'
                                 }
                             sTag = EOL + indentSp + SEP4 + '<h4 style="' + STYLE_H4 + '" style="' + STYLE_H4 + '">' + aName
                             eTag = '</h4>' + breadcrumbs + EOL
