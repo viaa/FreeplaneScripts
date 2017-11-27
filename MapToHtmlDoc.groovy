@@ -3,6 +3,8 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version 2017-11-27_18.21.05
+            // Added a <br> after images to correct line spacing.
         // Version 2017-11-27_18.16.32
             // Text in images' core text were node process by the rawText function so if html or formatting was added to them they were added with the html and body tags. It is fixed. 
         // Version 2017-11-27_17.36.45
@@ -878,7 +880,7 @@
                                 if (rText != '')
                                     p = '<p>' + indentNbsp + rText + '</p>' + EOL
                                 sTag = indentSp + p + indentNbsp + '<img src="' + linkPath + '" alt="' + rText + '" style="' + STYLE_IMG + '">' + aName
-                                eTag = '</img><br>' + EOL
+                                eTag = '</img><br><br>' + EOL
                                 iText = ''
                             if (MARKDOWN)
                                 mdStr += "![$rText]($linkPath)$EOL" // Markdown image
@@ -945,7 +947,7 @@
                                         if (rText != '')
                                             p = '<p>' + indentNbsp + rText + '</p>' + EOL
                                         sTag = indentSp + p + indentNbsp + '<img src="' + linkPath + '" alt="' + rText + '" style="' + STYLE_IMG + '">' + aName
-                                        eTag = '</img><br>' + EOL
+                                        eTag = '</img><br><br>' + EOL
                                         iText = ''
                                     if (MARKDOWN)
                                         mdStr += "![$rText]($linkPath)$EOL" // Markdown image
