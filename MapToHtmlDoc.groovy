@@ -3,6 +3,8 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version 2017-11-27_19.04.18
+            // The file created and the prefix for the linked images and files will now have the name of the current selected node (the root of the branch and not the map root node). Chars not valid in the that text for files will be replaced by underscore.
         // Version 2017-11-27_18.21.05
             // Added a <br> after images to correct line spacing.
         // Version 2017-11-27_18.16.32
@@ -263,6 +265,7 @@
     // = Variables
     // ==================================================================================================== 
         def branchRootNode = null
+        def branchRootName = '' // This is the name of the output document and the prefix for the files linked if they are copied to the output directory
         def text = ''
         def rText = ''
         def htmlStr = '<html><meta charset="UTF-8"><body style="' + STYLE_BODY + '">' + EOL
@@ -355,15 +358,22 @@
             }
 
         // ====================================================================================================
-        def truncateField(pStr, pSize) // =
+        def truncateText(pStr, pSize, addDots) { // = Makes text shorter and usable for files etc
         // ====================================================================================================
-        {
             def text = ''
-            if (pStr.length() > pSize) // If that text is longer than the max length of text allowed
-                text = pStr.substring(0, pSize - 1) + '...'
+            if (pStr.length() > pSize) { // If that text is longer than the max length of text allowed
+                if (addDots)
+                    text = pStr.substring(0, pSize - 1) + '...'
+                else
+                    text = pStr.substring(0, pSize - 1)
+            }
             else
                 text = pStr
-            return text.replaceAll("'", "''") // Double the apostrophes so there is no issue inserting the strings in the database
+            // Replace reserved chars for files
+                text = text.replaceAll('<|>|:|"|/|\\\\|\\||\\?|\\*', '_')
+            // Double the apostrophes so there is no issue inserting the strings in the database
+                // text = text.replaceAll("'", "''")
+            return text
         }
 
         // ====================================================================================================
@@ -378,7 +388,7 @@
             }
 
         // ====================================================================================================
-        def copyFileToOutDir(srcPath) { // = Copy the file in $OUT_DIR and rename it as the mapName + node.id
+        def copyFileToOutDir(branchRootName, srcPath) { // = Copy the file in $OUT_DIR and rename it as the mapName + node.id
         // ==================================================================================================== 
             // Markdown: With Markdown we have to copy to the out_dir, this is because (under Windows?) the local paths are not working in Markdown (with Firefox plugin)
             // File object to destination (in OUT_DIR)
@@ -387,7 +397,7 @@
                 def destExt = FilenameUtils.getExtension(srcPath) // Get extension of source file
                     if (destExt != '')
                         destExt = '.' + destExt
-                destFilename = map.name + '_' + destFilename + '_' + id + destExt
+                destFilename = branchRootName + '_' + destFilename + '_' + id + destExt
                 def destPath = OUT_DIR + destFilename
                 def destFile = getFileFromPath(destPath)
             // Only do the copy if the file doesn't exist yet, if it exists re-use the file. So if a user wants to have the file updated they will need to manually delete the images before to run the script. 
@@ -427,7 +437,7 @@
                         }
                     // Others
                         else
-                            breadcrumbName = truncateField(it.plainText, SHORT_TEXT_MAX_SIZE)
+                            breadcrumbName = truncateText(it.plainText, SHORT_TEXT_MAX_SIZE, true)
                 // Add the breadcrumbs
                     // If it is the last breadcrumb then don't add a link
                         if (idx == currentNode.pathToRoot.size() - 1) {
@@ -517,10 +527,6 @@
     // = Loop the nodes under the selected node 
     // ==================================================================================================== 
         node.findAll().each { n ->
-
-            // Set the current selected node when the script is run as the branchRoot node (it is set only once) 
-            if (branchRootNode == null)
-                branchRootNode = n
 
             // Ignore the nodes that are under a specific node (see function declaration)
                 if (ignoreNode(n))
@@ -624,6 +630,12 @@
                         if (iconsText =~ '(^|;)(button_cancel)')
                             return
                
+            // BranchRoot: Set the current selected node when the script is run as the branchRoot node (it is set only once) 
+                if (branchRootNode == null) {
+                    branchRootNode = n
+                    branchRootName = truncateText(rText, SHORT_TEXT_MAX_SIZE, false)  // I use truncateText but really it was meant for another usage.
+                }
+
             // ====================================================================================================
             // = Initialize stuff like counters, depth 
             // ==================================================================================================== 
@@ -688,7 +700,7 @@
                                 if (iconPath != null) { // If the path is null, it means that one of the icons in the current node doesn't have a path (file) in the iconsMap collected earlier from scanning the icons folder and subfolders. So that icon would be somewhere else not in these folders.
                                     // Copy file (image) to OUT_DIR
                                         if (COPY_IMAGES_TO_OUT_DIR || MARKDOWN) // If we copy images to out dir or we use markdown, get the link filename only as the path (so in the same path as the output file)
-                                            iconPath = copyFileToOutDir(iconPath) // Will return only filename of copied dest path  
+                                            iconPath = copyFileToOutDir(branchRootName, iconPath) // Will return only filename of copied dest path  
                                     iconsHtml += ('<img src="' + iconPath + '" width="12" height="12" />')
                                     if (MARKDOWN)
                                         iconsMd += ('![](' + iconPath + ')')
@@ -872,7 +884,7 @@
                             def linkPath = xUri.toString() // Set link path to embedded image path
                             // Copy file (image) to OUT_DIR
                                 if (COPY_IMAGES_TO_OUT_DIR || MARKDOWN) { // If we copy images to out dir or we use markdown, get the link filename only as the path (so in the same path as the output file)
-                                    def outDirFilename = copyFileToOutDir(linkPath) // Will return only filename of copied dest path  
+                                    def outDirFilename = copyFileToOutDir(branchRootName, linkPath) // Will return only filename of copied dest path  
                                     linkPath = outDirFilename // If we copy the images to the OUT_DIR then the path becomes only the filename because it is the same directory as the output file.
                                     }
                             // Html
@@ -939,7 +951,7 @@
                                     // Copy file (image) to OUT_DIR
                                         if (hasFileLink) // Copy only if the image is a file that is linked (because it could be a url and this should not be copied)
                                             if (COPY_IMAGES_TO_OUT_DIR || MARKDOWN) { // If we copy images to out dir or we use markdown, get the link filename only as the path (so in the same path as the output file)
-                                                def outDirFilename = copyFileToOutDir(linkPath) // Will return only filename of copied dest path  
+                                                def outDirFilename = copyFileToOutDir(branchRootName, linkPath) // Will return only filename of copied dest path  
                                                 linkPath = outDirFilename // If we copy the images to the OUT_DIR then the path becomes only the filename because it is the same directory as the output file.
                                                 }
                                     // Html
@@ -966,7 +978,7 @@
                                     if (hasFileLink) { // Has to be a file to be copied
                                         // Copy file to OUT_DIR
                                             if (COPY_FILES_TO_OUT_DIR || MARKDOWN) { // If we copy files to out dir or we use markdown, get the link filename only as the path (so in the same path as the output file)
-                                                def outDirFilename = copyFileToOutDir(linkPath) // Will return only filename of copied dest path  
+                                                def outDirFilename = copyFileToOutDir(branchRootName, linkPath) // Will return only filename of copied dest path  
                                                 linkPath = outDirFilename // If we copy the images to the OUT_DIR then the path becomes only the filename because it is the same directory as the output file.
                                                 }
                                         }
@@ -1081,7 +1093,7 @@
                                         }
                                 // Get the full path of the connected node
                                     pathToNode = ''
-                                    it.source.pathToRoot.each { it2 -> pathToNode += '/' + truncateField(it2.plainText, SHORT_TEXT_MAX_SIZE) }
+                                    it.source.pathToRoot.each { it2 -> pathToNode += '/' + truncateText(it2.plainText, SHORT_TEXT_MAX_SIZE, true) }
                                 // Add the connector to the text list
                                     connectorsInList += indentSp + indentNbsp + '<small><a href="#' + it.source.id + '">< ' + it.source.plainText + '</a></small>'
                                     if (MARKDOWN)
@@ -1127,7 +1139,7 @@
                                         tLabel = '[' + it.targetLabel + ']'
                                 // Get the full path of the connected node
                                     pathToNode = ''
-                                    it.target.pathToRoot.each { it2 -> pathToNode += '/' + truncateField(it2.plainText, SHORT_TEXT_MAX_SIZE) }
+                                    it.target.pathToRoot.each { it2 -> pathToNode += '/' + truncateText(it2.plainText, SHORT_TEXT_MAX_SIZE, true) }
                                 // Add the connector to the text list
                                     connectorsOutList += indentSp + indentNbsp + '<small><a href="#' + it.target.id + '">> ' + it.target.plainText + '</a></small>'
                                     if (MARKDOWN)
@@ -1238,18 +1250,18 @@
 		// Copy the file to a file with the name of the map. This will allow to export multiple files and have them linked together.
             try {
                 File outFile = new File(OUT_DIR + OUT_FILENAME);
-                File mapFile = new File(OUT_DIR + map.name + '.html');
+                File mapFile = new File(OUT_DIR + branchRootName + '.html');
                 FileUtils.copyFile(outFile, mapFile);
                 if (MARKDOWN) {
                     File mdOutFile = new File(OUT_DIR + MD_OUT_FILENAME);
-                    File mdMapFile = new File(OUT_DIR + map.name + '.md');
+                    File mdMapFile = new File(OUT_DIR + branchRootName + '.md');
                     FileUtils.copyFile(mdOutFile, mdMapFile);
                 }
             } catch(Exception e) {}
 
-        m("HTML document saved as '" + OUT_DIR + OUT_FILENAME + "' and to '" + OUT_DIR + map.name + '.html' + "'.")
+        m("HTML document saved as '" + OUT_DIR + OUT_FILENAME + "' and to '" + OUT_DIR + branchRootName + '.html' + "'.")
         if (MARKDOWN)
-            m("Markdown document saved as '" + OUT_DIR + MD_OUT_FILENAME + "' and to '" + OUT_DIR + map.name + '.md' + "'.")
+            m("Markdown document saved as '" + OUT_DIR + MD_OUT_FILENAME + "' and to '" + OUT_DIR + branchRootName + '.md' + "'.")
 
     // ====================================================================================================
     // = Create the PDF file (close the pdf file prior to running this)
