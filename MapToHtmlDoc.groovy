@@ -3,6 +3,8 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version 2017-11-27_18.16.32
+            // Text in images' core text were node process by the rawText function so if html or formatting was added to them they were added with the html and body tags. It is fixed. 
         // Version 2017-11-27_17.36.45
             // Fixed a issue with breadcrumbs: If the document was generated from a branch, the breadcrumbs were still generated from the root node of the map. Seems fixed. 
         // Version 2017-11-24_11.21.46
@@ -874,9 +876,9 @@
                             // Html
                                 p = ''
                                 if (rText != '')
-                                    p = '<p>' + indentNbsp + text + '</p>' + EOL
-                                sTag = indentSp + p + indentNbsp + '<img src="' + linkPath + '" alt="' + rText + '" style="' + STYLE_IMG + '"/>' + aName
-                                eTag = '<br>' + EOL
+                                    p = '<p>' + indentNbsp + rText + '</p>' + EOL
+                                sTag = indentSp + p + indentNbsp + '<img src="' + linkPath + '" alt="' + rText + '" style="' + STYLE_IMG + '">' + aName
+                                eTag = '</img><br>' + EOL
                                 iText = ''
                             if (MARKDOWN)
                                 mdStr += "![$rText]($linkPath)$EOL" // Markdown image
@@ -941,9 +943,9 @@
                                     // Html
                                          p = ''
                                         if (rText != '')
-                                            p = '<p>' + indentNbsp + text + '</p>' + EOL
-                                        sTag = indentSp + p + indentNbsp + '<img src="' + linkPath + '" alt="' + rText + '" style="' + STYLE_IMG + '"/>' + aName
-                                        eTag = '<br>' + EOL
+                                            p = '<p>' + indentNbsp + rText + '</p>' + EOL
+                                        sTag = indentSp + p + indentNbsp + '<img src="' + linkPath + '" alt="' + rText + '" style="' + STYLE_IMG + '">' + aName
+                                        eTag = '</img><br>' + EOL
                                         iText = ''
                                     if (MARKDOWN)
                                         mdStr += "![$rText]($linkPath)$EOL" // Markdown image
