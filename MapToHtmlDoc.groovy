@@ -3,6 +3,8 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version 2017-11-27_17.36.45
+            // Fixed a issue with breadcrumbs: If the document was generated from a branch, the breadcrumbs were still generated from the root node of the map. Seems fixed. 
         // Version 2017-11-24_11.21.46
             // Fixed small bug in the breadcrumbs
         // Version 2017-11-24_11.05.47
@@ -256,6 +258,7 @@
     // ====================================================================================================
     // = Variables
     // ==================================================================================================== 
+        def branchRootNode = null
         def text = ''
         def rText = ''
         def htmlStr = '<html><meta charset="UTF-8"><body style="' + STYLE_BODY + '">' + EOL
@@ -399,17 +402,21 @@
             }
 
         // ====================================================================================================
-        def addBreadcrumbs(currentNode, previousNode, nextNode) { // = Adds navigation links as a path of links to sections
+        def addBreadcrumbs(branchRootNode, currentNode, previousNode, nextNode) { // = Adds navigation links as a path of links to sections
         // ==================================================================================================== 
             def breadcrumbsArr = []
             def breadcrumbs = ''
             def mdBreadcrumbs = ''
             breadcrumbs = '<i><small>'
+            def branchRootNodeLevel = branchRootNode.getNodeLevel(false) + 1
             currentNode.pathToRoot.eachWithIndex { it, idx -> 
-                def breadcrumbName = ''
+                // Don't make the breadcrumbs for the node before the branchRoot
+                    def currentDepth = it.getNodeLevel(false) + 1
+                    if (currentDepth < branchRootNodeLevel)
+                        return
                 // Get the name of the breadcrumb
                     // First one
-                        if (idx == 0) {
+                        if (currentDepth == branchRootNodeLevel) {
                             breadcrumbName = 'Table of contents'
                             if (MARKDOWN)
                                 mdBreadcrumbs += " / [$breadcrumbName](#$it.id)" 
@@ -506,6 +513,10 @@
     // = Loop the nodes under the selected node 
     // ==================================================================================================== 
         node.findAll().each { n ->
+
+            // Set the current selected node when the script is run as the branchRoot node (it is set only once) 
+            if (branchRootNode == null)
+                branchRootNode = n
 
             // Ignore the nodes that are under a specific node (see function declaration)
                 if (ignoreNode(n))
@@ -748,7 +759,7 @@
                                 def breadcrumbs = ''
                                 def mdBreadcrumbs = ''
                                 if (ADD_H2_BREADCRUMBS) {
-                                    def breadcrumbsArr = addBreadcrumbs(n, previousNode, nextNode)
+                                    def breadcrumbsArr = addBreadcrumbs(branchRootNode, n, previousNode, nextNode)
                                     if (breadcrumbsArr.size() > 0) {
                                         breadcrumbs = breadcrumbsArr[0]
                                         mdBreadcrumbs = breadcrumbsArr[1]
@@ -784,7 +795,7 @@
                                 def breadcrumbs = ''
                                 def mdBreadcrumbs = ''
                                 if (ADD_H3_BREADCRUMBS) {
-                                    def breadcrumbsArr = addBreadcrumbs(n, previousNode, nextNode)
+                                    def breadcrumbsArr = addBreadcrumbs(branchRootNode, n, previousNode, nextNode)
                                     if (breadcrumbsArr.size() > 0) {
                                         breadcrumbs = breadcrumbsArr[0]
                                         mdBreadcrumbs = breadcrumbsArr[1]
@@ -818,7 +829,7 @@
                                 def breadcrumbs = ''
                                 def mdBreadcrumbs = ''
                                 if (ADD_H4_BREADCRUMBS) {
-                                    def breadcrumbsArr = addBreadcrumbs(n, previousNode, nextNode)
+                                    def breadcrumbsArr = addBreadcrumbs(branchRootNode, n, previousNode, nextNode)
                                     if (breadcrumbsArr.size() > 0) {
                                         breadcrumbs = breadcrumbsArr[0]
                                         mdBreadcrumbs = breadcrumbsArr[1]
