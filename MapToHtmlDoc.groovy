@@ -3,6 +3,9 @@
 // ####################################################################################################
 // # Version History:
 // #################################################################################################### 
+        // Version 2017-11-28_10.21.48
+            // Added an error message when the root node or the branch root node is ignored.
+            // Added parameter to truncateText() so that special chars are not always removed, for performance.
         // Version 2017-11-27_19.04.18
             // The file created and the prefix for the linked images and files will now have the name of the current selected node (the root of the branch and not the map root node). Chars not valid in the that text for files will be replaced by underscore.
         // Version 2017-11-27_18.21.05
@@ -358,7 +361,7 @@
             }
 
         // ====================================================================================================
-        def truncateText(pStr, pSize, addDots) { // = Makes text shorter and usable for files etc
+        def truncateText(pStr, pSize, addDots, removeSpecialChars) { // = Makes text shorter and usable for files etc
         // ====================================================================================================
             def text = ''
             if (pStr.length() > pSize) { // If that text is longer than the max length of text allowed
@@ -369,7 +372,7 @@
             }
             else
                 text = pStr
-            // Replace reserved chars for files
+            if (removeSpecialChars) // Replace reserved chars for files
                 text = text.replaceAll('<|>|:|"|/|\\\\|\\||\\?|\\*', '_')
             // Double the apostrophes so there is no issue inserting the strings in the database
                 // text = text.replaceAll("'", "''")
@@ -437,7 +440,7 @@
                         }
                     // Others
                         else
-                            breadcrumbName = truncateText(it.plainText, SHORT_TEXT_MAX_SIZE, true)
+                            breadcrumbName = truncateText(it.plainText, SHORT_TEXT_MAX_SIZE, true, false)
                 // Add the breadcrumbs
                     // If it is the last breadcrumb then don't add a link
                         if (idx == currentNode.pathToRoot.size() - 1) {
@@ -529,8 +532,11 @@
         node.findAll().each { n ->
 
             // Ignore the nodes that are under a specific node (see function declaration)
-                if (ignoreNode(n))
+                if (ignoreNode(n)) {
+                    if (branchRootNode == null)
+                        throw new Exception('The root node and the branch root node cannot be ignored. The script will be terminated.')
                     return
+                }
 
                 sTag = eTag = ''
 
@@ -633,7 +639,7 @@
             // BranchRoot: Set the current selected node when the script is run as the branchRoot node (it is set only once) 
                 if (branchRootNode == null) {
                     branchRootNode = n
-                    branchRootName = truncateText(rText, SHORT_TEXT_MAX_SIZE, false)  // I use truncateText but really it was meant for another usage.
+                    branchRootName = truncateText(rText, SHORT_TEXT_MAX_SIZE, false, true)  // I use truncateText but really it was meant for another usage.
                 }
 
             // ====================================================================================================
@@ -1093,7 +1099,7 @@
                                         }
                                 // Get the full path of the connected node
                                     pathToNode = ''
-                                    it.source.pathToRoot.each { it2 -> pathToNode += '/' + truncateText(it2.plainText, SHORT_TEXT_MAX_SIZE, true) }
+                                    it.source.pathToRoot.each { it2 -> pathToNode += '/' + truncateText(it2.plainText, SHORT_TEXT_MAX_SIZE, true, false) }
                                 // Add the connector to the text list
                                     connectorsInList += indentSp + indentNbsp + '<small><a href="#' + it.source.id + '">< ' + it.source.plainText + '</a></small>'
                                     if (MARKDOWN)
@@ -1139,7 +1145,7 @@
                                         tLabel = '[' + it.targetLabel + ']'
                                 // Get the full path of the connected node
                                     pathToNode = ''
-                                    it.target.pathToRoot.each { it2 -> pathToNode += '/' + truncateText(it2.plainText, SHORT_TEXT_MAX_SIZE, true) }
+                                    it.target.pathToRoot.each { it2 -> pathToNode += '/' + truncateText(it2.plainText, SHORT_TEXT_MAX_SIZE, true, false) }
                                 // Add the connector to the text list
                                     connectorsOutList += indentSp + indentNbsp + '<small><a href="#' + it.target.id + '">> ' + it.target.plainText + '</a></small>'
                                     if (MARKDOWN)
