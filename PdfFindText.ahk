@@ -17,31 +17,24 @@
                 ; Copy the file name
                     Send !{F5}
                     fileName = %Clipboard%
-                    ;    Sleep 100
                 ; Copy the select text
                     Send ^c
                     text = %Clipboard%
-                    ;    Sleep 100
                 ; Put the text and the filename together in the clipboard
                     clipboard = %text%`r`n%filename%
-                    ;    Sleep 100
                 ; Highlight the selected text
                     Send !{F6}
                 ; Set back the tool to the select tool
                     Send !{F7}
                 ; Save the pdf (to keep the highlighting)
                     Send ^s
-                    ;    Sleep 100
                 ; Activate freeplane window
                     WinActivate, ahk_class SunAwtFrame
-                    ;sleep 200
                 ; Run the freeplane script to create the node ("C:\Users\aviau\AppData\Roaming\Freeplane\1.3.x\scripts\PdfFindText.groovy")
                     ; !F6 is assigned to run the script in Freeplane
                     Send !{F6}
-                    ;sleep 100
                     ; Save the map in freeplane
                         Send ^s
-                    ;        Sleep 100
                 return
 
     #IfWinActive
