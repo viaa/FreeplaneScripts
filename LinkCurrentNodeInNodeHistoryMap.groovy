@@ -24,6 +24,18 @@
         return 'file:' + path + '#' + pNode.id
     }
 
+    // ====================================================================================================
+    def getPath(pNode) { // = Gets the path of the current node
+    // ==================================================================================================== 
+        def pathAllNodes = ''
+        pNode.pathToRoot.each { 
+            if (it != pNode.pathToRoot.last()) // Don't show the node itself in the path because it is more hard to read
+                pathAllNodes += '/' + it.plainText
+        }
+        pathAllNodes = pathAllNodes.replaceAll('\\|', ':') // Replace the delimiter char in case there is one.
+        return pathAllNodes 
+    }
+
 
 // ####################################################################################################
 // # Main
@@ -39,6 +51,5 @@
 
     def newHistoItem = histoMap.rootNode.createChild()
     newHistoItem.text = node.text
-    newHistoItem.link.text = getFreeplaneLink(node)
-    newHistoItem.detailsText = node.detailsText
-    newHistoItem.note = node.note
+    newHistoItem.link.text = getFreeplaneLink(node) // This is the link to the current node. 
+    newHistoItem.note = getPath(node) // The full path of the node linked is added to as a note.
