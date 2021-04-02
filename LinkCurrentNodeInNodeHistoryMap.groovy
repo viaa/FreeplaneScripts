@@ -32,8 +32,9 @@
             if (it != pNode.pathToRoot.last()) // Don't show the node itself in the path because it is more hard to read
                 pathAllNodes += '/' + it.plainText
         }
+        pathAllNodes += '/' + pNode.plainText
         pathAllNodes = pathAllNodes.replaceAll('\\|', ':') // Replace the delimiter char in case there is one.
-        return pathAllNodes 
+        return pathAllNodes
     }
 
 // ####################################################################################################
@@ -52,3 +53,10 @@
     newHistoItem.text = node.text
     newHistoItem.link.text = getFreeplaneLink(node) // This is the link to the current node. 
     newHistoItem.note = getPath(node) // The full path of the node linked is added to as a note.
+    // Set the style of the link to the same style as the linked node. 
+        newHistoItem.style.setTextColorCode(node.style.getTextColorCode())
+        newHistoItem.style.setBackgroundColorCode(node.style.getBackgroundColorCode())
+        newHistoItem.style.font.italic = node.style.font.italic
+        newHistoItem.style.font.bold = node.style.font.bold
+        newHistoItem.style.font.size = node.style.font.size
+        newHistoItem.style.font.name = node.style.font.name
