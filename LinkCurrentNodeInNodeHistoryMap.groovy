@@ -60,3 +60,7 @@
         newHistoItem.style.font.bold = node.style.font.bold
         newHistoItem.style.font.size = node.style.font.size
         newHistoItem.style.font.name = node.style.font.name
+        // Cloud
+            newHistoItem.cloud.enabled = node.cloud.enabled
+            newHistoItem.cloud.shape = node.cloud.shape
+            newHistoItem.cloud.colorCode = node.cloud.colorCode
