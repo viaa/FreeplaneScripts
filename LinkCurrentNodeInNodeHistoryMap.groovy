@@ -5,12 +5,6 @@
 // #################################################################################################### 
 
     // ====================================================================================================
-    def m(message) { // =
-    // ==================================================================================================== 
-         javax.swing.JOptionPane.showMessageDialog(null, message); 
-     }
-
-    // ====================================================================================================
     def getMapPath(pNode) { // =
     // ==================================================================================================== 
         try {
@@ -55,24 +49,19 @@
             histoMap = map
     }
 
-    def newHistoItem
-    try {
-            newHistoItem = histoMap.rootNode.createChild() // This will throw the error if the histoMap is not opened.
-
-            newHistoItem.text = node.text
-            newHistoItem.link.text = getFreeplaneLink(node) // This is the link to the current node. 
-            newHistoItem.note = getPath(node) // The full path of the node linked is added to as a note.
-            // Set the style of the link to the same style as the linked node. 
-                newHistoItem.style.setTextColorCode(node.style.getTextColorCode())
-                newHistoItem.style.setBackgroundColorCode(node.style.getBackgroundColorCode())
-                newHistoItem.style.font.italic = node.style.font.italic
-                newHistoItem.style.font.bold = node.style.font.bold
-                newHistoItem.style.font.size = node.style.font.size
-                newHistoItem.style.font.name = node.style.font.name
-                // Cloud
-                    newHistoItem.cloud.enabled = node.cloud.enabled
-                    newHistoItem.cloud.shape = node.cloud.shape
-                    newHistoItem.cloud.colorCode = node.cloud.colorCode
-    } catch (all) {
-        m("Make sure the '$HISTO_MAP_NAME' map is opened. This is the selected history map.\nTo change it, change the value of the 'HISTO_MAP_NAME' variable in the script.")
-    }
+    def newHistoItem = histoMap.rootNode.createChild()
+    newHistoItem.text = node.text
+    newHistoItem.detailsText = node.detailsText
+    newHistoItem.link.text = getFreeplaneLink(node) // This is the link to the current node. 
+    newHistoItem.note = getPath(node) // The full path of the node linked is added to as a note.
+    // Set the style of the link to the same style as the linked node. 
+        newHistoItem.style.setTextColorCode(node.style.getTextColorCode())
+        newHistoItem.style.setBackgroundColorCode(node.style.getBackgroundColorCode())
+        newHistoItem.style.font.italic = node.style.font.italic
+        newHistoItem.style.font.bold = node.style.font.bold
+        newHistoItem.style.font.size = node.style.font.size
+        newHistoItem.style.font.name = node.style.font.name
+        // Cloud
+            newHistoItem.cloud.enabled = node.cloud.enabled
+            newHistoItem.cloud.shape = node.cloud.shape
+            newHistoItem.cloud.colorCode = node.cloud.colorCode
